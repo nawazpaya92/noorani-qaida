@@ -1,40 +1,30 @@
-import React, { useState } from 'react';
+// App.tsx
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import LessonList from './src/components/LessonList';
-import LessonScreen from './src/screens/LessonScreen';
-import { Lesson } from './src/data/lessons';
-import NumberedList from './src/screens/DashboardScreen';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import { ThemeProvider, useAppTheme } from './src/theme/ThemeContext';
+import { NavigationProvider, Router } from './src/navigation/Router';
+
+function AppContent() {
+  const { theme } = useAppTheme(); // ✅ read theme from provider
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]}>
+      <StatusBar style={theme.mode === 'dark' ? 'light' : 'dark'} backgroundColor={theme.bg} />
+      <Router />
+    </SafeAreaView>
+  );
+}
 
 export default function App() {
-  const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
-
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Noorani Qaida</Text>
-      </View>
-
-      <NumberedList/>
-     
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider>
+      <NavigationProvider>
+        <AppContent />
+      </NavigationProvider>
+    </ThemeProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    padding: 16,
-    backgroundColor: '#0b3d91',
-    alignItems: 'center',
-  },
-  title: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: '700',
-  },
+  container: { flex: 1 },
 });
