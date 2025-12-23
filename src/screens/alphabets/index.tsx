@@ -27,10 +27,10 @@ const carouselViewToggle = (value:boolean) =>{
       <View style={styles.header}>
         <AppHeader title="Arabic Alphabets" onBack={navigation.pop} />
 
-        <View style={styles.switchRow}>
+        {/* <View style={styles.switchRow}>
           <Text style={styles.switchLabel}>{carouselText}</Text>
           <Switch value={isCarousel} onValueChange={()=>carouselViewToggle(!isCarousel)} />
-        </View>
+        </View> */}
       </View>
     {isCarousel ? (
     <View style={styles.carouselContainer}>
