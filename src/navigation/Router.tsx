@@ -4,12 +4,14 @@ import BacchoKaThofa from '../screens/BacchoKaThofa';
 import LessonScreen from '../screens/LessonScreen';
 import { Lesson } from '../data/lessons';
 import AlphabetScreen from '../screens/alphabets';
+import Tarteebh from '../screens/tarteebh';
 
 export type Route =
   | { name: 'Dashboard' }
   | { name: 'Baccho' }
   | { name: 'Lesson'; params: { lesson: Lesson } }
   | { name: 'Alphabets' }
+  | { name: 'Tarteebh' }
 type Navigation = {
   push: (route: Route) => void;
   pop: () => void;
@@ -52,6 +54,8 @@ export const Router: React.FC = () => {
       return <LessonScreen lesson={top.params.lesson} onBack={ctx.pop} />;
     case 'Alphabets':
       return <AlphabetScreen />;
+      case 'Tarteebh':
+      return <Tarteebh />;
     default:
       return <DashboardScreen />;
   }

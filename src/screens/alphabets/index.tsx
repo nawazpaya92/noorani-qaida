@@ -11,6 +11,7 @@ import AlphabetGrid from '../../components/AlphabetGrid';
 import { useNavigation } from '../../navigation/Router';
 import Carousel from '../../components/Carousel';
 import AppHeader from '../../components/AppHeader';
+import Screen from '../../components/Screen';
 
 export default function AlphabetScreen() {
   const { pop } = useNavigation();
@@ -22,7 +23,7 @@ const carouselViewToggle = (value:boolean) =>{
    setCarouselText(value ? 'Switch to Grid View' : 'Switch to Carousel View');
 }
   return (
-    <View style={styles.container}>
+    <Screen >
       {/* Header */}
       <View style={styles.header}>
         <AppHeader title="Arabic Alphabets" onBack={navigation.pop} />
@@ -39,7 +40,7 @@ const carouselViewToggle = (value:boolean) =>{
   ) : (
     <AlphabetGrid />
   )}
-    </View>
+    </Screen>
   );
 }
 
