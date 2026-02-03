@@ -5,6 +5,7 @@ import LessonScreen from '../screens/LessonScreen';
 import { Lesson } from '../data/lessons';
 import AlphabetScreen from '../screens/alphabets';
 import Tarteebh from '../screens/tarteebh';
+import JointLetters from '../screens/JointLetters';
 
 export type Route =
   | { name: 'Dashboard' }
@@ -12,6 +13,7 @@ export type Route =
   | { name: 'Lesson'; params: { lesson: Lesson } }
   | { name: 'Alphabets' }
   | { name: 'Tarteebh' }
+  | { name: 'JointLetters' }
 type Navigation = {
   push: (route: Route) => void;
   pop: () => void;
@@ -54,8 +56,10 @@ export const Router: React.FC = () => {
       return <LessonScreen lesson={top.params.lesson} onBack={ctx.pop} />;
     case 'Alphabets':
       return <AlphabetScreen />;
-      case 'Tarteebh':
+    case 'Tarteebh':
       return <Tarteebh />;
+    case 'JointLetters':
+      return <JointLetters />;
     default:
       return <DashboardScreen />;
   }

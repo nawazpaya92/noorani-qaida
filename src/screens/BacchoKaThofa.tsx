@@ -8,45 +8,48 @@ import { useNavigation } from '../navigation/Router';
 import Screen from '../components/Screen';
 
 export default function BacchoKaThofa() {
-  const{theme} = useAppTheme();
+  const { theme } = useAppTheme();
   const navigation = useNavigation();
 
- 
+
 
   const goToChapter = (index: number) => {
-  switch (index) {
-    case 0:
-      navigation.push({ name: 'Alphabets' });
-      break;
+    switch (index) {
+      case 0:
+        navigation.push({ name: 'Alphabets' });
+        break;
 
-    case 1:
-      navigation.push({ name: 'Tarteebh' });
-      break;
+      case 1:
+        navigation.push({ name: 'Tarteebh' });
+        break;
+      case 2:
+        navigation.push({ name: 'JointLetters' });
+        break;
 
-    default:
-      // fallback (optional)
-      console.log('Screen not mapped yet');
-  }
-};
+      default:
+        // fallback (optional)
+        console.log('Screen not mapped yet');
+    }
+  };
 
   return (
     <Screen>
-    <Animated.View style={[styles.screen, { backgroundColor: theme.bg }]}>
-      <AppHeader title="Baccho Ka Tohfa" onBack={navigation.pop} />
+      <Animated.View style={[styles.screen, { backgroundColor: theme.bg }]}>
+        <AppHeader title="Baccho Ka Tohfa" onBack={navigation.pop} />
 
-      <FlatList
-        data={chapters}
-        keyExtractor={(_, i) => String(i)}
-        contentContainerStyle={{ padding: 12 }}
-    renderItem={({ item, index }) => (
-  <ChapterItem
-    index={index}
-    title={item}
-    onPress={() => goToChapter(index)}
-  />
-)}
-      />
-    </Animated.View>
+        <FlatList
+          data={chapters}
+          keyExtractor={(_, i) => String(i)}
+          contentContainerStyle={{ padding: 12 }}
+          renderItem={({ item, index }) => (
+            <ChapterItem
+              index={index}
+              title={item}
+              onPress={() => goToChapter(index)}
+            />
+          )}
+        />
+      </Animated.View>
     </Screen>
   );
 }

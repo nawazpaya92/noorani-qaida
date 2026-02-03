@@ -12,6 +12,10 @@ import { useAppTheme } from '../../theme/ThemeContext';
 import { useNavigation } from '../../navigation/Router';
 import { arabicLetters } from '../../data/arabicLetters';
 
+import Screen from '../../components/Screen';
+import LetterTile from '../../components/LetterTile';
+
+
 /* ---------------- Helpers ---------------- */
 
 const getLettersByDots = (dots: number) =>
@@ -19,11 +23,15 @@ const getLettersByDots = (dots: number) =>
 
 const SPECIAL_LETTERS = ['ص', 'ض', 'ط', 'ظ', 'خ', 'غ', 'ق'];
 
+
 /* ---------------- Screen ---------------- */
 
 export default function Tarteebh() {
   const { theme } = useAppTheme();
   const navigation = useNavigation();
+  const [activeLetterId, setActiveLetterId] = React.useState<number | null>(null);
+  const playingIdRef = React.useRef<number | null>(null);
+
 
   const noDotLetters = getLettersByDots(0);
   const oneDotLetters = getLettersByDots(1);
@@ -40,39 +48,112 @@ export default function Tarteebh() {
       <ScrollView contentContainerStyle={styles.container}>
         {/* Top Cards */}
         <View style={styles.topRow}>
-        <CategoryCard
-  title="بغیر نقطے والے حروف"
-  letters={noDotLetters}
-/>
+          <SmallLetterTile
+            title="بغیر نقطے والے حروف"
+            letters={noDotLetters}
+            activeLetterId={activeLetterId}
+            onPlayStart={(id) => {
+              playingIdRef.current = id;
+              setActiveLetterId(id);
+            }}
+            onPlayEnd={(endedId) => {
+              if (playingIdRef.current === endedId) {
+                playingIdRef.current = null;
+                setActiveLetterId(null);
+              }
+            }}
+          />
 
-<CategoryCard
-  title="نقطے والے حروف"
-  letters={[
-    ...oneDotLetters,
-    ...twoDotLetters,
-    ...threeDotLetters,
-  ]}
-/>
+          <SmallLetterTile
+            title="نقطے والے حروف"
+            letters={[
+              ...oneDotLetters,
+              ...twoDotLetters,
+              ...threeDotLetters,
+            ]}
+            activeLetterId={activeLetterId}
+            onPlayStart={(id) => {
+              playingIdRef.current = id;
+              setActiveLetterId(id);
+            }}
+            onPlayEnd={(endedId) => {
+              if (playingIdRef.current === endedId) {
+                playingIdRef.current = null;
+                setActiveLetterId(null);
+              }
+            }}
+          />
         </View>
 
-        <LetterSection
+        <SmallLetterTile
           title="ایک نقطے والے حروف"
           letters={oneDotLetters}
+          activeLetterId={activeLetterId}
+          justify='center'
+          onPlayStart={(id) => {
+            playingIdRef.current = id;
+            setActiveLetterId(id);
+          }}
+          onPlayEnd={(endedId) => {
+            if (playingIdRef.current === endedId) {
+              playingIdRef.current = null;
+              setActiveLetterId(null);
+            }
+          }}
         />
 
-        <LetterSection
+
+
+        <SmallLetterTile
           title="دو نقطے والے حروف"
           letters={twoDotLetters}
+          activeLetterId={activeLetterId}
+          justify='center'
+          onPlayStart={(id) => {
+            playingIdRef.current = id;
+            setActiveLetterId(id);
+          }}
+          onPlayEnd={(endedId) => {
+            if (playingIdRef.current === endedId) {
+              playingIdRef.current = null;
+              setActiveLetterId(null);
+            }
+          }}
         />
 
-        <LetterSection
+        <SmallLetterTile
           title="تین نقطے والے حروف"
           letters={threeDotLetters}
+          justify='center'
+          activeLetterId={activeLetterId}
+          onPlayStart={(id) => {
+            playingIdRef.current = id;
+            setActiveLetterId(id);
+          }}
+          onPlayEnd={(endedId) => {
+            if (playingIdRef.current === endedId) {
+              playingIdRef.current = null;
+              setActiveLetterId(null);
+            }
+          }}
         />
 
-        <LetterSection
+        <SmallLetterTile
           title="سات حروف"
           letters={specialLetters}
+          activeLetterId={activeLetterId}
+          justify='center'
+          onPlayStart={(id) => {
+            playingIdRef.current = id;
+            setActiveLetterId(id);
+          }}
+          onPlayEnd={(endedId) => {
+            if (playingIdRef.current === endedId) {
+              playingIdRef.current = null;
+              setActiveLetterId(null);
+            }
+          }}
+
         />
       </ScrollView>
     </Screen>
@@ -81,12 +162,20 @@ export default function Tarteebh() {
 
 /* ---------------- Components ---------------- */
 
-function CategoryCard({
+function SmallLetterTile({
   title,
   letters,
+  activeLetterId,
+  onPlayStart,
+  onPlayEnd,
+  justify = "space-between",
 }: {
   title: string;
   letters: any[];
+  activeLetterId: number | null;
+  onPlayStart: (id: number) => void;
+  onPlayEnd: (id: number) => void;
+  justify?: 'center' | 'space-between';
 }) {
   return (
     <View style={styles.categoryCard}>
@@ -97,91 +186,31 @@ function CategoryCard({
       </View>
 
       {/* 🔹 Letter grid (fixed height, scrollable) */}
-     <View style={styles.categoryGrid}>
-  {letters.map((item) => (
-  <View style={{marginTop:10}}>
-      <MiniLetterTile key={item.id} item={item} />
-  </View>
-  ))}
-</View>
-    </View>
-  );
-}
-
-
-function LetterSection({
-  title,
-  letters,
-}: {
-  title: string;
-  letters: any[];
-}) {
-  return (
-    <View style={styles.sectionCard}>
-      {/* Header */}
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>
-          {title}{' '}
-          <Text style={styles.sectionCount}>({letters.length})</Text>
-        </Text>
-      </View>
-
-      {/* Letters */}
-      <View style={styles.sectionGrid}>
+      <View style={[styles.categoryGrid, { justifyContent: justify }]}>
         {letters.map((item) => (
-  <MiniLetterTile key={item.id} item={item} />
-))}
+          <View style={{ marginTop: 10 }}>
+            <LetterTile
+              item={item}
+              compact
+              isActive={activeLetterId === item.id}
+              onPlayStart={() => onPlayStart(item.id)}
+              onPlayEnd={onPlayEnd}
+              wrapperStyle={{ margin: 4 }}
+              boxStyle={{
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+              }}
+              letterStyle={{ fontSize: 22 }}
+
+            />
+          </View>
+        ))}
       </View>
     </View>
   );
 }
-import * as Haptics from 'expo-haptics';
-import { playArabicLetter } from '../../utils/audio';
-import Screen from '../../components/Screen';
 
-function MiniLetterTile({ item }: { item: any }) {
-  const scaleAnim = React.useRef(new Animated.Value(1)).current;
-
-  const onPressIn = () => {
-    Animated.spring(scaleAnim, {
-      toValue: 0.92,
-      speed: 30,
-      bounciness: 0,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const onPressOut = () => {
-    Animated.spring(scaleAnim, {
-      toValue: 1,
-      speed: 20,
-      bounciness: 8,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const onPress = async () => {
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    playArabicLetter(item.audio);
-  };
-
-  return (
-    <Pressable
-      onPress={onPress}
-      onPressIn={onPressIn}
-      onPressOut={onPressOut}
-    >
-      <Animated.View
-        style={[
-          styles.sectionTile,
-          { transform: [{ scale: scaleAnim }] },
-        ]}
-      >
-        <Text style={styles.sectionTileText}>{item.letter}</Text>
-      </Animated.View>
-    </Pressable>
-  );
-}
 
 
 
@@ -202,154 +231,153 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     gap: 12,
     marginBottom: 20,
-    alignItems:'stretch',
+    alignItems: 'stretch',
   },
 
   categoryCard: {
-  flex: 1,
-  backgroundColor: '#F8F9FA',
-  borderRadius: 18,
-  padding: 12,
+    flex: 1,
+    backgroundColor: '#F8F9FA',
+    borderRadius: 18,
+    padding: 12,
 
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 8 },
-  shadowOpacity: 0.15,
-  shadowRadius: 10,
-  elevation: 8,
-},
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 8,
+  },
 
-/* 🔹 Title Highlight */
-categoryHeader: {
-  backgroundColor: '#E5F0FF', // subtle highlight
-  borderRadius: 12,
-  paddingVertical: 8,
-  paddingHorizontal: 10,
-  marginBottom: 12,
+  /* 🔹 Title Highlight */
+  categoryHeader: {
+    backgroundColor: '#E5F0FF', // subtle highlight
+    borderRadius: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    marginBottom: 12,
 
-  alignItems: 'center',
-},
+    alignItems: 'center',
+  },
 
-categoryTitle: {
-  fontSize: 18,
-  fontWeight: '800',
-  color: '#1F2937',
-  textAlign: 'center',
-},
+  categoryTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#1F2937',
+    textAlign: 'center',
+  },
 
-categoryCount: {
-  marginTop: 2,
-  fontSize: 14,
-  color: '#374151',
-  fontWeight: '600',
-},
+  categoryCount: {
+    marginTop: 2,
+    fontSize: 14,
+    color: '#374151',
+    fontWeight: '600',
+  },
 
-/* 🔹 Letter grid area */
+  /* 🔹 Letter grid area */
 
-categoryGrid: {
-  flexDirection: 'row-reverse',
-  flexWrap: 'wrap',
-  justifyContent: 'space-between',
-},
+  categoryGrid: {
+    flexDirection: 'row-reverse',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
 
-categoryTile: {
-  width: '30%',   // 👈 forces 3 tiles per row
-  aspectRatio: 1,
-  borderRadius: 10,
-  backgroundColor: 'white',
-  justifyContent: 'center',
-  alignItems: 'center',
-marginTop: 10,
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 4 },
-  shadowOpacity: 0.16,
-  shadowRadius: 6,
-  elevation: 4,
-},
-
-
-categoryTileText: {
-  fontSize: 22,
-  fontWeight: '700',
-  color: '#111827',
-},
-
-/* ---------- Section ---------- */
-
-section: {
-  marginBottom: 28,
-},
-
-/* 🔹 SAME AS CATEGORY CARD TITLE */
-sectionHeader: {
-          // 👈 centers the block
-  backgroundColor: '#E5F0FF',   // same highlight
-  borderRadius: 12,
-  paddingVertical: 8,
-  paddingHorizontal: 16,
-  marginBottom: 14,
-  alignItems: 'center',
-},
-/* ---------- Section Card ---------- */
-
-sectionCard: {
-  backgroundColor: '#F9FAFB',   // very subtle
-  borderRadius: 20,
-  paddingVertical: 16,
-  paddingHorizontal: 12,
-  marginBottom: 24,
-  
-
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 6 },
-  shadowOpacity: 0.12,
-  shadowRadius: 8,
-  elevation: 6,
-},
-
-/* Header (already aligned with top cards) */
+  categoryTile: {
+    width: '30%',   // 👈 forces 3 tiles per row
+    aspectRatio: 1,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.16,
+    shadowRadius: 6,
+    elevation: 4,
+  },
 
 
-sectionTitle: {
-  fontSize: 18,
-  fontWeight: '800',
-  color: '#1F2937',
-  textAlign: 'center',
-},
+  categoryTileText: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#111827',
+  },
 
-sectionCount: {
-  fontSize: 14,
-  fontWeight: '600',
-  color: '#374151',
-},
+  /* ---------- Section ---------- */
 
-/* Letters grid */
-sectionGrid: {
-  flexDirection: 'row-reverse',
-  flexWrap: 'wrap',
-  gap: 8,
-  justifyContent: 'center',
-},
+  section: {
+    marginBottom: 28,
+  },
 
-sectionTile: {
-  width: 44,
-  height: 44,
-  borderRadius: 10,
-  backgroundColor: '#FFFFFF',
-  justifyContent: 'center',
-  alignItems: 'center',
+  /* 🔹 SAME AS CATEGORY CARD TITLE */
+  sectionHeader: {
+    // 👈 centers the block
+    backgroundColor: '#E5F0FF',   // same highlight
+    borderRadius: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginBottom: 14,
+    alignItems: 'center',
+  },
+  /* ---------- Section Card ---------- */
 
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 4 },
-  shadowOpacity: 0.14,
-  shadowRadius: 6,
-  elevation: 4,
-},
+  sectionCard: {
+    backgroundColor: '#F9FAFB',   // very subtle
+    borderRadius: 20,
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+    marginBottom: 24,
 
-sectionTileText: {
-  fontSize: 22,
-  fontWeight: '700',
-  color: '#111827',
-},
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+
+  /* Header (already aligned with top cards) */
+
+
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#1F2937',
+    textAlign: 'center',
+  },
+
+  sectionCount: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#374151',
+  },
+
+  /* Letters grid */
+  sectionGrid: {
+    flexDirection: 'row-reverse',
+    flexWrap: 'wrap',
+    gap: 8,
+    justifyContent: 'center',
+  },
+
+  sectionTile: {
+    width: 44,
+    height: 44,
+    borderRadius: 10,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.14,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+
+  sectionTileText: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#111827',
+  },
 
 
   lettersRow: {
@@ -377,23 +405,23 @@ sectionTileText: {
     color: '#111827',
   },
   categoryLettersRow: {
-  marginTop: 10,
-  flexDirection: 'row-reverse', // 👈 RTL
-  flexWrap: 'wrap',
-  gap: 6,
-  justifyContent: 'center',
-},
+    marginTop: 10,
+    flexDirection: 'row-reverse', // 👈 RTL
+    flexWrap: 'wrap',
+    gap: 6,
+    justifyContent: 'center',
+  },
 
-categoryLetter: {
-  fontSize: 22,
-  fontWeight: '700',
-  color: '#1F2937',
-},
+  categoryLetter: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#1F2937',
+  },
 
-moreText: {
-  fontSize: 22,
-  fontWeight: '700',
-  color: '#6B7280',
-},
+  moreText: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#6B7280',
+  },
 
 });
