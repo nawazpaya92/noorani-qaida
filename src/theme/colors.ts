@@ -11,6 +11,7 @@ export type Theme = {
   green: string;
   blue: string;
   grey: string;
+  lightBlue: string;
 };
 
 export const lightTheme: Theme = {
@@ -26,6 +27,8 @@ export const lightTheme: Theme = {
   green: '#43a047',
   blue: '#0b3d91',
   grey: '#e3e3e340',
+  lightBlue: '#DBEAFE',
+
 };
 
 export const darkTheme: Theme = {
@@ -41,4 +44,5 @@ export const darkTheme: Theme = {
   green: '#43a047',
   blue: '#6ea8fe',
   grey: '#2b2b2b55',
+  lightBlue: '#1e2a47',
 };

@@ -14,6 +14,7 @@ import { arabicLetters } from '../../data/arabicLetters';
 
 import Screen from '../../components/Screen';
 import LetterTile from '../../components/LetterTile';
+import AppText from '../../components/AppText';
 
 
 /* ---------------- Helpers ---------------- */
@@ -52,6 +53,7 @@ export default function Tarteebh() {
             title="بغیر نقطے والے حروف"
             letters={noDotLetters}
             activeLetterId={activeLetterId}
+            isThreeRows={true}
             onPlayStart={(id) => {
               playingIdRef.current = id;
               setActiveLetterId(id);
@@ -72,6 +74,7 @@ export default function Tarteebh() {
               ...threeDotLetters,
             ]}
             activeLetterId={activeLetterId}
+            isThreeRows={true}
             onPlayStart={(id) => {
               playingIdRef.current = id;
               setActiveLetterId(id);
@@ -169,39 +172,43 @@ function SmallLetterTile({
   onPlayStart,
   onPlayEnd,
   justify = "space-between",
+  isThreeRows = false,
 }: {
   title: string;
   letters: any[];
   activeLetterId: number | null;
   onPlayStart: (id: number) => void;
   onPlayEnd: (id: number) => void;
+  isThreeRows?: boolean;
   justify?: 'center' | 'space-between';
 }) {
   return (
     <View style={styles.categoryCard}>
       {/* 🔹 Highlighted Title */}
       <View style={styles.categoryHeader}>
-        <Text style={styles.categoryTitle}>{title}</Text>
-        <Text style={styles.categoryCount}>({letters.length})</Text>
+
+        <AppText variant="heading" weight="semibold" size={18} color="#1F2937" align='center'>
+          {title} ({letters.length})
+        </AppText>
       </View>
 
       {/* 🔹 Letter grid (fixed height, scrollable) */}
       <View style={[styles.categoryGrid, { justifyContent: justify }]}>
         {letters.map((item) => (
-          <View style={{ marginTop: 10 }}>
+          <View style={isThreeRows ? styles.threeRowTileWrapper : styles.tileWrapper}>
             <LetterTile
               item={item}
               compact
               isActive={activeLetterId === item.id}
+              wrapperStyle={isThreeRows ? null : { marginHorizontal: 6 }}
               onPlayStart={() => onPlayStart(item.id)}
               onPlayEnd={onPlayEnd}
-              wrapperStyle={{ margin: 4 }}
               boxStyle={{
                 width: 44,
                 height: 44,
                 borderRadius: 10,
               }}
-              letterStyle={{ fontSize: 22 }}
+              letterStyle={{ fontSize: 22, fontFamily: 'Naskh-Bold' }}
 
             />
           </View>
@@ -223,13 +230,21 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    padding: 16,
+    padding: 2,
     paddingBottom: 32,
+  },
+  tileWrapper: {
+    marginTop: 10,
+  },
+
+  threeRowTileWrapper: {
+    width: '33.33%',   // 👈 guarantees 3 columns on ALL devices
+    paddingTop: 10,
+    alignItems: 'center',
   },
 
   topRow: {
     flexDirection: 'row-reverse',
-    gap: 12,
     marginBottom: 20,
     alignItems: 'stretch',
   },
@@ -239,7 +254,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F9FA',
     borderRadius: 18,
     padding: 12,
-
+    marginHorizontal: 6,
+    marginTop: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.15,
@@ -277,7 +293,7 @@ const styles = StyleSheet.create({
   categoryGrid: {
     flexDirection: 'row-reverse',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+
   },
 
   categoryTile: {

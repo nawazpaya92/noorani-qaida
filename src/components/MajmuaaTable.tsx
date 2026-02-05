@@ -1,19 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { letterForms } from '../data/letterForms';
+import { majmuaaAndMurakkabat } from '../data/MajmuaaAndMurakkabat';
 import Cell from './LetterCell';
 import HeaderCell from './HeaderCell';
 import LetterTile from './LetterTile';
 import LetterRow from './LetterRow';
+import { useAppTheme } from '../theme/ThemeContext';
 
-export default function LetterFormsTable() {
+export default function MajmuaaTable({ majmuaa }) {
     const [activeCell, setActiveCell] = React.useState<any>(null);
+    const { theme } = useAppTheme();
 
     return (
         <View style={styles.container}>
             <View style={styles.card}>
                 {/* Header */}
-                <View style={styles.headerRow}>
+                <View style={[styles.headerRow, { backgroundColor: theme.lightBlue }]}>
                     {['اصل شکل', 'ابتدائی شکل', 'درمیانی شکل', 'آخری شکل'].map(title => (
                         <View key={title} style={styles.cellWrapper}>
                             <HeaderCell title={title} />
@@ -22,7 +24,7 @@ export default function LetterFormsTable() {
                 </View>
 
                 {/* Grid */}
-                {letterForms.map(item => (
+                {majmuaa.map(item => (
                     <LetterRow
                         key={item.id}
                         item={item}
@@ -35,15 +37,9 @@ export default function LetterFormsTable() {
     );
 }
 
-
-
-
-
-
 const styles = StyleSheet.create({
     headerRow: {
         flexDirection: 'row-reverse',
-        backgroundColor: '#DBEAFE', // light blue
         borderRadius: 14,
         paddingVertical: 8,
         marginBottom: 12,
@@ -68,7 +64,7 @@ const styles = StyleSheet.create({
 
 
     container: {
-        padding: 16,
+
     },
 
     card: {
@@ -105,7 +101,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row-reverse',
         marginBottom: 10,
     },
-
     cellWrapper: {
         flex: 1,
         alignItems: 'center'

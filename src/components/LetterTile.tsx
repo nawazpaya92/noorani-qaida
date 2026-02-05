@@ -44,14 +44,14 @@ export default function LetterTile({
   const letterScale = React.useRef(new Animated.Value(1)).current;
 
   const shadowOpacity = glowAnim.interpolate({
-  inputRange: [0, 1],
-  outputRange: [0.22, 0.85],
-});
+    inputRange: [0, 1],
+    outputRange: [0.22, 0.85],
+  });
 
-const shadowRadius = glowAnim.interpolate({
-  inputRange: [0, 1],
-  outputRange: [10, 16],
-});
+  const shadowRadius = glowAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [10, 16],
+  });
 
   // Glow
   React.useEffect(() => {
@@ -78,11 +78,11 @@ const shadowRadius = glowAnim.interpolate({
   // Letter scale
   React.useEffect(() => {
     Animated.spring(letterScale, {
-  toValue: isActive ? (compact ? 1.05 : 1.3) : 1,
-  speed: 20,
-  bounciness: compact ? 2 : 6,
-  useNativeDriver: false,
-}).start();
+      toValue: isActive ? (compact ? 1.05 : 1.3) : 1,
+      speed: 20,
+      bounciness: compact ? 2 : 6,
+      useNativeDriver: false,
+    }).start();
   }, [isActive]);
 
   const onPressIn = () => {
@@ -128,29 +128,29 @@ const shadowRadius = glowAnim.interpolate({
       onPressOut={onPressOut}
       style={wrapperStyle}
     >
-     <Animated.View
-  style={[
-    styles.box,
-    boxStyle,
-    {
-      transform: [{ scale: scaleAnim }],
-      borderColor,
+      <Animated.View
+        style={[
+          styles.box,
+          boxStyle,
+          {
+            transform: [{ scale: scaleAnim }],
+            borderColor,
 
-      backgroundColor: isActive ? '#F2F8FF' : '#FFFFFF',
+            backgroundColor: isActive ? '#F2F8FF' : '#FFFFFF',
 
-      shadowColor: isActive ? theme.blue : '#000',
-      shadowOpacity: isActive ? 0.45 : 0.22,
-      shadowRadius: isActive ? 18 : 12,
-      shadowOffset: {
-        width: 0,
-        height: isActive ? 10 : 6,
-      },
-      elevation: isActive ? 14 : 10,
-    },
-  ]}
->
+            shadowColor: isActive ? theme.blue : '#000',
+            shadowOpacity: isActive ? 0.45 : 0.22,
+            shadowRadius: isActive ? 18 : 12,
+            shadowOffset: {
+              width: 0,
+              height: isActive ? 10 : 6,
+            },
+            elevation: isActive ? 14 : 10,
+          },
+        ]}
+      >
         <View style={styles.letterWrap}>
-          {(isActive && !compact)  &&  (
+          {(isActive && !compact) && (
             <Animated.Text
               style={[
                 styles.letterStroke,
@@ -175,7 +175,7 @@ const shadowRadius = glowAnim.interpolate({
         {showEqualizer && (
           <EqualizerBars active={isActive} color={theme.blue} />
         )}
-      
+
       </Animated.View>
     </Pressable>
   );
@@ -211,5 +211,6 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: '700',
     color: '#1F2937',
+    fontFamily: 'Naskh-Bold',
   },
 });

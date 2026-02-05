@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         borderColor: '#93C5FD',
     },
     cellBox: {
-        height: 56,
+        height: 76,
         borderRadius: 12,
         backgroundColor: '#FFFFFF',
 
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     cellLetter: {
         fontSize: 24,
         fontWeight: '600',
+        fontFamily: 'Naskh-Regular',
     },
     /* 🔹 Header */
     row: {

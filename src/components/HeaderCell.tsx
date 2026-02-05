@@ -1,15 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import AppText from './AppText';
 
 export default function HeaderCell({ title }: { title: string }) {
     return (
         <View style={[styles.cell, styles.headerCell]}>
-            <Text style={styles.headerText}>{title}</Text>
+            <AppText weight='semibold' variant='caption' color='#1E3A8A' align='center' style={{ marginTop: 4 }}>
+                {title}
+            </AppText>
         </View>
     );
 }
-
-
 const styles = StyleSheet.create({
     cell: {
         flex: 1,
@@ -21,9 +22,12 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontSize: 14,
-        fontWeight: '700',
         color: '#1E3A8A',
         textAlign: 'center',
+        fontFamily: 'Naskh-SemiBold', // ✅ key line
+        writingDirection: 'rtl',
+
+
     },
     headerCell: {
         backgroundColor: '#DBEAFE',
