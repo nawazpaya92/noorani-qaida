@@ -5,7 +5,7 @@ import AppText from './AppText';
 export default function HeaderCell({ title }: { title: string }) {
     return (
         <View style={[styles.cell, styles.headerCell]}>
-            <AppText weight='semibold' variant='caption' color='#1E3A8A' align='center' style={{ marginTop: 4 }}>
+            <AppText weight='semibold' variant='caption' color='#1E3A8A' size={16} align='center' style={{ paddingTop: 4 }}>
                 {title}
             </AppText>
         </View>
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         borderColor: '#E5E7EB',
     },
     headerText: {
-        fontSize: 14,
+        fontSize: 20,
         color: '#1E3A8A',
         textAlign: 'center',
         fontFamily: 'Naskh-SemiBold', // ✅ key line

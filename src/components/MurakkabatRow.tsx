@@ -1,12 +1,16 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
 import LetterTile from "./LetterTile";
+import TimedArabicWord from "./TimedArabicWord";
+import { Animated } from "react-native";
+import MurakkabatAnimatedCard from "./MurakkabatAnimatedCard";
 
-export default function MurakkabatRow({ item, activeCell, onActivate }: any) {
+export default function MurakkabatRow({ item, activeCell, playId, isPlaying, onPlayWord }: any) {
     const isRowActive = activeCell?.rowId === item.id;
 
     const isActive = (col: string) =>
         isRowActive && activeCell.col === col;
+
 
     const columns = [
         { key: 'base', highlight: true },
@@ -17,29 +21,29 @@ export default function MurakkabatRow({ item, activeCell, onActivate }: any) {
     ];
 
     return (
-        <View style={[styles.row, isRowActive && styles.activeRow]}>
-            {columns.map((col, index) => (
-                <LetterTile
-                    key={col.key}
-                    item={{
-                        id: `${item.id}-${col.key}`,
-                        letter: item[col.key],
-                    }}
-                    compact
-                    isActive={isActive(col.key)}
-                    onPlayStart={() =>
-                        onActivate({ rowId: item.id, col: col.key })
-                    }
-                    onPlayEnd={() => onActivate(null)}
-                    wrapperStyle={styles.murakkabatCellWrapper}
-                    boxStyle={[
-                        styles.cellBox,
-                        //styles.murakkabatCellBox,
-                        col.highlight && styles.baseLetterBox,
-                    ]}
-                    letterStyle={styles.cellLetter}
-                />
-            ))}
+        <View style={[styles.row,]}>
+            {columns.map((col, index) => {
+                const wordId = `${item.id}-${col.key}`;
+                const isCurrent = playId === wordId;
+
+                return (
+                    <MurakkabatAnimatedCard
+                        key={col.key}
+                        isActive={isCurrent}
+                        onPress={() => onPlayWord(wordId, item[col.key].audio)}
+                    >
+                        <TimedArabicWord
+                            id={wordId}
+                            text={item[col.key].text}
+                            timings={item[col.key].timings}
+                            playId={playId === wordId ? wordId : null}
+                            isPlaying={isPlaying}
+                        />
+                    </MurakkabatAnimatedCard>
+
+                )
+            }
+            )}
         </View>
     );
 }
@@ -56,6 +60,35 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         paddingVertical: 6,
     },
+    activeMurakkabatCard: {
+        transform: [{ scale: 1.2 }],      // gentle zoom (kid-friendly)
+        shadowOpacity: 0.18,               // stronger depth
+        shadowRadius: 14,
+        elevation: 8,                      // Android lift
+        backgroundColor: '#EEF5FF',        // soft highlight tint
+    },
+    murakkabatCard: {
+        flex: 1,
+        marginHorizontal: 4,
+        marginVertical: 6,
+
+        backgroundColor: '#F8FBFF',     // very soft blue tint
+        borderRadius: 16,
+        paddingVertical: 14,
+        paddingHorizontal: 10,
+
+        // iOS shadow
+        shadowColor: '#1D4ED8',
+        shadowOpacity: 0.08,
+        shadowRadius: 10,
+        shadowOffset: { width: 0, height: 6 },
+
+        // Android shadow
+        elevation: 4,
+
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     baseLetterBox: {
         backgroundColor: '#EFF6FF', // very soft blue
         borderWidth: 1,
@@ -71,7 +104,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     cellLetter: {
-        fontSize: 22,
+        fontSize: 30,
         fontWeight: '600',
         fontFamily: 'Naskh-Regular', // ✅ key line
         writingDirection: 'rtl',

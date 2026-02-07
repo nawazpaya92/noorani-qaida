@@ -25,6 +25,9 @@ export default function BacchoKaThofa() {
       case 2:
         navigation.push({ name: 'JointLetters' });
         break;
+      case 3:
+        navigation.push({ name: 'TimedHighlightTest' });
+        break;
 
       default:
         // fallback (optional)

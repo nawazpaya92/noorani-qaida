@@ -10,40 +10,58 @@ import MurakkabatRow from './MurakkabatRow';
 import AppText from './AppText';
 
 
-export default function MurakkabatTable({ murakkabat }) {
+export default function MurakkabatTable({
+  murakkabat,
+  playId,
+  isPlaying,
+  onPlayWord,
+}: any) {
   const [activeCell, setActiveCell] = React.useState<any>(null);
 
   const { theme } = useAppTheme();
 
   return (
     <View style={styles.container}>
-
-      <View style={styles.card}>
-        <View style={{ alignItems: 'center' }}>
-          <AppText variant='heading' weight='bold' size={20} align='center' style={{ margin: 10, backgroundColor: theme.blue, borderRadius: 10, paddingHorizontal: 14 }} color={theme.bg}>
-            مرکبات کی شکلیں
-          </AppText>
-        </View>
-        {/* Header */}
-        <View style={[styles.headerRow, { backgroundColor: theme.lightBlue }]}>
-          {['اصل شکل', 'ابتدائی شکل', 'درمیانی شکل', 'آخری شکل', 'مجموعہ'].map(title => (
-            <View key={title} style={styles.cellWrapper}>
-              <HeaderCell title={title} />
-            </View>
-          ))}
-        </View>
-        {/* Rows */}
-        {murakkabat.map(item => (
-          <MurakkabatRow
-            key={item.id}
-            item={item}
-            activeCell={activeCell}
-            onActivate={setActiveCell}
-          />
-        ))}
-
+      {/* Title */}
+      <View style={{ alignItems: 'center' }}>
+        <AppText
+          variant="heading"
+          weight="bold"
+          size={20}
+          align="center"
+          style={{
+            margin: 10,
+            backgroundColor: theme.blue,
+            borderRadius: 10,
+            paddingHorizontal: 14,
+          }}
+          color={theme.bg}
+        >
+          مرکبات کی شکلیں
+        </AppText>
       </View>
+
+      {/* Header */}
+      <View style={[styles.headerRow, { backgroundColor: theme.lightBlue }]}>
+        {['اصل شکل', 'ابتدائی شکل', 'درمیانی شکل', 'آخری شکل', 'مجموعہ'].map(title => (
+          <View key={title} style={styles.cellWrapper}>
+            <HeaderCell title={title} />
+          </View>
+        ))}
+      </View>
+
+      {/* Rows */}
+      {murakkabat.map(item => (
+        <MurakkabatRow
+          key={item.id}
+          item={item}
+          playId={playId}
+          isPlaying={isPlaying}
+          onPlayWord={onPlayWord}
+        />
+      ))}
     </View>
+
   );
 }
 

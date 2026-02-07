@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         borderRadius: 18,
         paddingVertical: 12,   // ✅ vertical only
         paddingHorizontal: 0, // ❌ no horizontal padding
-
+        marginHorizontal: 6, // slight horizontal margin to separate from screen edges
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 8 },
         shadowOpacity: 0.12,

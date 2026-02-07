@@ -7,28 +7,25 @@ import {
     Animated,
 } from 'react-native';
 import ExpandableTitle from './ExpandableTitle';
+import { forwardRef } from 'react';
 
-export default function ExpandableSection({
-    title,
-    children,
-    open,
-    onToggle,
-}: {
-    title: string;
-    children: React.ReactNode;
-    open: boolean;
-    onToggle: () => void;
-}) {
-    return (
-        <View style={styles.container}>
-            <Pressable onPress={onToggle} style={styles.pressable}>
-                <ExpandableTitle title={title} open={open} />
-            </Pressable>
 
-            {open && <View style={styles.content}>{children}</View>}
-        </View>
-    );
-}
+const ExpandableSection = forwardRef<View, Props>(
+    ({ title, children, open, onToggle }, ref) => {
+        return (
+            <View ref={ref} style={styles.container}>
+                <Pressable onPress={onToggle} style={styles.pressable}>
+                    <ExpandableTitle title={title} open={open} />
+                </Pressable>
+
+                {open && <View style={styles.content}>{children}</View>}
+            </View>
+        );
+    }
+);
+
+export default ExpandableSection;
+
 
 const styles = StyleSheet.create({
     container: {

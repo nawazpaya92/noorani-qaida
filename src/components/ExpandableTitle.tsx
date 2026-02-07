@@ -35,16 +35,16 @@ export default function ExpandableTitle({
         >
             {/* Rotating arrow */}
             <Animated.View style={{ transform: [{ rotate }] }}>
-                <Ionicons name="chevron-back" size={20} color="#0369A1" />
+                <Ionicons name="chevron-back" size={22} color="#0369A1" />
             </Animated.View>
 
             {/* Book icon */}
             <View style={styles.iconWrap}>
-                <Ionicons name="book-outline" size={18} color="#0369A1" />
+                <Ionicons name="book-outline" size={22} color="#0369A1" />
             </View>
 
             {/* Title */}
-            <AppText variant="heading" weight="bold" size={20} style={styles.text}>
+            <AppText variant="heading" weight="bold" size={22} style={styles.text}>
                 {title}
             </AppText>
         </LinearGradient>

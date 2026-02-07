@@ -23,6 +23,7 @@ type Props = {
   letterStyle?: any;
   compact?: boolean;
   showEqualizer?: boolean;
+
 };
 
 export default function LetterTile({
@@ -35,8 +36,11 @@ export default function LetterTile({
   letterStyle,
   showEqualizer = false,
   compact = false,
-}: Props) {
+  mode = 'tap',   // 👈 NEW (default safe)
+}: Props & { mode?: 'tap' | 'timed' }) {
   const { theme } = useAppTheme();
+
+  const isTimed = mode === 'timed';
 
   const scaleAnim = React.useRef(new Animated.Value(1)).current;
   const glowAnim = React.useRef(new Animated.Value(0)).current;
@@ -55,12 +59,16 @@ export default function LetterTile({
 
   // Glow
   React.useEffect(() => {
-    Animated.timing(glowAnim, {
-      toValue: isActive ? 1 : 0,
-      duration: 150,
+    Animated.spring(letterScale, {
+      toValue: isTimed
+        ? (isActive ? 1.08 : 1)        // ✨ gentle glow for Murakkabat
+        : (isActive ? (compact ? 1.05 : 1.3) : 1), // old behavior
+      speed: 20,
+      bounciness: isTimed ? 0 : (compact ? 2 : 6),
       useNativeDriver: false,
     }).start();
-  }, [isActive]);
+  }, [isActive, isTimed]);
+
 
   // Trace
   React.useEffect(() => {
@@ -107,7 +115,11 @@ export default function LetterTile({
     if (isActive) return;
 
     onPlayStart?.();
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+    // 🔹 Only vibrate in tap mode (not timed)
+    if (!isTimed) {
+      await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
 
     playArabicLetter(item.audio, {
       onFinish: () => {
@@ -150,7 +162,7 @@ export default function LetterTile({
         ]}
       >
         <View style={styles.letterWrap}>
-          {(isActive && !compact) && (
+          {(!isTimed && isActive && !compact) && (
             <Animated.Text
               style={[
                 styles.letterStroke,

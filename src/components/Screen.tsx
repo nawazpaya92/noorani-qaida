@@ -9,23 +9,20 @@ export default function Screen({
   backgroundColor?: string;
 }) {
   return (
-    <LinearGradient
-      colors={['#000813ff', '#EEF5FF']}
-      style={{ flex: 1 }}
+
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor,
+          paddingTop:
+            Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        },
+      ]}
     >
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor,
-            paddingTop:
-              Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-          },
-        ]}
-      >
-        {children}
-      </View>
-    </LinearGradient>
+      {children}
+    </View>
+
   );
 }
 

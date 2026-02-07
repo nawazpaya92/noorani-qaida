@@ -10,11 +10,8 @@ export default function LetterRow({ item, activeCell, onActivate }: any) {
 
     return (
         <View
-            style={[
-                styles.row,
-                isRowActive && styles.activeRow,
-            ]}
-        >
+
+            style={[styles.majmuaCard]}>
             {(['isolated', 'initial', 'medial', 'final'] as const).map(
                 (form, index) => (
                     <React.Fragment key={form}>
@@ -56,10 +53,33 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginHorizontal: 2,
     },
+    majmuaCard: {
+        flex: 1,
+        marginHorizontal: 4,
+        marginVertical: 6,
+
+        backgroundColor: '#F8FBFF',     // very soft blue tint
+        flexDirection: 'row-reverse',
+        borderRadius: 16,
+
+
+
+        // iOS shadow
+        shadowColor: '#1D4ED8',
+        shadowOpacity: 0.08,
+        shadowRadius: 10,
+        shadowOffset: { width: 0, height: 6 },
+
+        // Android shadow
+        elevation: 4,
+
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
     activeRow: {
-        backgroundColor: '#F8FAFF', // extremely light blue
-        borderRadius: 14,
-        paddingVertical: 6,
+        backgroundColor: '#EEF5FF',   // softer highlight
+
     },
     baseLetterBox: {
         backgroundColor: '#EFF6FF', // very soft blue
@@ -67,18 +87,23 @@ const styles = StyleSheet.create({
         borderColor: '#93C5FD',
     },
     cellBox: {
-        height: 76,
-        borderRadius: 12,
-        backgroundColor: '#FFFFFF',
+        height: 66,
+        borderRadius: 14,
 
-        elevation: 2,
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
+        // 🌙 ultra-soft premium shadow
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.08,   // 👈 KEY change (was too strong)
+        shadowRadius: 6,
+
+        elevation: 2,          // 👈 reduce Android depth
     },
+
     cellLetter: {
-        fontSize: 24,
-        fontWeight: '600',
-        fontFamily: 'Naskh-Regular',
+        fontSize: 22,
+        color: '#111827',
+        fontFamily: 'Naskh-SemiBold',
+        writingDirection: 'rtl',
     },
     /* 🔹 Header */
     row: {
@@ -103,20 +128,15 @@ const styles = StyleSheet.create({
     /* 🔹 Each alphabet row */
     rowCard: {
         flexDirection: 'row-reverse',
-        borderRadius: 14,
-        overflow: 'hidden',
-        backgroundColor: '#F8FAFF',
+        borderRadius: 18,
+        backgroundColor: '#F8FAFC',   // ultra-soft surface
         marginBottom: 14,
+        paddingVertical: 8,
 
-        // iOS shadow (bottom focused)
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 }, // 👈 bottom only
-        shadowOpacity: 0.15,
-        shadowRadius: 6,
-        // Android shadow
-        elevation: 4,
-        borderBottomWidth: 2,
-        borderBottomColor: '#E5E7EB',
+        borderWidth: 1,
+        borderColor: '#EEF2F7',       // subtle separation
     },
+
+
 
 });

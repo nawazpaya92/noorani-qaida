@@ -6,6 +6,7 @@ import { Lesson } from '../data/lessons';
 import AlphabetScreen from '../screens/alphabets';
 import Tarteebh from '../screens/tarteebh';
 import JointLetters from '../screens/JointLetters';
+import TimedHighlightTest from '../components/TimedHighlightTest';
 
 export type Route =
   | { name: 'Dashboard' }
@@ -14,6 +15,7 @@ export type Route =
   | { name: 'Alphabets' }
   | { name: 'Tarteebh' }
   | { name: 'JointLetters' }
+  | { name: 'TimedHighlightTest' };
 type Navigation = {
   push: (route: Route) => void;
   pop: () => void;
@@ -60,6 +62,8 @@ export const Router: React.FC = () => {
       return <Tarteebh />;
     case 'JointLetters':
       return <JointLetters />;
+    case 'TimedHighlightTest':
+      return <TimedHighlightTest />;
     default:
       return <DashboardScreen />;
   }
