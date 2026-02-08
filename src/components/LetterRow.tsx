@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
     rowActive: {
         borderWidth: 2,
         borderColor: '#2563EB',
-
         shadowColor: '#2563EB',
         shadowOpacity: 0.35,
         shadowRadius: 10,
@@ -132,7 +131,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#F8FAFC',   // ultra-soft surface
         marginBottom: 14,
         paddingVertical: 8,
-
         borderWidth: 1,
         borderColor: '#EEF2F7',       // subtle separation
     },

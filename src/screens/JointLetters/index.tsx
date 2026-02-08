@@ -26,6 +26,14 @@ export default function JointLetters() {
     const [playId, setPlayId] = React.useState<string | null>(null);
     const [isPlaying, setIsPlaying] = React.useState(false);
 
+    // Majmuaa player
+    const [majmuaaPlayId, setMajmuaaPlayId] = React.useState<string | null>(null);
+    const [majmuaaPlaying, setMajmuaaPlaying] = React.useState(false);
+
+    // Murakkabat player
+    const [murakkabatPlayId, setMurakkabatPlayId] = React.useState<string | null>(null);
+    const [murakkabatPlaying, setMurakkabatPlaying] = React.useState(false);
+
     const handlePlayWord = async (id: string, audio: any) => {
         setPlayId(id);
         setIsPlaying(true);
@@ -90,7 +98,9 @@ export default function JointLetters() {
                             onToggle={() => handleToggle(section.id, index)}
 
                         >
-                            <MajmuaaTable majmuaa={section.majmuaa} />
+                            <View style={styles.murakkabatSection}>
+                                <MajmuaaTable majmuaa={section.majmuaa} playId={playId} isPlaying={isPlaying} onPlayWord={handlePlayWord} />
+                            </View>
 
                             <View style={styles.murakkabatSection}>
                                 <MurakkabatTable

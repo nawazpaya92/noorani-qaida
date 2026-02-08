@@ -32,7 +32,7 @@ export default function MurakkabatAnimatedCard({
                 style={styles.pressable}
                 hitSlop={8}   // ⭐ extra invisible tap area
             >
-                {children}
+                {React.cloneElement(children, { isActive })}
             </Pressable>
         </Animated.View>
     );

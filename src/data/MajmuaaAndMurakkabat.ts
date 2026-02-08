@@ -8,12 +8,13 @@ export const majmuaaAndMurakkabat = [
         id: 'ba-ta-sa',
         title: 'پہلا مجموعہ (ب ت ث ن ی)',
 
+
         majmuaa: [
-            { id: 1, isolated: 'ب', initial: 'بـ', medial: 'ـبـ', final: 'ـب', audio: require('../assets/audio/letters/baa.m4a') },
-            { id: 2, isolated: 'ت', initial: 'تـ', medial: 'ـتـ', final: 'ـت', audio: require('../assets/audio/letters/taa.m4a') },
-            { id: 3, isolated: 'ث', initial: 'ثـ', medial: 'ـثـ', final: 'ـث', audio: require('../assets/audio/letters/saa.m4a') },
-            { id: 4, isolated: 'ن', initial: 'نـ', medial: 'ـنـ', final: 'ـن', audio: require('../assets/audio/letters/nun.m4a') },
-            { id: 5, isolated: 'ی', initial: 'یـ', medial: 'ـیـ', final: 'ـی', audio: require('../assets/audio/letters/yaa.m4a') },
+            createMajmuaa(1, 'ب', 'بـ', 'ـبـ', 'ـب', 'baa'),
+            createMajmuaa(2, 'ت', 'تـ', 'ـتـ', 'ـت', 'taa'),
+            createMajmuaa(3, 'ث', 'ثـ', 'ـثـ', 'ـث', 'saa'),
+            createMajmuaa(4, 'ن', 'نـ', 'ـنـ', 'ـن', 'nun'),
+            createMajmuaa(5, 'ی', 'یـ', 'ـیـ', 'ـی', 'yaa'),
         ],
 
         murakkabat: [
@@ -196,6 +197,40 @@ function createMurakkab(
             audio: murakkabatAudio[group],
             timings: dummyTiming,
         },
+    };
+}
+function createMajmuaa(
+    id: number,
+    isolated: string,
+    initial: string,
+    medial: string,
+    final: string,
+    letterAudioName: LetterAudioKey
+) {
+    const audio = lettersAudio[letterAudioName]; // ⭐ single source
+    return {
+        id,
+        isolated: {
+            text: isolated,
+            audio: audio, // ✅ static-safe
+            timings: dummyTiming,
+        },
+        initial: {
+            text: initial,
+            audio: audio,
+            timings: [0, 1000, 2000],
+        },
+        medial: {
+            text: medial,
+            audio: audio,
+            timings: [0, 1000, 2000],
+        },
+        final: {
+            text: final,
+            audio: audio,
+            timings: dummyTiming,
+        },
+
     };
 }
 

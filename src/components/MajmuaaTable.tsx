@@ -3,17 +3,19 @@ import { View, Text, StyleSheet } from 'react-native';
 import { majmuaaAndMurakkabat } from '../data/MajmuaaAndMurakkabat';
 import Cell from './LetterCell';
 import HeaderCell from './HeaderCell';
-import LetterTile from './LetterTile';
-import LetterRow from './LetterRow';
-import { useAppTheme } from '../theme/ThemeContext';
 
-export default function MajmuaaTable({ majmuaa }) {
-    const [activeCell, setActiveCell] = React.useState<any>(null);
+import { useAppTheme } from '../theme/ThemeContext';
+import LearningCard from './LearningCard';
+
+export default function MajmuaaTable({ majmuaa,
+    playId,
+    isPlaying,
+    onPlayWord, }: any) {
     const { theme } = useAppTheme();
 
     return (
         <View style={styles.container}>
-            <View style={styles.card}>
+            <View style={{ alignItems: 'center' }}>
                 {/* Header */}
                 <View style={[styles.headerRow, { backgroundColor: theme.lightBlue }]}>
                     {['اصل شکل', 'ابتدائی شکل', 'درمیانی شکل', 'آخری شکل'].map(title => (
@@ -25,11 +27,12 @@ export default function MajmuaaTable({ majmuaa }) {
 
                 {/* Grid */}
                 {majmuaa.map(item => (
-                    <LetterRow
+                    <LearningCard
                         key={item.id}
                         item={item}
-                        activeCell={activeCell}
-                        onActivate={setActiveCell}
+                        playId={playId}
+                        isPlaying={isPlaying}
+                        onPlayWord={onPlayWord}
                     />
                 ))}
             </View>

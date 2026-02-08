@@ -5,24 +5,35 @@ import TimedArabicWord from "./TimedArabicWord";
 import { Animated } from "react-native";
 import MurakkabatAnimatedCard from "./MurakkabatAnimatedCard";
 
-export default function MurakkabatRow({ item, activeCell, playId, isPlaying, onPlayWord }: any) {
-    const isRowActive = activeCell?.rowId === item.id;
+export default function LearningCard({
+    item,
+    playId,
+    isPlaying,
+    onPlayWord,
+}: any) {
+    const isMajmuaaRow = !!item.isolated;
 
-    const isActive = (col: string) =>
-        isRowActive && activeCell.col === col;
-
-
-    const columns = [
-        { key: 'base', highlight: true },
-        { key: 'initial' },
-        { key: 'medial' },
-        { key: 'final' },
-        { key: 'group' },
-    ];
+    const columns = isMajmuaaRow
+        ? [
+            { key: 'isolated' },
+            { key: 'initial' },
+            { key: 'medial' },
+            { key: 'final' },
+        ]
+        : [
+            { key: 'base' },
+            { key: 'initial' },
+            { key: 'medial' },
+            { key: 'final' },
+            { key: 'group' },
+        ];
 
     return (
-        <View style={[styles.row,]}>
-            {columns.map((col, index) => {
+        <View style={styles.row}>
+            {columns.map((col) => {
+                const cell = item[col.key];
+                if (!cell) return null;
+
                 const wordId = `${item.id}-${col.key}`;
                 const isCurrent = playId === wordId;
 
@@ -30,23 +41,23 @@ export default function MurakkabatRow({ item, activeCell, playId, isPlaying, onP
                     <MurakkabatAnimatedCard
                         key={col.key}
                         isActive={isCurrent}
-                        onPress={() => onPlayWord(wordId, item[col.key].audio)}
+                        onPress={() => onPlayWord(wordId, cell.audio)}
                     >
                         <TimedArabicWord
                             id={wordId}
-                            text={item[col.key].text}
-                            timings={item[col.key].timings}
-                            playId={playId === wordId ? wordId : null}
+                            text={cell.text}
+                            timings={cell.timings}
+                            playId={isCurrent ? wordId : null}
                             isPlaying={isPlaying}
+                            isMajmuaa={isMajmuaaRow}
                         />
                     </MurakkabatAnimatedCard>
-
-                )
-            }
-            )}
+                );
+            })}
         </View>
     );
 }
+
 const styles = StyleSheet.create({
 
     arrow: {
@@ -72,18 +83,18 @@ const styles = StyleSheet.create({
         marginHorizontal: 4,
         marginVertical: 6,
 
-        backgroundColor: '#F8FBFF',     // very soft blue tint
+        backgroundColor: '#F8FBFF',
         borderRadius: 16,
-        paddingVertical: 14,
+
+        paddingVertical: 18,   // 🔥 increased from 14
         paddingHorizontal: 10,
 
-        // iOS shadow
+        minHeight: 70,         // 🔥 important → prevents clipping
+
         shadowColor: '#1D4ED8',
         shadowOpacity: 0.08,
         shadowRadius: 10,
         shadowOffset: { width: 0, height: 6 },
-
-        // Android shadow
         elevation: 4,
 
         alignItems: 'center',

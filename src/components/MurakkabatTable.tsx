@@ -6,8 +6,9 @@ import HeaderCell from './HeaderCell';
 import LetterTile from './LetterTile';
 import LetterRow from './LetterRow';
 import { useAppTheme } from '../theme/ThemeContext';
-import MurakkabatRow from './MurakkabatRow';
+import MurakkabatRow from './LearningCard';
 import AppText from './AppText';
+import LearningCard from './LearningCard';
 
 
 export default function MurakkabatTable({
@@ -16,7 +17,7 @@ export default function MurakkabatTable({
   isPlaying,
   onPlayWord,
 }: any) {
-  const [activeCell, setActiveCell] = React.useState<any>(null);
+
 
   const { theme } = useAppTheme();
 
@@ -52,7 +53,7 @@ export default function MurakkabatTable({
 
       {/* Rows */}
       {murakkabat.map(item => (
-        <MurakkabatRow
+        <LearningCard
           key={item.id}
           item={item}
           playId={playId}
