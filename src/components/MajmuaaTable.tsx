@@ -10,7 +10,8 @@ import LearningCard from './LearningCard';
 export default function MajmuaaTable({ majmuaa,
     playId,
     isPlaying,
-    onPlayWord, }: any) {
+    onPlayWord,
+    onPlaySequence }: any) {
     const { theme } = useAppTheme();
 
     return (
@@ -33,6 +34,7 @@ export default function MajmuaaTable({ majmuaa,
                         playId={playId}
                         isPlaying={isPlaying}
                         onPlayWord={onPlayWord}
+                        onPlaySequence={onPlaySequence}
                     />
                 ))}
             </View>

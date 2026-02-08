@@ -34,7 +34,7 @@ export const majmuaaAndMurakkabat = [
         title: 'دوسرا مجموعہ (ل)',
 
         majmuaa: [
-            { id: 1, isolated: 'ل', initial: 'لـ', medial: 'ـلـ', final: 'ـل', audio: require('../assets/audio/letters/laam.m4a') },
+            createMajmuaa(1, 'ل', 'لـ', 'ـلـ', 'ـل', 'laam'),
         ],
 
         murakkabat: [
@@ -50,9 +50,9 @@ export const majmuaaAndMurakkabat = [
         title: 'تیسرا مجموعہ (ج ح خ)',
 
         majmuaa: [
-            { id: 1, isolated: 'ج', initial: 'جـ', medial: 'ـجـ', final: 'ـج', audio: require('../assets/audio/letters/jeem.m4a') },
-            { id: 2, isolated: 'ح', initial: 'حـ', medial: 'ـحـ', final: 'ـح', audio: require('../assets/audio/letters/haa.m4a') },
-            { id: 3, isolated: 'خ', initial: 'خـ', medial: 'ـخـ', final: 'ـخ', audio: require('../assets/audio/letters/khaa.m4a') },
+            createMajmuaa(1, 'ج', 'جـ', 'ـجـ', 'ـج', 'jeem'),
+            createMajmuaa(2, 'ح', 'حـ', 'ـحـ', 'ـح', 'haa'),
+            createMajmuaa(3, 'خ', 'خـ', 'ـخـ', 'ـخ', 'khaa'),
         ],
 
         murakkabat: [
@@ -70,8 +70,8 @@ export const majmuaaAndMurakkabat = [
         title: 'چوتھا مجموعہ (س ش)',
 
         majmuaa: [
-            { id: 1, isolated: 'س', initial: 'سـ', medial: 'ـسـ', final: 'ـس', audio: require('../assets/audio/letters/seen.m4a') },
-            { id: 2, isolated: 'ش', initial: 'شـ', medial: 'ـشـ', final: 'ـش', audio: require('../assets/audio/letters/sheen.m4a') },
+            createMajmuaa(1, 'س', 'سـ', 'ـسـ', 'ـس', 'seen'),
+            createMajmuaa(2, 'ش', 'شـ', 'ـشـ', 'ـش', 'sheen'),
         ],
 
         murakkabat: [
@@ -88,8 +88,8 @@ export const majmuaaAndMurakkabat = [
         title: 'پانچواں مجموعہ (ص ض)',
 
         majmuaa: [
-            { id: 1, isolated: 'ص', initial: 'صـ', medial: 'ـصـ', final: 'ـص', audio: require('../assets/audio/letters/swaad.m4a') },
-            { id: 2, isolated: 'ض', initial: 'ضـ', medial: 'ـضـ', final: 'ـض', audio: require('../assets/audio/letters/dwaad.m4a') },
+            createMajmuaa(1, 'ص', 'صـ', 'ـصـ', 'ـص', 'swaad'),
+            createMajmuaa(2, 'ض', 'ضـ', 'ـضـ', 'ـض', 'dwaad'),
         ],
 
         murakkabat: [
@@ -106,10 +106,9 @@ export const majmuaaAndMurakkabat = [
         title: 'چھٹا مجموعہ (ع غ)',
 
         majmuaa: [
-            { id: 1, isolated: 'ع', initial: 'عـ', medial: 'ـعـ', final: 'ـع', audio: require('../assets/audio/letters/aeen.m4a') },
-            { id: 2, isolated: 'غ', initial: 'غـ', medial: 'ـغـ', final: 'ـغ', audio: require('../assets/audio/letters/gwaeen.m4a') },
+            createMajmuaa(1, 'ع', 'عـ', 'ـعـ', 'ـع', 'aeen'),
+            createMajmuaa(2, 'غ', 'غـ', 'ـغـ', 'ـغ', 'gwaeen'),
         ],
-
         murakkabat: [
             createMurakkab(1, 'ع', 'عن', 'بعد', 'لع', 'ععع', 'aeen'),
             createMurakkab(2, 'غ', 'غض', 'لغد', 'صغ', 'غغغ', 'gwaeen'),
@@ -124,8 +123,9 @@ export const majmuaaAndMurakkabat = [
         title: 'ساتواں مجموعہ (ف ق)',
 
         majmuaa: [
-            { id: 1, isolated: 'ف', initial: 'فـ', medial: 'ـفـ', final: 'ـف', audio: require('../assets/audio/letters/faa.m4a') },
-            { id: 2, isolated: 'ق', initial: 'قـ', medial: 'ـقـ', final: 'ـق', audio: require('../assets/audio/letters/qaaf.m4a') },
+
+            createMajmuaa(1, 'ف', 'فـ', 'ـفـ', 'ـف', 'faa'),
+            createMajmuaa(2, 'ق', 'قـ', 'ـقـ', 'ـق', 'qaaf'),
         ],
 
         murakkabat: [
@@ -142,9 +142,10 @@ export const majmuaaAndMurakkabat = [
         title: 'آٹھواں مجموعہ (ک م ہ)',
 
         majmuaa: [
-            { id: 1, isolated: 'ک', initial: 'کـ', medial: 'ـکـ', final: 'ـک', audio: require('../assets/audio/letters/kaaf.m4a') },
-            { id: 2, isolated: 'م', initial: 'مـ', medial: 'ـمـ', final: 'ـم', audio: require('../assets/audio/letters/meem.m4a') },
-            { id: 3, isolated: 'ہ', initial: 'ہـ', medial: 'ـہـ', final: 'ـہ', audio: require('../assets/audio/letters/s_haa.m4a') },
+
+            createMajmuaa(1, 'ک', 'کـ', 'ـکـ', 'ـک', 'kaaf'),
+            createMajmuaa(2, 'م', 'مـ', 'ـمـ', 'ـم', 'meem'),
+            createMajmuaa(3, 'ہ', 'ہـ', 'ـہـ', 'ـہ', 's_haa'),
         ],
 
         murakkabat: [

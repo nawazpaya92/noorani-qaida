@@ -1,7 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Dimensions } from 'react-native';
 import AppHeader from '../../components/AppHeader';
-import LetterFormsTable from '../../components/MajmuaaTable';
 import Screen from '../../components/Screen';
 import { useNavigation } from '../../navigation/Router';
 import { useAppTheme } from '../../theme/ThemeContext';
@@ -11,83 +10,117 @@ import { majmuaaAndMurakkabat } from '../../data/MajmuaaAndMurakkabat';
 import AppText from '../../components/AppText';
 import ExpandableSection from '../../components/ExpandableSection';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Dimensions } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { playArabicLetter } from '../../utils/audio';
-
-
 
 export default function JointLetters() {
     const navigation = useNavigation();
     const { theme } = useAppTheme();
+
     const [openId, setOpenId] = React.useState<string | null>(null);
     const scrollRef = React.useRef<ScrollView>(null);
     const sectionRefs = React.useRef<Record<string, View | null>>({});
-    const [playId, setPlayId] = React.useState<string | null>(null);
-    const [isPlaying, setIsPlaying] = React.useState(false);
 
-    // Majmuaa player
+    /** 🎧 Separate players */
     const [majmuaaPlayId, setMajmuaaPlayId] = React.useState<string | null>(null);
     const [majmuaaPlaying, setMajmuaaPlaying] = React.useState(false);
 
-    // Murakkabat player
     const [murakkabatPlayId, setMurakkabatPlayId] = React.useState<string | null>(null);
     const [murakkabatPlaying, setMurakkabatPlaying] = React.useState(false);
 
-    const handlePlayWord = async (id: string, audio: any) => {
-        setPlayId(id);
-        setIsPlaying(true);
+    /** 🛑 stop everything expose */
+    const stopAllPlayback = React.useCallback(() => {
+        setMajmuaaPlaying(false);
+        setMajmuaaPlayId(null);
 
-        await playArabicLetter(audio, {
-            onFinish: () => {
-                setIsPlaying(false);
-                setPlayId(null);
-            },
-        });
-    };
+        setMurakkabatPlaying(false);
+        setMurakkabatPlayId(null);
+    }, []);
+
+    /**
+     * 🟦 MAJMUAA PLAYER (returns Promise → REQUIRED for sequence)
+     */
+    const handlePlayMajmuaa = React.useCallback(
+        (id: string, audio: any) => {
+            stopAllPlayback();
+
+            setMajmuaaPlayId(id);
+            setMajmuaaPlaying(true);
+
+            return new Promise<void>((resolve) => {
+                playArabicLetter(audio, {
+                    onFinish: () => {
+                        setMajmuaaPlaying(false);
+                        setMajmuaaPlayId(null);
+                        resolve(); // ⭐ critical for sequence sync
+                    },
+                });
+            });
+        },
+        [stopAllPlayback]
+    );
+
+    /**
+     * 🟪 MURAKKABAT PLAYER
+     */
+    const handlePlayMurakkabat = React.useCallback(
+        async (id: string, audio: any) => {
+            stopAllPlayback();
+
+            setMurakkabatPlayId(id);
+            setMurakkabatPlaying(true);
+
+            await playArabicLetter(audio, {
+                onFinish: () => {
+                    setMurakkabatPlaying(false);
+                    setMurakkabatPlayId(null);
+                },
+            });
+        },
+        [stopAllPlayback]
+    );
+
+    /**
+     * 🔽 Expand behaviour
+     */
     const handleToggle = (id: string, index: number) => {
         const willOpen = openId !== id;
         setOpenId(willOpen ? id : null);
 
-        if (willOpen) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        }
-        // 🚫 No scroll for first 4 sections
+        if (willOpen) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         if (!willOpen || index < 4) return;
 
         setTimeout(() => {
             const sectionRef = sectionRefs.current[id];
             const scrollNode = scrollRef.current;
-
             if (!sectionRef || !scrollNode) return;
 
             sectionRef.measureInWindow((x, y, width, height) => {
                 const windowHeight = Dimensions.get('window').height;
-                const sectionBottom = y + height;
-
                 scrollNode.scrollTo({
-                    y: sectionBottom - windowHeight + 60,
+                    y: y + height - windowHeight + 60,
                     animated: true,
                 });
             });
         }, 350);
     };
 
-
-
-
     return (
-
         <Screen>
-            <LinearGradient
-                colors={['#F8FBFF', '#EEF5FF']}
-                style={{ flex: 1 }}
-            >
-
+            <LinearGradient colors={['#F8FBFF', '#EEF5FF']} style={{ flex: 1 }}>
                 <AppHeader title="" onBack={navigation.pop} />
-                <AppText variant='heading' weight='bold' size={30} align='center' style={{ margin: 10, padding: 10 }} color={theme.blue}>
+
+                <AppText
+                    variant="heading"
+                    weight="bold"
+                    size={30}
+                    align="center"
+                    style={{ margin: 10, padding: 10 }}
+                    color={theme.blue}
+                >
                     مرکبات کی ابتدائی، درمیانی اور آخری شکلیں
                 </AppText>
+
                 <ScrollView ref={scrollRef} contentContainerStyle={styles.container}>
                     {majmuaaAndMurakkabat.map((section, index) => (
                         <ExpandableSection
@@ -96,23 +129,26 @@ export default function JointLetters() {
                             open={openId === section.id}
                             ref={(ref) => (sectionRefs.current[section.id] = ref)}
                             onToggle={() => handleToggle(section.id, index)}
-
                         >
-                            <View style={styles.murakkabatSection}>
-                                <MajmuaaTable majmuaa={section.majmuaa} playId={playId} isPlaying={isPlaying} onPlayWord={handlePlayWord} />
+                            <View style={styles.section}>
+                                <MajmuaaTable
+                                    majmuaa={section.majmuaa}
+                                    playId={majmuaaPlayId}
+                                    isPlaying={majmuaaPlaying}
+                                    onPlayWord={handlePlayMajmuaa}
+                                />
                             </View>
 
-                            <View style={styles.murakkabatSection}>
+                            <View style={styles.section}>
                                 <MurakkabatTable
                                     murakkabat={section.murakkabat}
-                                    playId={playId}
-                                    isPlaying={isPlaying}
-                                    onPlayWord={handlePlayWord}
+                                    playId={murakkabatPlayId}
+                                    isPlaying={murakkabatPlaying}
+                                    onPlayWord={handlePlayMurakkabat}
                                 />
                             </View>
                         </ExpandableSection>
                     ))}
-
                 </ScrollView>
             </LinearGradient>
         </Screen>
@@ -120,63 +156,22 @@ export default function JointLetters() {
 }
 
 const styles = StyleSheet.create({
-
     container: {
         padding: 5,
         marginVertical: 20,
     },
-    headerRow: {
-        alignItems: 'center',
-        height: 64,
-        paddingHorizontal: 12,
-    },
-    murakkabatSection: {
-        backgroundColor: '#F1F5F9',   // soft grey-blue panel
+    section: {
+        backgroundColor: '#F1F5F9',
         borderRadius: 24,
         paddingTop: 14,
         paddingBottom: 18,
         paddingHorizontal: 10,
         marginVertical: 12,
         marginHorizontal: 6,
-
-        // subtle shadow → balances Majmuaa card weight
         shadowColor: '#000',
-        shadowOpacity: 0.4,
+        shadowOpacity: 0.2,
         shadowRadius: 12,
         shadowOffset: { width: 0, height: 6 },
         elevation: 3,
-    },
-
-
-    backBtn: {
-        width: 40,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    backText: {
-        fontSize: 34,
-        lineHeight: 34,
-        fontWeight: '600',
-    },
-
-    headerTitleWrapper: {
-        flex: 1,                 // 👈 center takes remaining space
-        alignItems: 'center',
-        paddingHorizontal: 8,
-    },
-
-    headerTitle: {
-        fontSize: 20,
-        fontWeight: '700',
-        textAlign: 'center',
-        margin: 12,
-        lineHeight: 28,          // Arabic readability
-        fontFamily: 'Amiri-Bold',
-    },
-
-    rightSpacer: {
-        width: 40,               // 👈 same width as back button
     },
 });
