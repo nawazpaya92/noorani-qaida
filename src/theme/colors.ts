@@ -12,6 +12,10 @@ export type Theme = {
   blue: string;
   grey: string;
   lightBlue: string;
+  bgSoft: string;
+  cardSoft?: string;
+  muted?: string
+  linearGradient?: readonly string[];
 };
 
 export const lightTheme: Theme = {
@@ -28,6 +32,10 @@ export const lightTheme: Theme = {
   blue: '#0b3d91',
   grey: '#e3e3e340',
   lightBlue: '#DBEAFE',
+  bgSoft: "#F8FBFF",
+  cardSoft: '#EEF2FF',
+  muted: '#94A3B8',
+  linearGradient: ['#F8FBFF', '#EEF5FF'] as const,
 
 };
 
@@ -44,5 +52,9 @@ export const darkTheme: Theme = {
   green: '#43a047',
   blue: '#6ea8fe',
   grey: '#2b2b2b55',
-  lightBlue: '#1e2a47',
+  lightBlue: '#DBEAFE',
+  bgSoft: "#F8FBFF",
+  cardSoft: '#EEF2FF',
+  muted: '#94A3B8',
+  linearGradient: ['#F8FBFF', '#EEF5FF'] as const,
 };

@@ -41,21 +41,18 @@ export default function MurakkabatAnimatedCard({
 const styles = StyleSheet.create({
     card: {
         flex: 1,
-        marginHorizontal: 4,
-        marginVertical: 6,
+        marginHorizontal: 3,
+        marginVertical: 3,
         backgroundColor: "#F8FBFF",
         borderRadius: 16,
-        paddingVertical: 14,
-        paddingHorizontal: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 0,
 
         shadowColor: "#1D4ED8",
         shadowOpacity: 0.08,
         shadowRadius: 10,
         shadowOffset: { width: 0, height: 6 },
         elevation: 4,
-
-        alignItems: "center",
-        justifyContent: "center",
     },
 
     activeCard: {

@@ -75,8 +75,8 @@ export const majmuaaAndMurakkabat = [
         ],
 
         murakkabat: [
-            createMurakkab(1, 'س', 'سر', 'لست', 'نس', 'سسسس', 'seen'),
-            createMurakkab(2, 'ش', 'شط', 'بشر', 'تش', 'شششش', 'sheen'),
+            createMurakkab(1, 'س', 'سر', 'لست', 'نس', 'سسس', 'seen'),
+            createMurakkab(2, 'ش', 'شط', 'بشر', 'تش', 'ششش', 'sheen'),
         ],
     },
 

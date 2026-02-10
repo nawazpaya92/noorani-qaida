@@ -31,7 +31,7 @@ export default function MurakkabatTable({
           size={20}
           align="center"
           style={{
-            margin: 10,
+            marginBottom: 10,
             backgroundColor: theme.blue,
             borderRadius: 10,
             paddingHorizontal: 14,
@@ -68,13 +68,12 @@ export default function MurakkabatTable({
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#180909ff',
     borderRadius: 18,
-    paddingVertical: 12,   // ✅ vertical only
-    paddingHorizontal: 10, // ❌ no horizontal padding
+
 
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
@@ -100,6 +99,7 @@ const styles = StyleSheet.create({
   murakkabatCellWrapper: {
     flex: 1.15,        // 👈 key change
     alignItems: 'center',
+
   }
 })
 

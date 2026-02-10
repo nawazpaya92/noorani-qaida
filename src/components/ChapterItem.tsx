@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import {
   StyleSheet,
@@ -7,88 +9,96 @@ import {
   Animated,
   Platform,
 } from 'react-native';
-import {useAppTheme} from '../theme/ThemeContext';
+import { useAppTheme } from '../theme/ThemeContext';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function ChapterItem({ index, title, onPress }: any) {
-  const{theme} = useAppTheme();
+
+export function ChapterItem({ index, title, onPress }: any) {
+  const { theme } = useAppTheme();
   const scale = React.useRef(new Animated.Value(1)).current;
+
 
   const pressIn = () => {
     if (Platform.OS === 'ios')
-      Animated.spring(scale, { toValue: 0.95, useNativeDriver: true }).start();
+      Animated.spring(scale, { toValue: 0.96, useNativeDriver: true }).start();
   };
+
 
   const pressOut = () => {
     if (Platform.OS === 'ios')
       Animated.spring(scale, { toValue: 1, useNativeDriver: true }).start();
   };
 
+
   return (
     <Pressable onPressIn={pressIn} onPressOut={pressOut} onPress={onPress}>
-      <Animated.View
-        style={[
-          styles.card,
-          {
-            backgroundColor: theme.card,
-            transform: [{ scale }],
-          },
-        ]}
-      >
-        <View style={[styles.circle, { backgroundColor: theme.grey }]}>
-          <Text style={[styles.circleText]}>{index + 1}</Text>
-        </View>
+      <Animated.View style={[styles.cardWrapper, { transform: [{ scale }] }]}>
+        <LinearGradient
+          colors={['#f9fbfcff', '#E0F2FE']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.card}
+        >
+          <View style={[styles.circle, { backgroundColor: theme.grey }]}>
+            <Text style={styles.circleText}>{index + 1}</Text>
+          </View>
 
-        <Text style={[styles.title, { color: theme.text }]}>
-          {title}
-        </Text>
 
-        <View style={[styles.rightAccent, { backgroundColor: theme.accent }]} />
+          <Text style={[styles.title, { color: theme.text }]} numberOfLines={2}>
+            {title}
+          </Text>
+
+
+          <Ionicons name="chevron-forward" size={18} color={theme.muted} />
+        </LinearGradient>
       </Animated.View>
     </Pressable>
   );
 }
 
+
 const styles = StyleSheet.create({
+  cardWrapper: {
+    marginBottom: 14,
+    borderRadius: 18,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 4,
+  },
+
+
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    padding: 14,
-    position: 'relative',
-    marginBottom: 12,
-
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
+    borderRadius: 18,
+    paddingVertical: 18,
+    paddingHorizontal: 18,
   },
+
+
   circle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 14,
   },
+
+
   circleText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
-    color: '#0b1cb7ff',
+    color: '#3730a3',
   },
+
+
   title: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
-  },
-  rightAccent: {
-    width: 8,
-    borderTopRightRadius: 12,
-    borderBottomRightRadius: 12,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    bottom: 0,
-    opacity: 0.2,
   },
 });
