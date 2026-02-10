@@ -9,6 +9,7 @@ type AyatContainerProps = {
     text: string;
     style?: ViewStyle;
     textSize?: number;
+    isDividerTobeShown?: boolean;
 };
 
 
@@ -16,6 +17,7 @@ export const TitleAyatContainer: React.FC<AyatContainerProps> = ({
     text,
     style,
     textSize = 26,
+    isDividerTobeShown = true
 }) => {
     const { theme } = useAppTheme();
     const fadeAnim = useFadeIn(900);
@@ -34,13 +36,16 @@ export const TitleAyatContainer: React.FC<AyatContainerProps> = ({
             </AppText>
 
 
-            <Animated.View
-                style={[
-                    styles.divider,
-                    { backgroundColor: theme.accent, opacity: fadeAnim },
-                ]}
-            />
+            {isDividerTobeShown &&
+                <Animated.View
+                    style={[
+                        styles.divider,
+                        { backgroundColor: theme.accent, opacity: fadeAnim },
+                    ]}
+                />
+            }
         </Animated.View>
+
     );
 };
 const styles = StyleSheet.create({

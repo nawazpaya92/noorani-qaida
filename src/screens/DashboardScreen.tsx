@@ -43,7 +43,7 @@ const DashboardScreen: React.FC = () => {
 
       {/* ================= AYAH SECTION ================= */}
 
-      <View style={{ flex: .25, justifyContent: 'flex-end', paddingBottom: 30, }}>
+      <View style={{ flex: .25, justifyContent: 'flex-end', paddingBottom: 30, paddingHorizontal: 30 }}>
         <TitleAyatContainer
           text=" وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِنْ مُدَّكِرٍ ۝" />
       </View>
