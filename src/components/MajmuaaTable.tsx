@@ -11,15 +11,31 @@ export default function MajmuaaTable({ majmuaa,
     playId,
     isPlaying,
     onPlayWord,
-    onPlaySequence }: any) {
+    onPlaySequence,
+    isHamzah = false }: any) {
     const { theme } = useAppTheme();
 
+
+    const defaultTitles = [
+        'اصل شکل',
+        'ابتدائی شکل',
+        'درمیانی شکل',
+        'آخری شکل',
+    ];
+
+    const hamzahTitles = [
+        'ہمزہ اصلی شکل میں',
+        'ہمزہ الف کی شکل میں',
+        'ہمزہ واؤ کی شکل میں',
+        'ہمزہ یا کی شکل میں',
+    ];
+    const titles = isHamzah ? hamzahTitles : defaultTitles;
     return (
         <View style={styles.container}>
             <View style={{ alignItems: 'center' }}>
                 {/* Header */}
                 <View style={[styles.headerRow, { backgroundColor: theme.lightBlue }]}>
-                    {['اصل شکل', 'ابتدائی شکل', 'درمیانی شکل', 'آخری شکل'].map(title => (
+                    {titles.map(title => (
                         <View key={title} style={styles.cellWrapper}>
                             <HeaderCell title={title} />
                         </View>

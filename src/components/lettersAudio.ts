@@ -19,6 +19,7 @@ export const lettersAudio = {
   kaaf: require('../assets/audio/letters/kaaf.m4a'),
   meem: require('../assets/audio/letters/meem.m4a'),
   s_haa: require('../assets/audio/letters/s_haa.m4a'),
+  hamzah: require('../assets/audio/letters/hamzah.m4a'),
 } as const;
 
 export type LetterAudioKey = keyof typeof lettersAudio;

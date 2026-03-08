@@ -16,6 +16,7 @@ export default function MurakkabatTable({
   playId,
   isPlaying,
   onPlayWord,
+  hideHeader = false,
 }: any) {
 
 
@@ -43,24 +44,33 @@ export default function MurakkabatTable({
       </View>
 
       {/* Header */}
-      <View style={[styles.headerRow, { backgroundColor: theme.lightBlue }]}>
-        {['اصل شکل', 'ابتدائی شکل', 'درمیانی شکل', 'آخری شکل', 'مجموعہ'].map(title => (
-          <View key={title} style={styles.cellWrapper}>
-            <HeaderCell title={title} />
+      {!hideHeader &&
+        <View style={[styles.headerRow, { backgroundColor: theme.lightBlue }]}>
+          {['اصل شکل', 'ابتدائی شکل', 'درمیانی شکل', 'آخری شکل', 'مجموعہ'].map(title => (
+            <View key={title} style={styles.cellWrapper}>
+              <HeaderCell title={title} />
+            </View>
+          ))}
+        </View>
+      }
+
+      {/* Rows */}
+      <View style={[styles.listContainer, hideHeader && styles.gridContainer]}>
+        {murakkabat.map(item => (
+          <View
+            key={item.id}
+            style={hideHeader ? styles.gridItem : undefined} // ⭐ 4 per row
+          >
+            <LearningCard
+              key={item.id}
+              item={item}
+              playId={playId}
+              isPlaying={isPlaying}
+              onPlayWord={onPlayWord}
+            />
           </View>
         ))}
       </View>
-
-      {/* Rows */}
-      {murakkabat.map(item => (
-        <LearningCard
-          key={item.id}
-          item={item}
-          playId={playId}
-          isPlaying={isPlaying}
-          onPlayWord={onPlayWord}
-        />
-      ))}
     </View>
 
   );
@@ -69,6 +79,21 @@ export default function MurakkabatTable({
 const styles = StyleSheet.create({
   container: {
 
+  },
+  listContainer: {
+    flexDirection: 'column',
+  },
+
+  /* ⭐ Umumi Mashq grid */
+  gridContainer: {
+    flexDirection: 'row-reverse',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+
+  gridItem: {
+    width: '24%',          // ⭐ 4 items per row
+    marginBottom: 10,
   },
   card: {
     backgroundColor: '#180909ff',

@@ -7,6 +7,10 @@ import AlphabetScreen from '../screens/alphabets';
 import Tarteebh from '../screens/tarteebh';
 import JointLetters from '../screens/JointLetters';
 import TimedHighlightTest from '../components/TimedHighlightTest';
+import Harkaat from '../screens/Harkaat';
+import Tanveen from '../screens/Tanveen';
+import Jazm from '../screens/Jazm';
+import JazmKiMashq from '../screens/Jazm/JazmKiMashq';
 
 export type Route =
   | { name: 'Dashboard' }
@@ -15,7 +19,10 @@ export type Route =
   | { name: 'Alphabets' }
   | { name: 'Tarteebh' }
   | { name: 'JointLetters' }
-  | { name: 'TimedHighlightTest' };
+  | { name: 'Harkaat' }
+  | { name: 'Tanveen' }
+  | { name: 'Jazm' }
+  | { name: 'JazmKiMashq' };
 type Navigation = {
   push: (route: Route) => void;
   pop: () => void;
@@ -62,8 +69,14 @@ export const Router: React.FC = () => {
       return <Tarteebh />;
     case 'JointLetters':
       return <JointLetters />;
-    case 'TimedHighlightTest':
-      return <TimedHighlightTest />;
+    case 'Harkaat':
+      return <Harkaat />;
+    case 'Tanveen':
+      return <Tanveen />;
+    case 'Jazm':
+      return <Jazm />;
+    case 'JazmKiMashq':
+      return <JazmKiMashq />;
     default:
       return <DashboardScreen />;
   }

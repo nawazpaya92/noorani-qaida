@@ -1,0 +1,27 @@
+export const doPeshWords = {
+    title: 'دو پیش کی مثال', data: [
+        { id: "aahadun", text: "أَحَدٌ" },
+        { id: "kutubun", text: "كُتُبٌ" },
+        { id: "sururun", text: "سُرُرٌ" },
+        { id: "qasamun", text: "قَسَمٌ" },
+        { id: "nafarun", text: "نَفَرٌ" },
+        { id: "uozunun", text: "أُذُنٌ" },
+        { id: "laibun", text: "لَعِبٌ" },
+        { id: "nafakhun", text: "نَفَخٌ" },
+        { id: "sunanun", text: "سُنَنٌ" },
+        { id: "rusulun", text: "رُسُلٌ" },
+        { id: "waladun", text: "وَلَدٌ" },
+        { id: "thuluthun", text: "ثُلُثٌ" },
+        { id: "matwarun", text: "مَطَرٌ" },
+        { id: "wahabun", text: "وَهَبٌ" },
+        { id: "twuruqun", text: "طُرُقٌ" },
+        { id: "madadun", text: "مَدَدٌ" },
+        { id: "labadun", text: "لَبَدٌ" },
+        { id: "rubuaaun", text: "رُبُعٌ" },
+        { id: "basharun", text: "بَشَرٌ" },
+        { id: "qalamun", text: "قَلَمٌ" },
+        { id: "waadun", text: "وَعَدٌ" },
+        { id: "farashun", text: "فَرَشٌ" },
+        { id: "galabun", text: "غَلَبٌ" },
+    ]
+};

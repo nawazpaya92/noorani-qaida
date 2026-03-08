@@ -37,7 +37,13 @@ export default function BacchoKaThofa() {
 
 
       case 3:
-        navigation.push({ name: 'TimedHighlightTest' });
+        navigation.push({ name: 'Harkaat' });
+        break;
+      case 4:
+        navigation.push({ name: 'Tanveen' });
+        break;
+      case 5:
+        navigation.push({ name: 'Jazm' });
         break;
 
 

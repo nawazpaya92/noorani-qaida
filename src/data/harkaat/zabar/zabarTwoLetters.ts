@@ -1,0 +1,28 @@
+export const zabarTwoLetters = {
+    title: "دو حرفی الفاظ میں زبر کی مشق", data: [
+        { id: "maaa", text: "مَعَ" },
+        { id: "laka", text: "لَكَ" },
+        { id: "saja", text: "سَجَ" },
+        { id: "tara", text: "تَرَ" },
+        { id: "faaa", text: "فَعَ" },
+        { id: "nafa", text: "نَفَ" },
+        { id: "waaa", text: "وَعَ" },
+        { id: "faja", text: "فَجَ " },
+        { id: "aala", text: "عَلَ" },
+        { id: "aama", text: "عَمَ" },
+        { id: "mana", text: "مَنَ" },
+        { id: "aaha", text: "اَحَ" },
+        { id: "swama", text: "صَمَ" },
+        { id: "fala", text: "فَلَ" },
+        { id: "naaaa", text: "نَعَ" },
+        { id: "laqa", text: "لَقَ" },
+        { id: "raba", text: "رَبَ" },
+        { id: "qaba", text: "قَبَ" },
+        { id: "wara", text: "وَرَ" },
+        { id: "kafa", text: "كَفَ" },
+        { id: "khata", text: "خَتَ" },
+        { id: "tama", text: "تَمَ" },
+        { id: "mara", text: "مَرَ" },
+        { id: "yata", text: "يَتَ" },
+    ]
+};

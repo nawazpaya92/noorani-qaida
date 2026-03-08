@@ -154,6 +154,165 @@ export const majmuaaAndMurakkabat = [
             createMurakkab(3, 'ہ', 'ہن', 'جہن', 'بہ', 'ہہہ', 's_haa'),
         ],
     },
+    {
+        id: 'hamzah',
+        title: 'ہمزہ کی شکلیں',
+        isHamzah: true,
+        majmuaa: [
+            createHamzahMajmuaa(),
+        ],
+
+        murakkabat: [], // ⭐ NO murakkabat for hamzah
+    },
+    {
+        id: 'umumi-mashq',
+        title: 'عمومی مشق',
+
+        // ❌ No majmuaa
+        majmuaa: [],
+
+        // ❌ No normal murakkabat
+        murakkabat: [],
+
+        // ✅ NEW FIELD
+        umumiMashq: [
+            createUmumi(1, 'بسم', 'bism'),
+            createUmumi(2, 'ملک', 'mulk'),
+            createUmumi(3, 'یکن', 'yakan'),
+            createUmumi(4, 'اہل', 'ahl'),
+            createUmumi(5, 'کتب', 'kutub'),
+
+            createUmumi(6, 'بعد', 'baad'),
+            createUmumi(7, 'خبر', 'khabar'),
+            createUmumi(8, 'جنت', 'jannat'),
+            createUmumi(9, 'عدن', 'adan'),
+            createUmumi(10, 'رضی', 'razi'),
+
+            createUmumi(11, 'خشیت', 'khashyat'),
+            createUmumi(12, 'ثبت', 'sabat'),
+            createUmumi(13, 'کسب', 'kasb'),
+            createUmumi(14, 'حبل', 'habl'),
+            createUmumi(15, 'نصر', 'nasr'),
+
+            createUmumi(16, 'فتح', 'fath'),
+            createUmumi(17, 'ربات', 'ribat'),
+            createUmumi(18, 'دین', 'deen'),
+            createUmumi(19, 'صیف', 'saif'),
+            createUmumi(20, 'بیت', 'bait'),
+
+            createUmumi(21, 'جوع', 'joo'),
+            createUmumi(22, 'خوف', 'khauf'),
+            createUmumi(23, 'الم', 'alam'),
+            createUmumi(24, 'کیف', 'kaif'),
+            createUmumi(25, 'فعل', 'faal'),
+
+            createUmumi(26, 'فیل', 'feel'),
+            createUmumi(27, 'طیر', 'tayr'),
+            createUmumi(28, 'جمع', 'jam'),
+            createUmumi(29, 'عمد', 'amad'),
+            createUmumi(30, 'عصر', 'asr'),
+
+            createUmumi(31, 'خسر', 'khasr'),
+            createUmumi(32, 'صبر', 'sabr'),
+            createUmumi(33, 'سوف', 'sauf'),
+            createUmumi(34, 'علم', 'ilm'),
+            createUmumi(35, 'عین', 'ain'),
+
+            createUmumi(36, 'کتاب', 'kitaab'),
+            createUmumi(37, 'بینة', 'bayyinah'),
+            createUmumi(38, 'قیمة', 'qeemah'),
+            createUmumi(39, 'تفرق', 'tafarruq'),
+            createUmumi(40, 'صلوة', 'salat'),
+
+            createUmumi(41, 'زکوة', 'zakah'),
+            createUmumi(42, 'تجری', 'tajri'),
+            createUmumi(43, 'اعوذ', 'aoodhu'),
+            createUmumi(44, 'نفثت', 'nafathat'),
+            createUmumi(45, 'اعبد', 'aabud'),
+
+            createUmumi(46, 'سیصلی', 'sayasla'),
+            createUmumi(47, 'تضلیل', 'tadleel'),
+            createUmumi(48, 'اعطینک', 'aatainak'),
+            createUmumi(49, 'العلمین', 'aalameen'),
+            createUmumi(50, 'نستعین', 'nastaeen'),
+
+            createUmumi(51, 'مستقیم', 'mustaqeem'),
+            createUmumi(52, 'مغضوب', 'maghdoob'),
+            createUmumi(53, 'منفکین', 'munfakkeen'),
+            createUmumi(54, 'للمصلین', 'lil-musalleen'),
+            createUmumi(55, 'استغفر', 'astaghfir'),
+        ],
+    },
+    {
+        id: 'mashq-fil-asmaa',
+        title: 'مشقی فی الاسماء',
+
+        majmuaa: [],
+        murakkabat: [],
+
+        umumiMashq: [
+            createUmumi(1, 'مناجی', 'munaji'),
+            createUmumi(2, 'نور', 'noor'),
+            createUmumi(3, 'فیصل', 'faisal'),
+            createUmumi(4, 'صاحب', 'sahib'),
+
+            createUmumi(5, 'حاجی', 'haji'),
+            createUmumi(6, 'امداد', 'imdad'),
+            createUmumi(7, 'اللہ', 'allah'),
+            createUmumi(8, 'مکی', 'makki'),
+
+            createUmumi(9, 'امام', 'imam'),
+            createUmumi(10, 'رشید', 'rashid'),
+            createUmumi(11, 'عبرت', 'ibrat'),
+            createUmumi(12, 'خلیل', 'khaleel'),
+
+            createUmumi(13, 'شیخ', 'shaikh'),
+            createUmumi(14, 'زکریا', 'zakariya'),
+            createUmumi(15, 'فقیہ', 'faqeeh'),
+            createUmumi(16, 'حمود', 'hamood'),
+
+            createUmumi(17, 'مرشد', 'murshid'),
+            createUmumi(18, 'متقی', 'muttaqi'),
+            createUmumi(19, 'اجمل', 'ajmal'),
+            createUmumi(20, 'خانقاہی', 'khanqahi'),
+
+            createUmumi(21, 'مفکر', 'mufakkir'),
+            createUmumi(22, 'امت', 'ummat'),
+            createUmumi(23, 'حمود', 'hamood2'),
+            createUmumi(24, 'حافظی', 'hafizi'),
+
+            createUmumi(25, 'مجدد', 'mujaddid'),
+            createUmumi(26, 'مکاتب', 'makatib'),
+            createUmumi(27, 'اسمعیل', 'ismail'),
+            createUmumi(28, 'کافوردرا', 'kafordra'),
+
+            createUmumi(29, 'یوسف', 'yusuf'),
+            createUmumi(30, 'صادق', 'sadiq'),
+            createUmumi(31, 'صدیقی', 'siddiqi'),
+            createUmumi(32, 'عزیز', 'azeez'),
+
+            createUmumi(33, 'ناصر', 'nasir'),
+            createUmumi(34, 'الطاف', 'altaf'),
+            createUmumi(35, 'انور', 'anwar'),
+            createUmumi(36, 'سلیم', 'saleem'),
+
+            createUmumi(37, 'شکیل', 'shakeel'),
+            createUmumi(38, 'توصیف', 'tauseef'),
+            createUmumi(39, 'بلال', 'bilal'),
+            createUmumi(40, 'عمران', 'imran'),
+
+            createUmumi(41, 'نورانی', 'noorani'),
+            createUmumi(42, 'مکاتب', 'makatib2'),
+            createUmumi(43, 'باردوی', 'bardawi'),
+            createUmumi(44, 'سورت', 'soorat'),
+
+            createUmumi(45, 'دارال', 'daral'),
+            createUmumi(46, 'مکاتب', 'makatib3'),
+            createUmumi(47, 'غیرات', 'ghairat'),
+            createUmumi(48, 'الہند', 'alhind'),
+        ],
+    }
+
 ];
 
 /** =========================
@@ -232,6 +391,45 @@ function createMajmuaa(
             timings: dummyTiming,
         },
 
+    };
+}
+function createHamzahMajmuaa() {
+    return {
+        id: 1,
+
+        isolated: {
+            text: 'ء',
+            audio: lettersAudio['hamzah'],
+            timings: dummyTiming,
+        },
+
+        initial: {
+            text: 'أ',
+            audio: lettersAudio['hamzah'],
+            timings: dummyTiming,
+        },
+
+        medial: {
+            text: 'ؤ',
+            audio: lettersAudio['hamzah'],
+            timings: dummyTiming,
+        },
+
+        final: {
+            text: 'ئ',
+            audio: lettersAudio['hamzah'],
+            timings: dummyTiming,
+        },
+    };
+}
+function createUmumi(
+    id: number,
+    text: string,
+    audioKey: LetterAudioKey
+) {
+    return {
+        id,
+        base: { text, audio: lettersAudio[audioKey], timings: dummyTiming },
     };
 }
 

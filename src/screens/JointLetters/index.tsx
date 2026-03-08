@@ -130,23 +130,40 @@ export default function JointLetters() {
                             ref={(ref) => (sectionRefs.current[section.id] = ref)}
                             onToggle={() => handleToggle(section.id, index)}
                         >
-                            <View style={styles.section}>
-                                <MajmuaaTable
-                                    majmuaa={section.majmuaa}
-                                    playId={majmuaaPlayId}
-                                    isPlaying={majmuaaPlaying}
-                                    onPlayWord={handlePlayMajmuaa}
-                                />
-                            </View>
+                            {section.majmuaa.length > 0 &&
+                                <View style={styles.section}>
+                                    <MajmuaaTable
+                                        majmuaa={section.majmuaa}
+                                        playId={majmuaaPlayId}
+                                        isPlaying={majmuaaPlaying}
+                                        onPlayWord={handlePlayMajmuaa}
+                                        isHamzah={section.isHamzah}
+                                    />
+                                </View>
+                            }
 
-                            <View style={styles.section}>
-                                <MurakkabatTable
-                                    murakkabat={section.murakkabat}
-                                    playId={murakkabatPlayId}
-                                    isPlaying={murakkabatPlaying}
-                                    onPlayWord={handlePlayMurakkabat}
-                                />
-                            </View>
+                            {section.murakkabat.length > 0 &&
+                                <View style={styles.section}>
+                                    <MurakkabatTable
+                                        murakkabat={section.murakkabat}
+                                        playId={murakkabatPlayId}
+                                        isPlaying={murakkabatPlaying}
+                                        onPlayWord={handlePlayMurakkabat}
+                                    />
+                                </View>
+                            }
+                            {section.umumiMashq && section.umumiMashq?.length > 0 &&
+                                <View style={styles.section}>
+                                    <MurakkabatTable
+                                        murakkabat={section.umumiMashq}
+                                        playId={murakkabatPlayId}
+                                        isPlaying={murakkabatPlaying}
+                                        onPlayWord={handlePlayMurakkabat}
+                                        hideHeader
+
+                                    />
+                                </View>
+                            }
                         </ExpandableSection>
                     ))}
                 </ScrollView>
