@@ -19,3 +19,11 @@ export function attachAudio(data: LessonItem[]) {
         timings: generateTimings(item.text),
     }));
 }
+export function attachAudioToRows(rows: any[]) {
+    return rows.map((row) => ({
+        ...row,
+        letter: attachAudio([row.letter])[0],
+        words: attachAudio(row.words),
+    }));
+
+}

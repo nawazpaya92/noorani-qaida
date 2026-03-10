@@ -9,6 +9,9 @@ import { lightTheme } from "../../theme/colors";
 import { useAppTheme } from "../../theme/ThemeContext";
 import LessonModuleCard from "../../components/LessonModuleCard";
 import RoundNumber from "../../components/RoundNumber";
+import { jazmKiMashq } from "../../data/jazm/jazmKiMashq";
+import { hamzahSakeenKiMashq } from "../../data/jazm/hamzahSakeenkiMashq";
+import { qalqalahData } from "../../data/jazm/qalqalaData";
 
 const jazmPracticeItems = [
     "دو حرفی الفاظ میں جزم کی مشق",
@@ -17,25 +20,28 @@ const jazmPracticeItems = [
     "چار حرفی الفاظ میں جزم کی مشق",
     "ایک کلمہ میں متعدد جزم کی مشق",
 ];
-const modules = [
+export const modules = [
     {
         key: "jazmPractice",
         title: "جزم کی مشق",
         color: "#4F46E5",
         screen: "JazmKiMashq",
         items: jazmPracticeItems,
+        data: jazmKiMashq,
     },
     {
         key: "hamzah",
         title: "ہمزہ ساکنہ کے متعلق ہدایات",
         color: "#10B981",
         screen: "hamzahSaakin",
+        data: hamzahSakeenKiMashq
     },
     {
         key: "qalqalah",
         title: "قلقلہ کا بیان",
         color: "#F59E0B",
         screen: "qalqalah",
+        data: qalqalahData
     },
 ];
 const jazmPoints = [
@@ -100,7 +106,10 @@ export default function Jazm() {
                                 key={module.key}
                                 title={module.title}
                                 color={module.color}
-                                onPress={() => navigation.push({ name: "JazmKiMashq" })}
+                                onPress={() => navigation.push({
+                                    name: "JazmKiMashq",
+                                    params: { moduleKey: module.key }
+                                })}
                             />
                         ))}
                     </View>

@@ -88,25 +88,45 @@ export const jazmKiMashq = [
         ]
     },
     {
-        title: " چار حرفی الفاظ میں جزم کی مشق",
+        title: "چار حرفی الفاظ میں جزم کی مشق",
         data: [
-            { id: "yusmenu", text: "يَسْمَعْ" },
-            { id: "yaktub", text: "يَكْتُبْ" },
+            { id: "yusmenu", text: "يُسْمِنُ" },
             { id: "yantahi", text: "يَنْتَهِ" },
-            { id: "yadhhab", text: "يَذْهَبْ" },
-            { id: "hunalika", text: "هُنَالِكَ" },
+            { id: "bihamdi", text: "بِحَمْدِ" },
+            { id: "aabudu", text: "أَعْبُدُ" },
+            { id: "munzeru", text: "مُنْذِرُ" },
+            { id: "asfala", text: "أَسْفَلَ" },
+            { id: "sakulat", text: "ثَقُلَتْ" },
+            { id: "ahsani", text: "أَحْسَنِ" },
+            { id: "yahsabu", text: "يَحْسَبُ" },
+            { id: "afidati", text: "أَفْئِدَةِ" },
+            { id: "busira", text: "بُعْثِرَ" },
+            { id: "yalamu", text: "يَعْلَمُ" },
+            { id: "yasduru", text: "يَصْدُرُ" },
+            { id: "damdama", text: "دَمْدَمَ" },
+            { id: "nabudu", text: "نَعْبُدُ" }
+        ]
+    },
+    {
+        title: "ایک کلمہ میں متعدد جزم کی مشق",
+        data: [
+            { id: "anamta", text: "اَنْعَمْتَ" },
+            { id: "ahlaktu", text: "أَهْلَكْتُ" },
+            { id: "tanhar", text: "تَنْهَرُ" },
+            { id: "izhum", text: "إِذْهُمُ" },
+            { id: "minhum", text: "مِنْهُمْ" },
+            { id: "busirat", text: "بُعْثِرَتُ" },
+            { id: "waalqat", text: "وَالْقَتْ" },
+            { id: "intasarat", text: "انْتَثَرَتْ" },
 
-            { id: "akhsar", text: "اَخْسَرْ" },
-            { id: "yaksib", text: "يَكْسِبْ" },
-            { id: "afal", text: "اَفْعَلْ" },
-            { id: "asfal", text: "اَسْفَلْ" },
-            { id: "thaqlat", text: "ثَقْلَتْ" },
-
-            { id: "baathar", text: "بَعْثَرْ" },
-            { id: "yaalam", text: "يَعْلَمْ" },
-            { id: "yubsir", text: "يُبْصِرْ" },
-            { id: "damghar", text: "دَمْغَرْ" },
-            { id: "taajab", text: "تَعْجَبْ" },
+            { id: "uzlifat", text: "ازْلِفَتْ" },
+            { id: "amhilihum", text: "أَمْهِلُهُمْ" },
+            { id: "akhrajat", text: "أَخْرَجَتْ" },
+            { id: "nashrah", text: "نَشْرَحْ" },
+            { id: "zulzilat", text: "زُلْزِلَتْ" },
+            { id: "alhamdu", text: "الْحَمْدُ" },
+            { id: "istaghfir", text: "اِسْتَغْفِرُ" }
         ]
     }
+
 ]

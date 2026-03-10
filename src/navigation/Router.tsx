@@ -22,7 +22,7 @@ export type Route =
   | { name: 'Harkaat' }
   | { name: 'Tanveen' }
   | { name: 'Jazm' }
-  | { name: 'JazmKiMashq' };
+  | { name: 'JazmKiMashq'; params: { moduleKey: string } };
 type Navigation = {
   push: (route: Route) => void;
   pop: () => void;
@@ -76,7 +76,7 @@ export const Router: React.FC = () => {
     case 'Jazm':
       return <Jazm />;
     case 'JazmKiMashq':
-      return <JazmKiMashq />;
+      return <JazmKiMashq moduleKey={top.params.moduleKey} />;
     default:
       return <DashboardScreen />;
   }

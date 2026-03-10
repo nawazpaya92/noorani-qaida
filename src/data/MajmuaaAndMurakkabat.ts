@@ -350,7 +350,7 @@ function createMurakkab(
         final: {
             text: final,
             audio: murakkabatAudio[final],
-            timings: dummyTiming,
+            timings: [0, 1000, 2000],
         },
         group: {
             text: group,

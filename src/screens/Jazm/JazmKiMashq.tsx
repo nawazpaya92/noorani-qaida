@@ -7,18 +7,24 @@ import { useAppTheme } from "../../theme/ThemeContext";
 import AppText from "../../components/AppText";
 import AppHeader from "../../components/AppHeader";
 import { useNavigation } from "../../navigation/Router";
-import { attachAudio } from "../../utils/attachAudio";
+import { attachAudio, attachAudioToRows } from "../../utils/attachAudio";
 import { jazmKiMashq } from "../../data/jazm/jazmKiMashq";
+import { modules } from ".";
+import QalqalahLesson from "../../components/ArabicComponents/QalqalaLesson";
 
 
+type Props = {
+    moduleKey: string;
+};
 
-export default function JazmKiMashq() {
+export default function JazmKiMashq({ moduleKey }: Props) {
     const { theme } = useAppTheme();
     const navigation = useNavigation();
 
+    const module = modules.find(m => m.key === moduleKey);
 
 
-
+    console.log("Received moduleKey:", module); // Debug log
 
     return (
         <Screen>
@@ -33,21 +39,33 @@ export default function JazmKiMashq() {
                     align="center"
                     style={{ margin: 10, padding: 10 }}
                     color={theme.blue}
-                >
-                    جزم کی مشق
+                >{module?.title}
+
                 </AppText>
 
                 <ScrollView style={styles.container}>
 
-                    {jazmKiMashq.map((item, index) => (
-                        <ArabicLesson
-                            key={index}
-                            title={item.title}
-                            data={attachAudio(item.data)}
-                            isRoundNumber={true}
-                            index={index}
+                    {moduleKey === "qalqalah" ? (
+
+                        <QalqalahLesson
+                            title={module?.data?.title ?? ""}
+                            data={attachAudioToRows(module?.data?.data ?? [])}
                         />
-                    ))}
+
+                    ) : (
+
+                        module?.data?.map((item, index) => (
+                            <ArabicLesson
+                                key={index}
+                                title={item.title}
+                                data={attachAudio(item.data)}
+                                isRoundNumber={true}
+                                index={index}
+                            />
+                        ))
+
+                    )}
+
 
                 </ScrollView>
 

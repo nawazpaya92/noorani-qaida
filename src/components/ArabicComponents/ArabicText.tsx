@@ -3,6 +3,9 @@ import { Animated, Platform, StyleSheet, Text } from "react-native";
 import { useTimedHighlight } from "../../hooks/useTimedHighlight";
 
 export default function ArabicText({
+    size = 24,
+    color = "#000",
+    style,
     id,
     text,
     timings,
@@ -27,7 +30,12 @@ export default function ArabicText({
             <Animated.Text
                 numberOfLines={1}
                 ellipsizeMode="clip"
-                style={[styles.word, { transform: [{ scale }] }]}
+                style={[
+                    styles.word,
+                    { fontSize: size, color },
+                    style,
+                    { transform: [{ scale }] }
+                ]}
             >
                 {text}
             </Animated.Text>
@@ -46,7 +54,12 @@ export default function ArabicText({
             <Animated.Text
                 numberOfLines={1}
                 ellipsizeMode="clip"
-                style={[styles.word, { transform: [{ scale }] }]}
+                style={[
+                    styles.word,
+                    { fontSize: size, color },
+                    style,
+                    { transform: [{ scale }] }
+                ]}
             >
                 {text}
             </Animated.Text>
