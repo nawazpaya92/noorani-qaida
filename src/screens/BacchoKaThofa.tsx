@@ -3,7 +3,7 @@ import { View, FlatList, StyleSheet, Animated } from 'react-native';
 import { chapters } from '../data/chapters';
 import AppHeader from '../components/AppHeader';
 import { useAppTheme } from '../theme/ThemeContext';
-import { useNavigation } from '../navigation/Router';
+import { useNavigation } from '../navigation/navigationContext';
 import Screen from '../components/Screen';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ChapterItem } from '../components/ChapterItem';
@@ -44,6 +44,9 @@ export default function BacchoKaThofa() {
         break;
       case 5:
         navigation.push({ name: 'Jazm' });
+        break;
+      case 6:
+        navigation.push({ name: 'HurfeMaddah' });
         break;
 
 

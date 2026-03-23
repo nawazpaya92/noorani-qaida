@@ -20,7 +20,7 @@ export const majmuaaAndMurakkabat = [
         murakkabat: [
             createMurakkab(1, 'ب', 'بط', 'طبو', 'بظب', 'ببب', 'baa'),
             createMurakkab(2, 'ت', 'تز', 'بتر', 'تظت', 'تتت', 'taa'),
-            createMurakkab(3, 'ث', 'ثو', 'طثت', 'یث', 'ثثث', 'saa'),
+            createMurakkab(3, 'ث', 'ثو', 'طثت', 'بث', 'ثثث', 'saa'),
             createMurakkab(4, 'ن', 'نب', 'بنت', 'طن', 'ننن', 'nun'),
             createMurakkab(5, 'ی', 'ید', 'طین', 'نی', 'ییی', 'yaa'),
         ],
@@ -176,8 +176,8 @@ export const majmuaaAndMurakkabat = [
 
         // ✅ NEW FIELD
         umumiMashq: [
-            createUmumi(1, 'بسم', 'bism'),
-            createUmumi(2, 'ملک', 'mulk'),
+            createUmumi(1, 'بسم', 'bism', [0, 2000, 4000]),
+            createUmumi(2, 'ملک', 'mulk', [0, 1500, 3000]),
             createUmumi(3, 'یکن', 'yakan'),
             createUmumi(4, 'اہل', 'ahl'),
             createUmumi(5, 'کتب', 'kutub'),
@@ -355,7 +355,7 @@ function createMurakkab(
         group: {
             text: group,
             audio: murakkabatAudio[group],
-            timings: dummyTiming,
+            timings: [0, 1000, 2000],
         },
     };
 }
@@ -425,11 +425,12 @@ function createHamzahMajmuaa() {
 function createUmumi(
     id: number,
     text: string,
-    audioKey: LetterAudioKey
+    audioKey: LetterAudioKey,
+    timings: number[] = dummyTiming
 ) {
     return {
         id,
-        base: { text, audio: lettersAudio[audioKey], timings: dummyTiming },
+        base: { text, audio: lettersAudio[audioKey], timings: timings },
     };
 }
 

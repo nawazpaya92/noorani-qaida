@@ -11,6 +11,7 @@ import Harkaat from '../screens/Harkaat';
 import Tanveen from '../screens/Tanveen';
 import Jazm from '../screens/Jazm';
 import JazmKiMashq from '../screens/Jazm/JazmKiMashq';
+import HurfeMaddah from '../screens/HurfeMaddah';
 
 export type Route =
   | { name: 'Dashboard' }
@@ -22,7 +23,8 @@ export type Route =
   | { name: 'Harkaat' }
   | { name: 'Tanveen' }
   | { name: 'Jazm' }
-  | { name: 'JazmKiMashq'; params: { moduleKey: string } };
+  | { name: 'JazmKiMashq'; params: { moduleKey: string } }
+  | { name: 'HurfeMaddah' };
 type Navigation = {
   push: (route: Route) => void;
   pop: () => void;
@@ -30,13 +32,8 @@ type Navigation = {
   stack: Route[];
 };
 
-const NavigationContext = createContext<Navigation | null>(null);
+export const NavigationContext = createContext<Navigation | null>(null);
 
-export const useNavigation = (): Navigation => {
-  const ctx = useContext(NavigationContext);
-  if (!ctx) throw new Error('useNavigation must be used inside NavigationProvider');
-  return ctx;
-};
 
 export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [stack, setStack] = useState<Route[]>([{ name: 'Dashboard' }]);
@@ -77,6 +74,8 @@ export const Router: React.FC = () => {
       return <Jazm />;
     case 'JazmKiMashq':
       return <JazmKiMashq moduleKey={top.params.moduleKey} />;
+    case 'HurfeMaddah':
+      return <HurfeMaddah />;
     default:
       return <DashboardScreen />;
   }

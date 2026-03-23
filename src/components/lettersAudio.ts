@@ -20,6 +20,71 @@ export const lettersAudio = {
   meem: require('../assets/audio/letters/meem.m4a'),
   s_haa: require('../assets/audio/letters/s_haa.m4a'),
   hamzah: require('../assets/audio/letters/hamzah.m4a'),
+
+
+  //Ummumi Mashq
+  bism: require('../assets/audio/murakkabat/umumi/baa_seen_meem.m4a'),
+  mulk: require('../assets/audio/murakkabat/umumi/meem_laam_kaaf.m4a'),
+  yakan: require('../assets/audio/murakkabat/umumi/yaa_kaaf_noon.m4a'),
+  ahl: require('../assets/audio/murakkabat/umumi/alif_laam_meem.m4a'),
+  kutub: require('../assets/audio/murakkabat/umumi/kaaf_taa_baa.m4a'),
+  baad: require('../assets/audio/murakkabat/umumi/baa_ain_daal.m4a'),
+  khabar: require('../assets/audio/murakkabat/umumi/khaun_ya_ro.m4a'),
+  jannat: require('../assets/audio/murakkabat/umumi/jeem_noon_ta.m4a'),
+  adan: require('../assets/audio/murakkabat/umumi/ain_daal_noon.m4a'),
+  razi: require('../assets/audio/murakkabat/umumi/ro_daud_ya.m4a'),
+  // khashyat: require('../assets/audio/murakkabat/umumi/kaaf_haa_shiin_taa.m4a'),
+  // sabat: require('../assets/audio/murakkabat/umumi/sad_baa_taa.m4a'),
+  // kasb: require('../assets/audio/murakkabat/umumi/kaaf_ain_baa.m4a'),
+  // habl: require('../assets/audio/murakkabat/umumi/haa_baa_lam.m4a'),
+  // nasr: require('../assets/audio/murakkabat/umumi/nun_ain_sad.m4a'),
+
+  // fath: require('../assets/audio/murakkabat/umumi/fatha.m4a'),
+  // ribat: require('../assets/audio/murakkabat/umumi/ribat.m4a'),
+  // deen: require('../assets/audio/murakkabat/umumi/deen.m4a'),
+  // saif: require('../assets/audio/murakkabat/umumi/saif.m4a'),
+  // bait: require('../assets/audio/murakkabat/umumi/bait.m4a'),
+
+  // joo: require('../assets/audio/murakkabat/umumi/jeem_wao_yaa.m4a'),
+  // khauf: require('../assets/audio/murakkabat/umumi/kaaf_haa_wao.m4a'),
+  // alam: require('../assets/audio/murakkabat/umumi/ain_lam.m4a'),
+  // kaif: require('../assets/audio/murakkabat/umumi/kaaf_ya_yaa.m4a'),
+  // faal: require('../assets/audio/murakkabat/umumi/faa_ain_lam.m4a'),
+
+  // feel: require('../assets/audio/murakkabat/umumi/faa_ya_yaa_lam.m4a'),
+  // tayr: require('../assets/audio/murakkabat/umumi/tayr.m4a'),
+  // jam: require('../assets/audio/murakkabat/umumi/jam.m4a'),
+  // amad: require('../assets/audio/murakkabat/umumi/amad.m4a'),
+  // asr: require('../assets/audio/murakkabat/umumi/asr.m4a'),
+  // khasr: require('../assets/audio/murakkabat/umumi/khasr.m4a'),
+  // sabr: require('../assets/audio/murakkabat/umumi/sabr.m4a'),
+  // sauf: require('../assets/audio/murakkabat/umumi/sauf.m4a'),
+  // ilm: require('../assets/audio/murakkabat/umumi/ilm.m4a'),
+  // ain: require('../assets/audio/murakkabat/umumi/ain.m4a'),
+  // kitaab: require('../assets/audio/murakkabat/umumi/kitaab.m4a'),
+  // bayyinah: require('../assets/audio/murakkabat/umumi/bayyinah.m4a'),
+  // qeemah: require('../assets/audio/murakkabat/umumi/qeemah.m4a'),
+  // tafarruq: require('../assets/audio/murakkabat/umumi/tafarruq.m4a'),
+  // salat: require('../assets/audio/murakkabat/umumi/salat.m4a'),
+
+  // zakah: require('../assets/audio/murakkabat/umumi/zakah.m4a'),
+  // tajri: require('../assets/audio/murakkabat/umumi/tajri.m4a'),
+  // aoodhu: require('../assets/audio/murakkabat/umumi/aoodhu.m4a'),
+  // nafathat: require('../assets/audio/murakkabat/umumi/nafathat.m4a'),
+  // aabud: require('../assets/audio/murakkabat/umumi/aabud.m4a'),
+
+  // sayasla: require('../assets/audio/murakkabat/umumi/sayasla.m4a'),
+  // tadleel: require('../assets/audio/murakkabat/umumi/tadleel.m4a'),
+  // aatainak: require('../assets/audio/murakkabat/umumi/aatainak.m4a'),
+  // aalameen: require('../assets/audio/murakkabat/umumi/aalameen.m4a'),
+  // nastaeen: require('../assets/audio/murakkabat/umumi/nastaeen.m4a'),
+  // mustaqeem: require('../assets/audio/murakkabat/umumi/mustaqeem.m4a'),
+  // maghdoob: require('../assets/audio/murakkabat/umumi/maghdoob.m4a'),
+  // munfakkeen: require('../assets/audio/murakkabat/umumi/munfakkeen.m4a'),
+
+
+
+
 } as const;
 
 export type LetterAudioKey = keyof typeof lettersAudio;

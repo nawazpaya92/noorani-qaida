@@ -3,7 +3,7 @@ import { Animated, StyleSheet, Text, Pressable, View, Platform } from 'react-nat
 import LottieView from 'lottie-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAppTheme } from '../theme/ThemeContext';
-import { useNavigation } from '../navigation/Router';
+import { useNavigation } from '../navigation/navigationContext';
 import type { Route } from '../navigation/Router';
 import AppText from '../components/AppText';
 import useFadeIn from '../hooks/useFadeIn';

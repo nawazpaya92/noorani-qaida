@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import AppHeader from '../../components/AppHeader';
 import { useAppTheme } from '../../theme/ThemeContext';
-import { useNavigation } from '../../navigation/Router';
+import { useNavigation } from '../../navigation/navigationContext';
 import { arabicLetters } from '../../data/arabicLetters';
 
 import Screen from '../../components/Screen';

@@ -12,7 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useAppTheme } from "../../theme/ThemeContext";
 import AppText from "../../components/AppText";
 import AppHeader from "../../components/AppHeader";
-import { useNavigation } from "../../navigation/Router";
+import { useNavigation } from "../../navigation/navigationContext";
 import HarkaatTabs from "../../components/ArabicComponents/HarkaatTabs";
 import { zerLetters } from "../../data/harkaat/zer/zerLetters";
 import { zerTwoLetter } from "../../data/harkaat/zer/zerTwoLetters";
@@ -93,6 +93,7 @@ export default function Harkaat() {
                     align="center"
                     style={{ margin: 10, padding: 10 }}
                     color={theme.blue}
+
                 >
                     حرکات
                 </AppText>

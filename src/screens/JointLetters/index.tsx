@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View, Dimensions } from 'react-native';
 import AppHeader from '../../components/AppHeader';
 import Screen from '../../components/Screen';
-import { useNavigation } from '../../navigation/Router';
+import { useNavigation } from '../../navigation/navigationContext';
 import { useAppTheme } from '../../theme/ThemeContext';
 import MajmuaaTable from '../../components/MajmuaaTable';
 import MurakkabatTable from '../../components/MurakkabatTable';

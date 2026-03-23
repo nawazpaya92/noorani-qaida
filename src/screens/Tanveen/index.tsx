@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useAppTheme } from "../../theme/ThemeContext";
 import AppText from "../../components/AppText";
 import AppHeader from "../../components/AppHeader";
-import { useNavigation } from "../../navigation/Router";
+import { useNavigation } from "../../navigation/navigationContext";
 import HarkaatTabs from "../../components/ArabicComponents/HarkaatTabs";
 import { attachAudio } from "../../utils/attachAudio";
 

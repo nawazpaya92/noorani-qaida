@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AlphabetGrid from '../../components/AlphabetGrid';
-import { useNavigation } from '../../navigation/Router';
+import { useNavigation } from '../../navigation/navigationContext';
 import Carousel from '../../components/Carousel';
 import AppHeader from '../../components/AppHeader';
 import Screen from '../../components/Screen';
@@ -16,12 +16,12 @@ import Screen from '../../components/Screen';
 export default function AlphabetScreen() {
   const { pop } = useNavigation();
   const [isCarousel, setIsCarousel] = useState(false);
-  const [carouselText,setCarouselText] = useState('Switch to Carousel View');
-const navigation = useNavigation()
-const carouselViewToggle = (value:boolean) =>{
-   setIsCarousel(value);
-   setCarouselText(value ? 'Switch to Grid View' : 'Switch to Carousel View');
-}
+  const [carouselText, setCarouselText] = useState('Switch to Carousel View');
+  const navigation = useNavigation()
+  const carouselViewToggle = (value: boolean) => {
+    setIsCarousel(value);
+    setCarouselText(value ? 'Switch to Grid View' : 'Switch to Carousel View');
+  }
   return (
     <Screen >
       {/* Header */}
@@ -33,13 +33,13 @@ const carouselViewToggle = (value:boolean) =>{
           <Switch value={isCarousel} onValueChange={()=>carouselViewToggle(!isCarousel)} />
         </View> */}
       </View>
-    {isCarousel ? (
-    <View style={styles.carouselContainer}>
-      <Carousel />
-    </View>
-  ) : (
-    <AlphabetGrid />
-  )}
+      {isCarousel ? (
+        <View style={styles.carouselContainer}>
+          <Carousel />
+        </View>
+      ) : (
+        <AlphabetGrid />
+      )}
     </Screen>
   );
 }
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     color: '#333'
   },
   switchRow: {
-    margin:20,
+    margin: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
     color: '#333'
   },
   carouselContainer: {
-  flex: 1,
-  alignItems: 'center',
-   // <— this is the key!
-  paddingTop: 10,
-},
+    flex: 1,
+    alignItems: 'center',
+    // <— this is the key!
+    paddingTop: 10,
+  },
 });

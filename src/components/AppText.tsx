@@ -87,16 +87,17 @@ const styles = StyleSheet.create({
 const variantStyles = StyleSheet.create({
     body: {
         fontSize: 18,
-        lineHeight: 28,
+
+        fontFamily: 'Naskh-Regular',
     },
     heading: {
         fontSize: 22,
-        lineHeight: 34,
+
         textAlign: 'center',
+        fontFamily: 'Naskh-Bold',
     },
     caption: {
         fontSize: 14,
-        lineHeight: 20,
         color: '#6B7280',
     },
 });

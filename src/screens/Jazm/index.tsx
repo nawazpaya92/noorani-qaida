@@ -3,7 +3,7 @@ import { View, StyleSheet, Pressable, ScrollView } from "react-native";
 import Screen from "../../components/Screen";
 import AppHeader from "../../components/AppHeader";
 import AppText from "../../components/AppText";
-import { useNavigation } from "../../navigation/Router";
+import { useNavigation } from "../../navigation/navigationContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { lightTheme } from "../../theme/colors";
 import { useAppTheme } from "../../theme/ThemeContext";
