@@ -44,7 +44,7 @@ export default function ExpandableTitle({
             </View>
 
             {/* Title */}
-            <AppText variant="heading" weight="bold" size={22} style={styles.text}>
+            <AppText variant="heading" size={22} style={styles.text}>
                 {title}
             </AppText>
         </LinearGradient>

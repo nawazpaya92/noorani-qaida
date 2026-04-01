@@ -19,6 +19,8 @@ function AppContent() {
     'Naskh-Medium': require('./src/assets/fonts/NotoNaskhArabic-Medium.ttf'),
     'Naskh-SemiBold': require('./src/assets/fonts/NotoNaskhArabic-SemiBold.ttf'),
     'Naskh-Bold': require('./src/assets/fonts/NotoNaskhArabic-Bold.ttf'),
+    'Noori': require('./src/assets/fonts/NooriNastaleeq.ttf'),
+    'Quranic': require('./src/assets/fonts/MuhammadiQuranic.ttf'),
   });
 
   const { theme } = useAppTheme();

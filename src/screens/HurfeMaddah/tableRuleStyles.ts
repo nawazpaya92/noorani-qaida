@@ -36,8 +36,7 @@ export const tableRuleStyles = StyleSheet.create({
     },
 
     headerText: {
-        fontSize: 14,              // 🔽 slightly smaller (important for long text)
-        fontWeight: "700",
+        fontSize: 24,              // 🔽 slightly smaller (important for long text)
         textAlign: "center",
         color: "#2E7D32",
         paddingHorizontal: 4,     // 👈 prevents text touching edges
@@ -84,7 +83,7 @@ export const tableRuleStyles = StyleSheet.create({
 
     // 🟣 Rule text
     ruleText: {
-        fontSize: 13,
+        fontSize: 18,
         textAlign: "right",
         color: "#555",
         lineHeight: 18,

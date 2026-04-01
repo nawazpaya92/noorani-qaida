@@ -74,7 +74,7 @@ const TableRow = ({ item, index }: any) => {
 
             {/* Rule */}
             <View style={[tableRuleStyles.cellWrapper, { flex: COLUMN_FLEX.rule }]}>
-                <AppText style={tableRuleStyles.ruleText} variant="body" weight="regular">
+                <AppText style={tableRuleStyles.ruleText} variant="body">
                     {item.rule}
                 </AppText>
             </View>

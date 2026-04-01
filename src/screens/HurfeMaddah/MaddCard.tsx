@@ -17,7 +17,7 @@ const MaddCard = ({ letter, sound, example, colors }: any) => {
 
                 {/* Top */}
                 <LinearGradient colors={colors} style={styles.topSection}>
-                    <AppText style={styles.letter} variant="heading" weight="bold">{letter}</AppText>
+                    <AppText style={styles.letter} variant="heading" lang="ar" >{letter}</AppText>
                 </LinearGradient>
 
                 {/* Bottom */}
@@ -73,9 +73,11 @@ const styles = StyleSheet.create({
         borderTopColor: "#EEF2F1",  // 👈 subtle separator
     },
     letter: {
-        fontSize: 44,
+        fontSize: 42,   // 🔥 Bigger
+        textAlign: 'center',
+        padding: 10,
         color: "#fff",
-        fontWeight: "bold",
+
     },
 
 
@@ -104,8 +106,8 @@ const styles = StyleSheet.create({
     },
 
     example: {
-        fontSize: 18,
-        fontWeight: "700",
+        fontSize: 24,
         color: "#1B1B1B",
+        fontFamily: 'Quranic',  // 🔥 Quranic font for examples
     },
 });

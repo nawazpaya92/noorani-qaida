@@ -67,9 +67,8 @@ export default function BacchoKaThofa() {
         <Animated.View style={styles.screen}>
           <AppHeader title="" onBack={navigation.pop} />
 
-          <TitleAyatContainer text='بچوں کا تحفہ'
+          <TitleAyatContainer text='بچوں کا تحفہ' lang='ur' textSize={36}
           />
-
 
           <FlatList
             data={chapters}

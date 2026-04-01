@@ -112,7 +112,7 @@ export default function JointLetters() {
 
                 <AppText
                     variant="heading"
-                    weight="bold"
+                    lang='ur'
                     size={30}
                     align="center"
                     style={{ margin: 10, padding: 10 }}

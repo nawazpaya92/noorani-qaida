@@ -45,7 +45,9 @@ const DashboardScreen: React.FC = () => {
 
       <View style={{ flex: .25, justifyContent: 'flex-end', paddingBottom: 30, paddingHorizontal: 30 }}>
         <TitleAyatContainer
-          text=" وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِنْ مُدَّكِرٍ ۝" />
+          textSize={40}
+          lang='ar'
+          text=" وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِنْ مُدَّكِر       ۝" />
       </View>
 
 

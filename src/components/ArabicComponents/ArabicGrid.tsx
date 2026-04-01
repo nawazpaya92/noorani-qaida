@@ -22,6 +22,7 @@ export default function ArabicGrid({
                         >
                             <ArabicText
                                 id={item.id}
+                                size={28}
                                 text={item.text}
                                 timings={item.timings}
                                 activeId={activeId}

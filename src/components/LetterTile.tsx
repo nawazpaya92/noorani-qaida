@@ -221,8 +221,8 @@ const styles = StyleSheet.create({
   },
   letter: {
     fontSize: 42,
-    fontWeight: '700',
+    fontWeight: '800',
     color: '#1F2937',
-    fontFamily: 'Naskh-Bold',
+    fontFamily: 'Quranic',
   },
 });

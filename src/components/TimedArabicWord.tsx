@@ -63,7 +63,7 @@ export default function TimedArabicWord({
 
     return (
         <Animated.Text style={[
-            styles.word, !isMajmuaa && { fontSize: 24, },
+            styles.word, !isMajmuaa && { fontSize: 28, fontFamily: 'Quranic' },
             { transform: [{ scale: textScale }] }, // ⭐ APPLY SCALE
         ]} numberOfLines={1} ellipsizeMode="clip">
             {before}
@@ -75,10 +75,10 @@ export default function TimedArabicWord({
 
 const styles = StyleSheet.create({
     word: {
-        fontSize: 24,
+        fontSize: 28,
         textAlign: 'center',
         writingDirection: 'rtl',
-        fontFamily: 'Naskh-SemiBold',
+        fontFamily: 'Quranic',
         includeFontPadding: false, // Android vertical fix
         lineHeight: 36,
     },
