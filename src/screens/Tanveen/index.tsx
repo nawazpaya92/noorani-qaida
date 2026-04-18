@@ -122,8 +122,8 @@ export default function Tanveen() {
 
                 <AppText
                     variant="heading"
-                    weight="bold"
-                    size={30}
+                    lang="ur"
+                    size={36}
                     align="center"
                     style={{ margin: 10, padding: 10 }}
                     color={theme.blue}

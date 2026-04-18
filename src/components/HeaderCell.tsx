@@ -5,7 +5,7 @@ import AppText from './AppText';
 export default function HeaderCell({ title }: { title: string }) {
     return (
         <View style={[styles.cell, styles.headerCell]}>
-            <AppText weight='semibold' variant='caption' color='#1E3A8A' size={16} align='center' style={{ paddingTop: 4 }}>
+            <AppText lang='ur' variant='caption' color='#1E3A8A' size={18} align='center' style={{ paddingTop: 4 }}>
                 {title}
             </AppText>
         </View>

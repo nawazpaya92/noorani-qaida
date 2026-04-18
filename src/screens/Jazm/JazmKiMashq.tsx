@@ -8,11 +8,10 @@ import AppText from "../../components/AppText";
 import AppHeader from "../../components/AppHeader";
 import { useNavigation } from "../../navigation/navigationContext";
 import { attachAudio, attachAudioToRows } from "../../utils/attachAudio";
-import { jazmKiMashq } from "../../data/jazm/jazmKiMashq";
+
 import { modules } from ".";
 
 import QalqalahLesson from "../../components/ArabicComponents/QalqalaLesson";
-
 
 type Props = {
     moduleKey: string;
@@ -35,7 +34,7 @@ export default function JazmKiMashq({ moduleKey }: Props) {
 
                 <AppText
                     variant="heading"
-                    weight="bold"
+                    lang="ur"
                     size={30}
                     align="center"
                     style={{ margin: 10, padding: 10 }}

@@ -16,55 +16,27 @@ import Screen from "../../components/Screen";
 import RuleCard from "./RuleCard";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
-import { maddTableData } from "../../data/madd/maddRulesTable";
+import { maddData, maddTableData } from "../../data/madd/maddRulesTable";
 import { tableRuleStyles } from "./tableRuleStyles";
 import StartMashqButton from "../../components/StartMashqButton";
 
 
-export const maddData = [
-    {
-        id: "alif",
-        letter: "ا",
-        sound: 'Makes "aa" sound',
-        example: "قَالَ",
-        colors: ["#43A047", "#66BB6A"],
-    },
-    {
-        id: "waw",
-        letter: "و",
-        sound: 'Makes "oo" sound',
-        example: "يَقُولُ",
-        colors: ["#1E88E5", "#42A5F5"],
-    },
-    {
-        id: "ya",
-        letter: "ي",
-        sound: 'Makes "ee" sound',
-        example: "قِيلَ",
-        colors: ["#8E24AA", "#AB47BC"],
-    },
-];
-export const maddRules = [
-    {
-        example: "بَ",
-        rules: [
-            { icon: "✖", text: "No Madd" },
-            { icon: "✔", text: "Normal short sound" },
-        ],
-    },
-    {
-        example: "بَا",
-        rules: [
-            { icon: "✔", text: "Madd happens" },
-            { icon: "✔", text: "Sound is stretched" },
-            { icon: "✔", text: "Because of Alif" },
-        ],
-    },
-];
+
 const LessonScreen = () => {
 
     const navigation = useNavigation();
     const { theme } = useAppTheme();
+
+    const onPress = () => {
+        navigation.push({
+            name: "HurufeMaddaKiMashq",
+        })
+    }
+    const onPressForQuiz = () => {
+        navigation.push({
+            name: "QuizScreen",
+        })
+    }
 
     return (
         <Screen>
@@ -78,8 +50,8 @@ const LessonScreen = () => {
 
                     <AppText
                         variant="heading"
-                        weight="bold"
-                        size={30}
+                        lang="ur"
+                        size={36}
                         align="center"
                         style={{ margin: 10, padding: 10 }}
                         color={theme.blue}
@@ -117,7 +89,8 @@ const LessonScreen = () => {
                                 </React.Fragment>
                             ))}
                         </View>
-                        <StartMashqButton title=" مشق شروع کریں" />
+                        <StartMashqButton title=" مشق شروع کریں" onPress={onPress} />
+                        <StartMashqButton title=" مشق شروع کریں" onPress={onPressForQuiz} />
                     </View>
                     {/* Examples */}
 

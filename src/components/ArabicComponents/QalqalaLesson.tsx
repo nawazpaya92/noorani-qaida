@@ -22,12 +22,11 @@ export default function QalqalahLesson({ title, data }: any) {
 
                 <AppText
                     variant="heading"
-                    weight="bold"
-                    size={24}
+                    lang="ur"
+                    size={30}
                     align="center"
-                    style={styles.title}
-                    color={theme.blue}
-                >
+                    style={{ margin: 10, padding: 10 }}
+                    color={theme.blue}>
                     {title}
                 </AppText>
 

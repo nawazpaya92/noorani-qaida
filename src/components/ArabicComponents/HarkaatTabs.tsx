@@ -130,9 +130,10 @@ const styles = StyleSheet.create({
 
     },
     example: {
-        fontSize: 32,
-        includeFontPadding: false,
-        fontFamily: "NotoNaskhArabic-bold",
+        fontSize: 30,
+        padding: 10,
+        includeFontPadding: true,
+        fontFamily: "Quranic",
         writingDirection: "rtl",
     },
 
@@ -140,9 +141,9 @@ const styles = StyleSheet.create({
         fontSize: 14,
         textAlign: "auto",
         includeFontPadding: false,
-        fontFamily: "NotoNaskhArabic-bold",
+        fontFamily: "Noori",
         writingDirection: "rtl",
-        fontWeight: "600",
+
     },
 
     activeText: {

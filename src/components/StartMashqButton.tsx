@@ -56,24 +56,25 @@ const StartMashqButton = ({ onPress, title }: any) => {
         >
             <Animated.View style={[styles.wrapper, { transform: [{ scale }] }]}>
                 <LinearGradient
-                    colors={["#2E7D32", "#43A047"]}
+                    colors={["#a2d0ffff", "#ade4f2ff"]}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
                     style={styles.button}
                 >
                     <View style={styles.content}>
-
-                        {/* Text */}
-                        <AppText style={styles.text} variant="heading" weight="bold">
-                            {title}
-                        </AppText>
-
                         {/* Animated Icon */}
                         <Animated.View
                             style={{ transform: [{ translateX }] }}
                         >
-                            <Ionicons name="arrow-forward" size={18} color="#fff" />
+                            <Ionicons name="arrow-forward" size={18} color="#000000ff" />
                         </Animated.View>
+
+                        {/* Text */}
+                        <AppText style={styles.text} variant="heading" >
+                            {title}
+                        </AppText>
+
+
 
                     </View>
                 </LinearGradient>
@@ -87,9 +88,9 @@ export default StartMashqButton;
 const styles = StyleSheet.create({
     wrapper: {
         marginHorizontal: 16,
-        marginTop: 28,
-        borderRadius: 30,
 
+        borderRadius: 30,
+        marginBottom: 20,
         shadowColor: "#2E7D32",
         shadowOpacity: 0.25,
         shadowRadius: 10,
@@ -109,8 +110,8 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        color: "#fff",
+        color: "#000000ff",
         fontSize: 16,
-        fontWeight: "700",
+
     },
 });

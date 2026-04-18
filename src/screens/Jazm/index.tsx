@@ -68,10 +68,10 @@ export default function Jazm() {
 
                 <AppText
                     variant="heading"
-                    weight="bold"
-                    size={30}
+                    lang="ur"
+                    size={36}
                     align="center"
-                    style={{ margin: 10, padding: 10 }}
+                    style={{ margin: 10, padding: 10, }}
                     color={theme.blue}
                 >
                     جزم کا بیان
@@ -83,7 +83,7 @@ export default function Jazm() {
 
                                 <View style={styles.pointRow}>
 
-                                    <AppText style={styles.pointText}>
+                                    <AppText lang="ur" style={styles.pointText} size={24}>
                                         {point}
                                     </AppText>
 
@@ -179,10 +179,10 @@ const styles = StyleSheet.create({
     pointText: {
         flex: 1,
         textAlign: "right",
-        fontSize: 16,
+        fontSize: 24,
         lineHeight: 26,
         color: "#1F2937",
-        fontFamily: "NotoNaskhArabic-Regular",
+        fontFamily: "Noori",
     },
 
 

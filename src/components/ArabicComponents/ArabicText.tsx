@@ -86,10 +86,10 @@ export default function ArabicText({
 
 const styles = StyleSheet.create({
     word: {
-        fontSize: 24, // same as Murakkabat
+        fontSize: 28, // same as Murakkabat
         textAlign: "center",
         writingDirection: "rtl",
-        fontFamily: "Naskh-SemiBold",
+        fontFamily: "Quranic",
         includeFontPadding: false,
         lineHeight: 36,
     },

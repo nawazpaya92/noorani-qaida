@@ -187,7 +187,7 @@ function SmallLetterTile({
       {/* 🔹 Highlighted Title */}
       <View style={styles.categoryHeader}>
 
-        <AppText variant="heading" weight="semibold" size={18} color="#1F2937" align='center'>
+        <AppText lang='ur' color="#1F2937" align='center' size={20} >
           {title} ({letters.length})
         </AppText>
       </View>
@@ -208,7 +208,7 @@ function SmallLetterTile({
                 height: 44,
                 borderRadius: 10,
               }}
-              letterStyle={{ fontSize: 22, fontFamily: 'Naskh-Bold' }}
+              letterStyle={{ fontSize: 36, fontFamily: 'Quranic' }}
 
             />
           </View>

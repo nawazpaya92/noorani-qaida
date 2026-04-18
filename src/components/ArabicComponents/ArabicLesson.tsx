@@ -24,14 +24,7 @@ export default function ArabicLesson({
                 {title && (
                     <View style={styles.titleContainer}>
                         {isRoundNumber && (<RoundNumber number={index + 1} />)}
-                        <AppText
-                            variant="heading"
-                            weight="bold"
-                            size={24}
-                            align="center"
-                            style={styles.title}
-                            color={theme.blue}
-                        >
+                        <AppText variant="heading" lang="ur" align="center" size={24} color={theme.blue}>
                             {title}
                         </AppText>
                     </View>
@@ -71,7 +64,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 18,
         paddingVertical: 8,
         includeFontPadding: false,
-        fontFamily: "NotoNaskhArabic-bold",
         writingDirection: "rtl",
     },
 

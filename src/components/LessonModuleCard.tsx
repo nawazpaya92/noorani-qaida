@@ -31,11 +31,11 @@ export default function LessonModuleCard({
         >
 
             <View style={{ flexDirection: "row-reverse" }}>
-                <AppText align="center" style={styles.title}>
+                <AppText align="center" lang="ur" style={styles.title}>
                     {title}
                 </AppText>
                 {isQalQalah &&
-                    <AppText style={styles.qalqalahLetters}>
+                    <AppText style={styles.qalqalahLetters} lang="ar">
                         (ق ط ب ج د)
                     </AppText>}
             </View>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "right",
         fontSize: 22,
-        fontFamily: "NotoNaskhArabic-Bold",
+        fontFamily: "Noori",
         marginBottom: 10,
     },
     arrow: {
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     },
     qalqalahLetters: {
         fontSize: 24,
+        fontFamily: "Quranic",
         marginRight: 6,
         color: "#f50b0bff",   // matches your module color
         fontWeight: "700",

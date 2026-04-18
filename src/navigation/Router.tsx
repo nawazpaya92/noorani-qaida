@@ -12,6 +12,11 @@ import Tanveen from '../screens/Tanveen';
 import Jazm from '../screens/Jazm';
 import JazmKiMashq from '../screens/Jazm/JazmKiMashq';
 import HurfeMaddah from '../screens/HurfeMaddah';
+import HurufeMaddaKiMashq from '../screens/HurfeMaddah/HurufeMaddaKiMashq';
+import HurfeMaddahQuizScreen from '../screens/HurfeMaddah/QuizScreen/HurfeMaddahQuizScreen';
+import QuizScreen from '../screens/HurfeMaddah/QuizScreen';
+import HarkaateMaddah from '../screens/HarkaateMaddah';
+import HarkaateMaddahMashq from '../screens/HarkaateMaddah/HarkaateMaddahMashq';
 
 export type Route =
   | { name: 'Dashboard' }
@@ -24,7 +29,14 @@ export type Route =
   | { name: 'Tanveen' }
   | { name: 'Jazm' }
   | { name: 'JazmKiMashq'; params: { moduleKey: string } }
-  | { name: 'HurfeMaddah' };
+  | { name: 'HurfeMaddah' }
+
+  | { name: 'HurufeMaddaKiMashq' }
+  | { name: 'HurfeMaddahQuizScreen' }
+  | { name: 'QuizScreen' }
+  | { name: 'HarkaateMaddah' }
+  | { name: 'HarkaateMaddahMashq' };
+
 type Navigation = {
   push: (route: Route) => void;
   pop: () => void;
@@ -76,6 +88,16 @@ export const Router: React.FC = () => {
       return <JazmKiMashq moduleKey={top.params.moduleKey} />;
     case 'HurfeMaddah':
       return <HurfeMaddah />;
+    case 'HurufeMaddaKiMashq':
+      return <HurufeMaddaKiMashq />
+    case 'HurfeMaddahQuizScreen':
+      return <HurfeMaddahQuizScreen />
+    case 'QuizScreen':
+      return <QuizScreen />
+    case 'HarkaateMaddah':
+      return <HarkaateMaddah />
+    case 'HarkaateMaddahMashq':
+      return <HarkaateMaddahMashq />
     default:
       return <DashboardScreen />;
   }
