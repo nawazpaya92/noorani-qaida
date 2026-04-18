@@ -88,9 +88,9 @@ export default StartMashqButton;
 const styles = StyleSheet.create({
     wrapper: {
         marginHorizontal: 16,
-        marginTop: 28,
-        borderRadius: 30,
 
+        borderRadius: 30,
+        marginBottom: 20,
         shadowColor: "#2E7D32",
         shadowOpacity: 0.25,
         shadowRadius: 10,

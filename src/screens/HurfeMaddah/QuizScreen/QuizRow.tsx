@@ -1,156 +1,114 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-
 import OptionBox from "./OptionBox";
 import { MADD_OPTIONS, MaddType } from "../../../data/madd/maddQuizData";
 import AppText from "../../../components/AppText";
 
+const LABELS = { alif: "ا", waw: "و", yaa: "ي" } as any;
+const COLORS = { correct: "#4CAF50", partial: "#FFB300", wrong: "#EF5350" };
 
+const QuizRow = ({ item, onSelect }: any) => {
+    const { selected } = item.user;
+    const { correct } = item;
 
-type Props = {
-    item: any;
-    onSelect: (id: string, type: MaddType) => void;
-    index: number;
-};
-
-const LABELS = {
-    alif: "ا",
-    waw: "و",
-    yaa: "ي",
-};
-
-
-const QuizRow = ({ item, onSelect, index }: Props) => {
-    const totalCorrect = item.correct.length;
-    const selectedCount = item.user.selected.length;
-
-    const selected = item.user.selected;
-    const correct = item.correct;
-
-    // ❗ Check if any wrong is selected
-    const hasWrong = selected.some((v: MaddType) => !correct.includes(v));
-
-    // ✅ Count correct selections
-    const correctSelected = selected.filter((v: MaddType) =>
-        correct.includes(v)
-    ).length;
-
-
+    const hasWrong = selected.some((v: any) => !correct.includes(v));
+    const allFound = correct.every((v: any) => selected.includes(v)) && selected.length === correct.length;
+    const someFound = selected.some((v: any) => correct.includes(v));
 
     let status: "correct" | "partial" | "wrong" | "none" = "none";
-
-    if (item.user.isSubmitted) {
-        if (hasWrong) {
-            status = "wrong"; // ❌ priority 1
-        } else if (correctSelected === totalCorrect && selected.length === totalCorrect) {
-            status = "correct"; // ✅ all correct
-        } else if (correctSelected > 0) {
-            status = "partial"; // ⚠️ only correct but incomplete
-        } else {
-            status = "none";
-        }
+    if (selected.length > 0) {
+        if (hasWrong) status = "wrong";
+        else if (allFound) status = "correct";
+        else if (someFound) status = "partial";
     }
+
+    // 🛑 Disable logic: Lock if Correct or Wrong
+    const isLocked = status === "correct" || status === "wrong";
+
     return (
-        <View style={[styles.row, {
-            borderColor: item.user.isSubmitted ? "#E0E7E5" : "#EEF2F1",
-            backgroundColor:
-                status === "correct"
-                    ? "#F1F8F4"
-                    : status === "partial"
-                        ? "#FFF8E1"
-                        : status === "wrong"
-                            ? "#FFEBEE"
-                            : index % 2 === 0
-                                ? "#FFFFFF"
-                                : "#FAFCFB",
-        }]}>
-            {/* Word */}
-            <View style={styles.wordContainer}>
-                <AppText lang="ar" size={28} variant="heading">
-                    {item.text}
-                </AppText>
+        <View
+            style={[
+                styles.row,
+                status === "correct" && { borderColor: COLORS.correct, backgroundColor: "#F0F9F1" },
+                status === "partial" && { borderColor: COLORS.partial, backgroundColor: "#FFFDE7" },
+                status === "wrong" && { borderColor: COLORS.wrong, backgroundColor: "#FFF5F5" },
+                isLocked && { opacity: 0.9 } // Visual hint that it's finished
+            ]}
+            pointerEvents={isLocked ? "none" : "auto"} // 🛑 Native way to disable all touches in the row
+        >
+            <View style={styles.statusContainer}>
+                {status === "correct" && <AppText style={{ color: COLORS.correct }}>✓</AppText>}
+                {status === "partial" && <AppText style={{ color: COLORS.partial }}>●</AppText>}
+                {status === "wrong" && <AppText style={{ color: COLORS.wrong }}>✕</AppText>}
+                {status === "none" && <View style={styles.dot} />}
             </View>
 
-            {/* Options */}
-            <View style={styles.options}>
-                {MADD_OPTIONS.map((type: MaddType) => {
-                    const selected = item.user.selected.includes(type);
-                    const isCorrect = item.correct.includes(type);
-
-                    return (
-                        <OptionBox
-                            key={type}
-                            label={LABELS[type]}
-                            selected={selected}
-                            isCorrect={isCorrect}
-                            showResult={item.user.isSubmitted}
-                            onPress={() => onSelect(item.id, type)}
-                        />
-
-
-                    );
-                })}
+            <View style={styles.optionsContainer}>
+                {MADD_OPTIONS.map((type: any) => (
+                    <OptionBox
+                        key={type}
+                        label={LABELS[type]}
+                        selected={selected.includes(type)}
+                        isCorrect={correct.includes(type)}
+                        rowStatus={status}
+                        onPress={() => onSelect(item.id, type)}
+                        disabled={isLocked} // Pass down to OptionBox
+                    />
+                ))}
             </View>
-            <View style={styles.statusIcon}>
-                {status === "correct" && <AppText style={styles.correct}>✔</AppText>}
-                {status === "partial" && <AppText style={styles.partial}>●</AppText>}
-                {status === "wrong" && <AppText style={styles.wrong}>✖</AppText>}
+
+            <View style={styles.wordPill}>
+                <AppText lang="ar" size={26} style={styles.arabicText}>{item.text}</AppText>
             </View>
         </View>
     );
 };
-
 export default QuizRow;
-
 const styles = StyleSheet.create({
     row: {
-        flexDirection: "row-reverse", // 🔥 Arabic layout
-        alignItems: "center",
+        flexDirection: "row",
         justifyContent: "space-between",
-
+        backgroundColor: "#FFF",
         marginHorizontal: 16,
-        marginBottom: 14,
-
-        paddingVertical: 14,
-        paddingHorizontal: 16,
-
-        backgroundColor: "#fff",
-        borderRadius: 18,
-
-        elevation: 3,
-        borderWidth: 1,
-        borderColor: "#EEF2F1",
+        marginBottom: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 14,
+        borderRadius: 20,
+        borderWidth: 1.5,
+        borderColor: "#F1F5F9",
+        elevation: 2,
     },
-
-    wordContainer: {
-        flex: 1,
-        alignItems: "flex-end",
-        marginLeft: 12,
-    },
-    statusIcon: {
-        width: 30,
+    statusContainer: {
+        width: 30, // Fixed width keeps the dots in a straight vertical line
         alignItems: "center",
         justifyContent: "center",
-        marginLeft: 8,
     },
+    dot: {
+        width: 6,
+        height: 6,
+        borderRadius: 3,
+        backgroundColor: "#E2E8F0", // Subtle light gray for unselected rows
+    },
+    optionsContainer: {
+        flexDirection: "row-reverse", // Order: A, W, Y
+        gap: 8,
 
-    correct: {
-        color: "#2E7D32",
-        fontSize: 18,
+        paddingLeft: 10,     // Space between dot and buttons
+        paddingRight: 20,    // Hard gap to prevent mixing with the word pill
     },
-
-    partial: {
-        color: "#F9A825",
-        fontSize: 18,
+    wordPill: {
+        backgroundColor: "#F8FAFC",
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 12,
+        minWidth: 95, // Ensures the word area feels substantial
+        alignItems: "center",
+        justifyContent: "center",
+        borderWidth: 1,
+        borderColor: "#E2E8F0",
     },
-
-    wrong: {
-        color: "#C62828",
-        fontSize: 18,
-    },
-
-    options: {
-        flexDirection: "row",
-        gap: 10, // 🔥 spacing between boxes (RN 0.71+)
-    },
+    arabicText: {
+        color: "#1E293B",
+        fontWeight: "600",
+    }
 });

@@ -48,7 +48,9 @@ export default function BacchoKaThofa() {
       case 6:
         navigation.push({ name: 'HurfeMaddah' });
         break;
-
+      case 7:
+        navigation.push({ name: 'HarkaateMaddah' });
+        break;
 
       default:
         console.log('Screen not mapped yet');

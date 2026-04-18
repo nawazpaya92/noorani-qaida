@@ -34,7 +34,7 @@ const LessonScreen = () => {
     }
     const onPressForQuiz = () => {
         navigation.push({
-            name: "HurfeMaddahQuizScreen",
+            name: "QuizScreen",
         })
     }
 
