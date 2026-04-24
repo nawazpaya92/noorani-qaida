@@ -18,6 +18,7 @@ export default function BacchoKaThofa() {
   const navigation = useNavigation();
   const fadeAnim = useFadeIn();
 
+  const enabledChapterIndexes = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   const goToChapter = (index: number) => {
     switch (index) {
@@ -51,9 +52,15 @@ export default function BacchoKaThofa() {
       case 7:
         navigation.push({ name: 'HarkaateMaddah' });
         break;
+      case 8:
+        navigation.push({ name: 'HurufeLeen' });
+        break;
+      case 9:
+        navigation.push({ name: 'Tashdeed' });
+        break;
 
       default:
-        console.log('Screen not mapped yet');
+        break;
     }
   };
 
@@ -81,6 +88,8 @@ export default function BacchoKaThofa() {
               <ChapterItem
                 index={index}
                 title={item}
+                enabled={enabledChapterIndexes.has(index)}
+                statusLabel={enabledChapterIndexes.has(index) ? 'Start' : 'Soon'}
                 onPress={() => goToChapter(index)}
               />
             )}

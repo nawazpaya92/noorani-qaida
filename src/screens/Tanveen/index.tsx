@@ -59,8 +59,11 @@ export default function Tanveen() {
     const [activeTab, setActiveTab] = React.useState("doZabar");
 
     const fade = React.useRef(new Animated.Value(1)).current;
+    const scrollRef = React.useRef<ScrollView>(null);
 
     const handleChange = (tab: string) => {
+        scrollRef.current?.scrollTo({ y: 0, animated: false });
+
         Animated.sequence([
             Animated.timing(fade, { toValue: 0, duration: 150, useNativeDriver: true }),
             Animated.timing(fade, { toValue: 1, duration: 150, useNativeDriver: true }),
@@ -137,7 +140,7 @@ export default function Tanveen() {
                     tabs={TABS}
                 />
 
-                <ScrollView style={styles.container}>
+                <ScrollView ref={scrollRef} style={styles.container}>
 
                     {current.letters.data.length > 0 && (
                         <ArabicLesson

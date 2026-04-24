@@ -17,6 +17,10 @@ import HurfeMaddahQuizScreen from '../screens/HurfeMaddah/QuizScreen/HurfeMaddah
 import QuizScreen from '../screens/HurfeMaddah/QuizScreen';
 import HarkaateMaddah from '../screens/HarkaateMaddah';
 import HarkaateMaddahMashq from '../screens/HarkaateMaddah/HarkaateMaddahMashq';
+import HurufeLeen from '../screens/HurufeLeen';
+import HurufeLeenMashq from '../screens/HurufeLeen/HurufeLeenMashq';
+import Tashdeed from '../screens/Tashdeed';
+import TashdeedKiMashq from '../screens/Tashdeed/TashdeedKiMashq';
 
 export type Route =
   | { name: 'Dashboard' }
@@ -35,7 +39,11 @@ export type Route =
   | { name: 'HurfeMaddahQuizScreen' }
   | { name: 'QuizScreen' }
   | { name: 'HarkaateMaddah' }
-  | { name: 'HarkaateMaddahMashq' };
+  | { name: 'HarkaateMaddahMashq' }
+  | { name: 'HurufeLeen' }
+  | { name: 'HurufeLeenMashq' }
+  | { name: 'Tashdeed' }
+  | { name: 'TashdeedMashq' };
 
 type Navigation = {
   push: (route: Route) => void;
@@ -98,6 +106,14 @@ export const Router: React.FC = () => {
       return <HarkaateMaddah />
     case 'HarkaateMaddahMashq':
       return <HarkaateMaddahMashq />
+    case 'HurufeLeen':
+      return <HurufeLeen />
+    case 'HurufeLeenMashq':
+      return <HurufeLeenMashq />
+    case 'TashdeedMashq':
+      return <TashdeedKiMashq />
+    case 'Tashdeed':
+      return <Tashdeed />
     default:
       return <DashboardScreen />;
   }

@@ -48,7 +48,10 @@ export default function Harkaat() {
     const navigation = useNavigation();
     const [activeTab, setActiveTab] = React.useState("zabar");
     const fade = React.useRef(new Animated.Value(1)).current;
+    const scrollRef = React.useRef<ScrollView>(null);
     const handleChange = (tab: string) => {
+        scrollRef.current?.scrollTo({ y: 0, animated: false });
+
         Animated.sequence([
             Animated.timing(fade, { toValue: 0, duration: 150, useNativeDriver: true }),
             Animated.timing(fade, { toValue: 1, duration: 150, useNativeDriver: true }),
@@ -98,7 +101,7 @@ export default function Harkaat() {
                     حرکات
                 </AppText>
                 <HarkaatTabs active={activeTab} onChange={handleChange} tabs={TABS} />
-                <ScrollView style={styles.container} >
+                <ScrollView ref={scrollRef} style={styles.container} >
                     {current.letters.data.length > 0 &&
                         <ArabicLesson
                             title={current.letters.title}

@@ -55,7 +55,10 @@ export default function HarkaateMaddahMashq() {
     const [activeTab, setActiveTab] = React.useState("khadaZabar");
 
     const fade = React.useRef(new Animated.Value(1)).current;
+    const scrollRef = React.useRef<ScrollView>(null);
     const handleChange = (tab: string) => {
+        scrollRef.current?.scrollTo({ y: 0, animated: false });
+
         Animated.sequence([
             Animated.timing(fade, { toValue: 0, duration: 150, useNativeDriver: true }),
             Animated.timing(fade, { toValue: 1, duration: 150, useNativeDriver: true }),
@@ -126,7 +129,7 @@ export default function HarkaateMaddahMashq() {
                     onChange={handleChange}
                     tabs={TABS}
                 />
-                <ScrollView style={styles.container}>
+                <ScrollView ref={scrollRef} style={styles.container}>
 
                     <View style={{ marginHorizontal: 30, }}>
                         <HarkaateMaddahComparison
