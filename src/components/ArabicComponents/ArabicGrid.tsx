@@ -3,6 +3,12 @@ import { View, StyleSheet } from "react-native";
 import ArabicCard from "./ArabicCard";
 import ArabicText from "./ArabicText";
 
+function getItemWidth(text: string) {
+    if (text.includes(" ")) return "49%";
+    if (text.length >= 8) return "32%";
+    return "24%";
+}
+
 export default function ArabicGrid({
     data,
     audio,
@@ -15,7 +21,10 @@ export default function ArabicGrid({
                 const isActive = activeId === item.id;
 
                 return (
-                    <View key={item.id} style={styles.gridItem}>
+                    <View
+                        key={item.id}
+                        style={[styles.gridItem, { width: getItemWidth(item.text) }]}
+                    >
                         <ArabicCard
                             isActive={isActive}
                             onPress={() => play(item.id, item.audio)}
@@ -45,7 +54,6 @@ const styles = StyleSheet.create({
     },
 
     gridItem: {
-        width: "24%",  // ⭐ EXACT same as Umumi Mashq
         marginBottom: 10,
     },
 

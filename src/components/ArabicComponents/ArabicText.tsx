@@ -14,6 +14,12 @@ export default function ArabicText({
     isActive,
 }: any) {
     const scale = React.useRef(new Animated.Value(1)).current;
+    const textFitProps = {
+        numberOfLines: 1 as const,
+        ellipsizeMode: "clip" as const,
+        adjustsFontSizeToFit: true,
+        minimumFontScale: 0.58,
+    };
 
     React.useEffect(() => {
         Animated.spring(scale, {
@@ -28,8 +34,7 @@ export default function ArabicText({
     if (Platform.OS === "android") {
         return (
             <Animated.Text
-                numberOfLines={1}
-                ellipsizeMode="clip"
+                {...textFitProps}
                 style={[
                     styles.word,
                     { fontSize: size, color },
@@ -52,8 +57,7 @@ export default function ArabicText({
     if (activeIndex < 0 || activeId !== id) {
         return (
             <Animated.Text
-                numberOfLines={1}
-                ellipsizeMode="clip"
+                {...textFitProps}
                 style={[
                     styles.word,
                     { fontSize: size, color },
@@ -72,9 +76,13 @@ export default function ArabicText({
 
     return (
         <Animated.Text
-            numberOfLines={1}
-            ellipsizeMode="clip"
-            style={[styles.word, { transform: [{ scale }] }]}
+            {...textFitProps}
+            style={[
+                styles.word,
+                { fontSize: size, color },
+                style,
+                { transform: [{ scale }] }
+            ]}
         >
             {before}
             <Text style={styles.highlight}>{active}</Text>
@@ -92,6 +100,8 @@ const styles = StyleSheet.create({
         fontFamily: "Quranic",
         includeFontPadding: false,
         lineHeight: 36,
+        width: "100%",
+        flexShrink: 1,
     },
 
     highlight: {
