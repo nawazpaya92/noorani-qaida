@@ -1,6 +1,10 @@
 import React from "react";
-import { Animated, Platform, StyleSheet, Text } from "react-native";
+import { Animated, StyleSheet, Text } from "react-native";
 import { useTimedHighlight } from "../../hooks/useTimedHighlight";
+import {
+    getActiveArabicClusterIndex,
+    shapeArabicClusters,
+} from "../../utils/arabicShaping";
 
 export default function ArabicText({
     size = 24,
@@ -21,6 +25,12 @@ export default function ArabicText({
         minimumFontScale: 0.58,
     };
 
+    const activeIndex = useTimedHighlight(
+        activeId === id ? id : null,
+        timings,
+        isPlaying
+    );
+
     React.useEffect(() => {
         Animated.spring(scale, {
             toValue: isActive ? 1.4 : 1,
@@ -30,49 +40,9 @@ export default function ArabicText({
         }).start();
     }, [isActive]);
 
-    // Android → no highlight
-    if (Platform.OS === "android") {
-        return (
-            <Animated.Text
-                {...textFitProps}
-                style={[
-                    styles.word,
-                    { fontSize: size, color },
-                    style,
-                    { transform: [{ scale }] }
-                ]}
-            >
-                {text}
-            </Animated.Text>
-        );
-    }
-
-    const activeIndex = useTimedHighlight(
-        activeId === id ? id : null,
-        timings,
-        isPlaying
-    );
-
-    // 🔥 If not active → render normally
-    if (activeIndex < 0 || activeId !== id) {
-        return (
-            <Animated.Text
-                {...textFitProps}
-                style={[
-                    styles.word,
-                    { fontSize: size, color },
-                    style,
-                    { transform: [{ scale }] }
-                ]}
-            >
-                {text}
-            </Animated.Text>
-        );
-    }
-
-    const before = text.slice(0, activeIndex);
-    const active = text.slice(activeIndex, activeIndex + 1);
-    const after = text.slice(activeIndex + 1);
+    const shapedClusters = shapeArabicClusters(text);
+    const activeClusterIndex =
+        activeId === id ? getActiveArabicClusterIndex(text, activeIndex) : -1;
 
     return (
         <Animated.Text
@@ -84,9 +54,14 @@ export default function ArabicText({
                 { transform: [{ scale }] }
             ]}
         >
-            {before}
-            <Text style={styles.highlight}>{active}</Text>
-            {after}
+            {shapedClusters.map((cluster, index) => (
+                <Text
+                    key={`${cluster.start}-${cluster.end}-${index}`}
+                    style={activeClusterIndex === index ? styles.highlight : undefined}
+                >
+                    {cluster.display}
+                </Text>
+            ))}
         </Animated.Text>
     );
 

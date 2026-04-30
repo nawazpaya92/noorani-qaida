@@ -134,6 +134,25 @@ export const lettersAudio = {
   fujarat: require('../assets/audio/murakkabat/filasma/gain_jeem_ra_alif_ta.m4a'),
   alhind: require('../assets/audio/murakkabat/filasma/alif_laam_ha_nun_daal.m4a'),
 
+
+  //Zabar
+
+  //2 letters
+  maaa: require('../assets/audio/zabar/2harf/maaa.m4a'),
+  laka: require('../assets/audio/zabar/2harf/laka.m4a'),
+  saja: require('../assets/audio/zabar/2harf/saja.m4a'),
+  tara: require('../assets/audio/zabar/2harf/tara.m4a'),
+  faaa: require('../assets/audio/zabar/2harf/faaa.m4a'),
+  nafa: require('../assets/audio/zabar/2harf/nafa.m4a'),
+  waaa: require('../assets/audio/zabar/2harf/waaa.m4a'),
+  faja: require('../assets/audio/zabar/2harf/faja.m4a'),
+  aala: require('../assets/audio/zabar/2harf/alaa.m4a'),
+  aama: require('../assets/audio/zabar/2harf/aama.m4a'),
+  mana: require('../assets/audio/zabar/2harf/mana.m4a'),
+  aaha: require('../assets/audio/zabar/2harf/aaha.m4a'),
+  swama: require('../assets/audio/zabar/2harf/swama.m4a'),
+
+
 } as const;
 
 export type LetterAudioKey = keyof typeof lettersAudio;
