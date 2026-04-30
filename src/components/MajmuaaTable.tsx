@@ -8,6 +8,7 @@ import { useAppTheme } from '../theme/ThemeContext';
 import LearningCard from './LearningCard';
 
 export default function MajmuaaTable({ majmuaa,
+    sectionId,
     playId,
     isPlaying,
     onPlayWord,
@@ -43,9 +44,10 @@ export default function MajmuaaTable({ majmuaa,
                 </View>
 
                 {/* Grid */}
-                {majmuaa.map(item => (
+                {majmuaa.map((item: any) => (
                     <LearningCard
                         key={item.id}
+                        sectionId={sectionId}
                         item={item}
                         playId={playId}
                         isPlaying={isPlaying}
@@ -156,4 +158,3 @@ const styles = StyleSheet.create({
     },
 
 });
-

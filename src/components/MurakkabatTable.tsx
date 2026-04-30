@@ -12,9 +12,12 @@ import LearningCard from './LearningCard';
 
 
 export default function MurakkabatTable({
+  sectionId,
   murakkabat,
   playId,
   isPlaying,
+  playbackPositionMillis,
+  playbackDurationMillis,
   onPlayWord,
   hideHeader = false,
 }: any) {
@@ -56,16 +59,19 @@ export default function MurakkabatTable({
 
       {/* Rows */}
       <View style={[styles.listContainer, hideHeader && styles.gridContainer]}>
-        {murakkabat.map(item => (
+        {murakkabat.map((item: any) => (
           <View
             key={item.id}
             style={hideHeader ? styles.gridItem : undefined} // ⭐ 4 per row
           >
             <LearningCard
               key={item.id}
+              sectionId={sectionId}
               item={item}
               playId={playId}
               isPlaying={isPlaying}
+              playbackPositionMillis={playbackPositionMillis}
+              playbackDurationMillis={playbackDurationMillis}
               onPlayWord={onPlayWord}
             />
           </View>
@@ -127,4 +133,3 @@ const styles = StyleSheet.create({
 
   }
 })
-

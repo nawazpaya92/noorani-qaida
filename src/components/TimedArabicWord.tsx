@@ -1,6 +1,10 @@
 import React from 'react';
-import { Animated, Platform, StyleSheet, Text } from 'react-native';
+import { Animated, StyleSheet, Text } from 'react-native';
 import { useTimedHighlight } from '../hooks/useTimedHighlight';
+import {
+    getActiveArabicClusterIndex,
+    shapeArabicClusters,
+} from '../utils/arabicShaping';
 
 type Props = {
     id: string;
@@ -10,7 +14,24 @@ type Props = {
     isPlaying: boolean;
     isMajmuaa: boolean;
     isActive?: boolean;
+    playbackPositionMillis?: number;
+    playbackDurationMillis?: number;
 };
+
+function getPlaybackSyncedClusterIndex(
+    clusterCount: number,
+    positionMillis?: number,
+    durationMillis?: number
+) {
+    if (!clusterCount || !durationMillis || durationMillis <= 0) return -1;
+
+    const progress = Math.min(
+        Math.max((positionMillis ?? 0) / durationMillis, 0),
+        0.999999
+    );
+
+    return Math.min(clusterCount - 1, Math.floor(progress * clusterCount));
+}
 
 export default function TimedArabicWord({
     id,
@@ -20,55 +41,85 @@ export default function TimedArabicWord({
     isPlaying,
     isMajmuaa,
     isActive = false,
+    playbackPositionMillis,
+    playbackDurationMillis,
 }: Props) {
     const textScale = React.useRef(new Animated.Value(1)).current;
+    const textFitProps = {
+        numberOfLines: 1 as const,
+        ellipsizeMode: 'clip' as const,
+        adjustsFontSizeToFit: true,
+        minimumFontScale: 0.58,
+    };
+    const majmuaaTextProps = {
+        numberOfLines: 1 as const,
+        ellipsizeMode: 'clip' as const,
+    };
+    const activeIndex = useTimedHighlight(
+        playId === id ? playId : null,
+        timings,
+        isPlaying
+    );
+    const shapedClusters = shapeArabicClusters(text);
+    const hasPlaybackSync =
+        !isMajmuaa &&
+        playId === id &&
+        isPlaying &&
+        (playbackDurationMillis ?? 0) > 0;
+    const activeClusterIndex = hasPlaybackSync
+        ? getPlaybackSyncedClusterIndex(
+              shapedClusters.length,
+              playbackPositionMillis,
+              playbackDurationMillis
+          )
+        : playId === id
+          ? getActiveArabicClusterIndex(text, activeIndex)
+          : -1;
 
     React.useEffect(() => {
         Animated.spring(textScale, {
-            toValue: isActive ? 1.4 : 1,   // ⭐ gentle readable growth
+            toValue: isActive ? 1.4 : 1,
             speed: 15,
             bounciness: 6,
             useNativeDriver: true,
         }).start();
     }, [isActive]);
 
-    /**
-     * 🔥 Android → NO per-letter highlight
-     * Just show normal Arabic word
-     */
-    if (Platform.OS === 'android' || isMajmuaa) {
-        return <Animated.Text style={[
-            styles.word, !isMajmuaa && { fontSize: 20 },
-            { transform: [{ scale: textScale }] }, // ⭐ APPLY SCALE
-        ]}>{text}</Animated.Text>;
+    if (isMajmuaa) {
+        return (
+            <Animated.Text
+                {...majmuaaTextProps}
+                style={[
+                    styles.word,
+                    playId === id ? styles.activeLetter : undefined,
+                    { transform: [{ scale: textScale }] },
+                ]}
+            >
+                {text}
+            </Animated.Text>
+        );
     }
 
-    /**
-     * 🔥 iOS → beautiful timed highlight
-     */
-    const activeIndex = useTimedHighlight(
-        playId === id ? playId : null,
-        timings,
-        isPlaying
-    );
-
-    // Split into substrings (keeps Arabic shaping perfect)
-    const before = activeIndex > 0 ? text.slice(0, activeIndex) : '';
-    const active =
-        activeIndex >= 0 && activeIndex < text.length
-            ? text.slice(activeIndex, activeIndex + 1)
-            : '';
-    const after =
-        activeIndex >= 0 ? text.slice(activeIndex + 1) : text;
-
     return (
-        <Animated.Text style={[
-            styles.word, !isMajmuaa && { fontSize: 28, fontFamily: 'Quranic' },
-            { transform: [{ scale: textScale }] }, // ⭐ APPLY SCALE
-        ]} numberOfLines={1} ellipsizeMode="clip">
-            {before}
-            {active ? <Text style={styles.activeLetter}>{active}</Text> : null}
-            {after}
+        <Animated.Text
+            {...textFitProps}
+            style={[
+                styles.word,
+                { fontSize: 28, fontFamily: 'Quranic' },
+                { transform: [{ scale: textScale }] },
+            ]}
+        >
+            {shapedClusters.map((cluster, index) => (
+                <Text
+                    key={`${cluster.start}-${cluster.end}-${index}`}
+                    style={[
+                        styles.cluster,
+                        activeClusterIndex === index ? styles.activeLetter : undefined,
+                    ]}
+                >
+                    {cluster.display}
+                </Text>
+            ))}
         </Animated.Text>
     );
 }
@@ -79,12 +130,16 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         writingDirection: 'rtl',
         fontFamily: 'Quranic',
-        includeFontPadding: false, // Android vertical fix
+        includeFontPadding: false,
         lineHeight: 36,
+        width: '100%',
+        flexShrink: 1,
     },
-
-
+    cluster: {
+        fontFamily: 'Quranic',
+    },
     activeLetter: {
         color: '#0fe703ff',
+        fontFamily: 'Quranic',
     },
 });

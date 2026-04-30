@@ -27,6 +27,8 @@ export default function JointLetters() {
 
     const [murakkabatPlayId, setMurakkabatPlayId] = React.useState<string | null>(null);
     const [murakkabatPlaying, setMurakkabatPlaying] = React.useState(false);
+    const [murakkabatPositionMillis, setMurakkabatPositionMillis] = React.useState(0);
+    const [murakkabatDurationMillis, setMurakkabatDurationMillis] = React.useState(0);
 
     /** 🛑 stop everything expose */
     const stopAllPlayback = React.useCallback(() => {
@@ -35,6 +37,8 @@ export default function JointLetters() {
 
         setMurakkabatPlaying(false);
         setMurakkabatPlayId(null);
+        setMurakkabatPositionMillis(0);
+        setMurakkabatDurationMillis(0);
     }, []);
 
     /**
@@ -71,9 +75,15 @@ export default function JointLetters() {
             setMurakkabatPlaying(true);
 
             await playArabicLetter(audio, {
+                onStatusUpdate: (status) => {
+                    setMurakkabatPositionMillis(status.positionMillis);
+                    setMurakkabatDurationMillis(status.durationMillis);
+                },
                 onFinish: () => {
                     setMurakkabatPlaying(false);
                     setMurakkabatPlayId(null);
+                    setMurakkabatPositionMillis(0);
+                    setMurakkabatDurationMillis(0);
                 },
             });
         },
@@ -127,12 +137,15 @@ export default function JointLetters() {
                             key={section.id}
                             title={section.title}
                             open={openId === section.id}
-                            ref={(ref) => (sectionRefs.current[section.id] = ref)}
+                            ref={(ref) => {
+                                sectionRefs.current[section.id] = ref;
+                            }}
                             onToggle={() => handleToggle(section.id, index)}
                         >
                             {section.majmuaa.length > 0 &&
                                 <View style={styles.section}>
                                     <MajmuaaTable
+                                        sectionId={section.id}
                                         majmuaa={section.majmuaa}
                                         playId={majmuaaPlayId}
                                         isPlaying={majmuaaPlaying}
@@ -145,9 +158,12 @@ export default function JointLetters() {
                             {section.murakkabat.length > 0 &&
                                 <View style={styles.section}>
                                     <MurakkabatTable
+                                        sectionId={section.id}
                                         murakkabat={section.murakkabat}
                                         playId={murakkabatPlayId}
                                         isPlaying={murakkabatPlaying}
+                                        playbackPositionMillis={murakkabatPositionMillis}
+                                        playbackDurationMillis={murakkabatDurationMillis}
                                         onPlayWord={handlePlayMurakkabat}
                                     />
                                 </View>
@@ -155,9 +171,12 @@ export default function JointLetters() {
                             {section.umumiMashq && section.umumiMashq?.length > 0 &&
                                 <View style={styles.section}>
                                     <MurakkabatTable
+                                        sectionId={section.id}
                                         murakkabat={section.umumiMashq}
                                         playId={murakkabatPlayId}
                                         isPlaying={murakkabatPlaying}
+                                        playbackPositionMillis={murakkabatPositionMillis}
+                                        playbackDurationMillis={murakkabatDurationMillis}
                                         onPlayWord={handlePlayMurakkabat}
                                         hideHeader
 

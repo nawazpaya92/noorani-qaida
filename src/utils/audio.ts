@@ -2,9 +2,19 @@ import { Audio } from 'expo-av';
 
 let currentSound: Audio.Sound | null = null;
 
+type PlaybackStatusSnapshot = {
+  positionMillis: number;
+  durationMillis: number;
+  isPlaying: boolean;
+  didJustFinish: boolean;
+};
+
 export async function playArabicLetter(
   source: any,
-  options?: { onFinish?: () => void }
+  options?: {
+    onFinish?: () => void;
+    onStatusUpdate?: (status: PlaybackStatusSnapshot) => void;
+  }
 ) {
   /** 🛑 GLOBAL VALIDATION — fixes Murakkabat freeze */
   if (!source) {
@@ -28,6 +38,13 @@ export async function playArabicLetter(
 
     sound.setOnPlaybackStatusUpdate((status) => {
       if (!status.isLoaded) return;
+
+      options?.onStatusUpdate?.({
+        positionMillis: status.positionMillis ?? 0,
+        durationMillis: status.durationMillis ?? 0,
+        isPlaying: status.isPlaying ?? false,
+        didJustFinish: status.didJustFinish ?? false,
+      });
 
       if (status.didJustFinish) {
         options?.onFinish?.();
