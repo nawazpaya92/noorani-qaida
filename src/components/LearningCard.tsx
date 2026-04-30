@@ -4,12 +4,16 @@ import MurakkabatAnimatedCard from "./MurakkabatAnimatedCard";
 import TimedArabicWord from "./TimedArabicWord";
 
 export default function LearningCard({
+    sectionId,
     item,
     playId,
     isPlaying,
+    playbackPositionMillis,
+    playbackDurationMillis,
     onPlayWord,
 }: any) {
     const isMajmuaaRow = !!item.isolated;
+    const itemScope = `${sectionId}-${item.id}`;
 
     const columns = isMajmuaaRow
         ? ["isolated", "initial", "medial", "final"]
@@ -29,7 +33,7 @@ export default function LearningCard({
             const cell = item[key];
             if (!cell) continue;
 
-            const wordId = `${item.id}-${key}`;
+            const wordId = `${itemScope}-${key}`;
 
             // ⭐ wait REAL audio finish
             await onPlayWord(wordId, cell.audio);
@@ -40,14 +44,14 @@ export default function LearningCard({
         <View
             style={[
                 styles.row,
-                isMajmuaaRow && playId?.startsWith(`${item.id}-`) && styles.activeRow,
+                isMajmuaaRow && playId?.startsWith(`${itemScope}-`) && styles.activeRow,
             ]}
         >
             {columns.map((key, index) => {
                 const cell = item[key];
                 if (!cell) return null;
 
-                const wordId = `${item.id}-${key}`;
+                const wordId = `${itemScope}-${key}`;
                 const isCurrent = playId === wordId;
 
                 return (
@@ -67,11 +71,13 @@ export default function LearningCard({
                                 playId={isCurrent ? wordId : null}
                                 isPlaying={isPlaying}
                                 isMajmuaa={isMajmuaaRow}
+                                playbackPositionMillis={playbackPositionMillis}
+                                playbackDurationMillis={playbackDurationMillis}
                             />
                         </MurakkabatAnimatedCard>
 
                         {isMajmuaaRow &&
-                            playId?.startsWith(`${item.id}-`) &&
+                            playId?.startsWith(`${itemScope}-`) &&
                             index < columns.length - 1 && (
                                 <Text style={styles.arrow}>←</Text>
                             )}
