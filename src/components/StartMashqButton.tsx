@@ -4,7 +4,6 @@ import {
     Animated,
     StyleSheet,
     View,
-    Text,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
@@ -56,26 +55,21 @@ const StartMashqButton = ({ onPress, title }: any) => {
         >
             <Animated.View style={[styles.wrapper, { transform: [{ scale }] }]}>
                 <LinearGradient
-                    colors={["#a2d0ffff", "#ade4f2ff"]}
+                    colors={["#2563EB", "#38BDF8"]}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
                     style={styles.button}
                 >
                     <View style={styles.content}>
-                        {/* Animated Icon */}
                         <Animated.View
-                            style={{ transform: [{ translateX }] }}
+                            style={[styles.iconBadge, { transform: [{ translateX }] }]}
                         >
-                            <Ionicons name="arrow-forward" size={18} color="#000000ff" />
+                            <Ionicons name="play" size={16} color="#2563EB" />
                         </Animated.View>
 
-                        {/* Text */}
-                        <AppText style={styles.text} variant="heading" >
+                        <AppText lang="ur" style={styles.text} variant="heading">
                             {title}
                         </AppText>
-
-
-
                     </View>
                 </LinearGradient>
             </Animated.View>
@@ -88,30 +82,40 @@ export default StartMashqButton;
 const styles = StyleSheet.create({
     wrapper: {
         marginHorizontal: 16,
-
-        borderRadius: 30,
+        borderRadius: 8,
         marginBottom: 20,
-        shadowColor: "#2E7D32",
-        shadowOpacity: 0.25,
-        shadowRadius: 10,
+        shadowColor: "#1D4ED8",
+        shadowOpacity: 0.22,
+        shadowRadius: 12,
+        shadowOffset: { width: 0, height: 8 },
         elevation: 6,
     },
 
     button: {
-        paddingVertical: 16,
-        borderRadius: 30,
+        paddingVertical: 14,
+        paddingHorizontal: 18,
+        borderRadius: 8,
         alignItems: "center",
     },
 
     content: {
         flexDirection: "row-reverse", // RTL
         alignItems: "center",
-        gap: 10,
+        justifyContent: "center",
+        gap: 12,
+    },
+
+    iconBadge: {
+        width: 30,
+        height: 30,
+        borderRadius: 8,
+        backgroundColor: "#FFFFFF",
+        alignItems: "center",
+        justifyContent: "center",
     },
 
     text: {
-        color: "#000000ff",
-        fontSize: 16,
-
+        color: "#FFFFFF",
+        fontSize: 18,
     },
 });

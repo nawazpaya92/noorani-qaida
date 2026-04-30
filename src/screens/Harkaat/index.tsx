@@ -43,17 +43,22 @@ const TABS = [
     },
 ];
 
+type TabKey = "zabar" | "zer" | "pesh";
+
 export default function Harkaat() {
     const { theme } = useAppTheme();
     const navigation = useNavigation();
-    const [activeTab, setActiveTab] = React.useState("zabar");
+    const [activeTab, setActiveTab] = React.useState<TabKey>("zabar");
     const fade = React.useRef(new Animated.Value(1)).current;
+    const scrollRef = React.useRef<ScrollView>(null);
     const handleChange = (tab: string) => {
+        scrollRef.current?.scrollTo({ y: 0, animated: false });
+
         Animated.sequence([
             Animated.timing(fade, { toValue: 0, duration: 150, useNativeDriver: true }),
             Animated.timing(fade, { toValue: 1, duration: 150, useNativeDriver: true }),
         ]).start();
-        setActiveTab(tab);
+        setActiveTab(tab as TabKey);
     };
     const lessonMap = React.useMemo(() => ({
         zabar: {
@@ -68,13 +73,13 @@ export default function Harkaat() {
             letters: { title: zerLetters.title, data: attachAudio(zerLetters.data) },
             two: { title: zerTwoLetter.title, data: attachAudio(zerTwoLetter.data) },
             three: { title: zerThreeLetter.title, data: attachAudio(zerThreeLetter.data) },
-            four: [],
+            four: { title: "", data: [] },
         },
         pesh: {
             letters: { title: peshLetters.title, data: attachAudio(peshLetters.data) },
             two: { title: peshTwoLetter.title, data: attachAudio(peshTwoLetter.data) },
             three: { title: peshThreeLetters.title, data: attachAudio(peshThreeLetters.data) },
-            four: [],
+            four: { title: "", data: [] },
 
         },
     }), []);
@@ -83,7 +88,7 @@ export default function Harkaat() {
 
     return (
         <Screen>
-            <LinearGradient colors={theme.linearGradient} style={{ flex: 1 }}>
+            <LinearGradient colors={theme.linearGradient as readonly [string, string]} style={{ flex: 1 }}>
                 <AppHeader title="" onBack={navigation.pop} />
 
                 <AppText
@@ -98,7 +103,7 @@ export default function Harkaat() {
                     حرکات
                 </AppText>
                 <HarkaatTabs active={activeTab} onChange={handleChange} tabs={TABS} />
-                <ScrollView style={styles.container} >
+                <ScrollView ref={scrollRef} style={styles.container} >
                     {current.letters.data.length > 0 &&
                         <ArabicLesson
                             title={current.letters.title}
@@ -116,7 +121,8 @@ export default function Harkaat() {
                             title={current.three.title}
                             data={current.three.data}
                         />
-                    }                    {current.four.length > 0 &&
+                    }
+                    {current.four.data.length > 0 &&
                         <ArabicLesson
                             title={current.four.title}
                             data={current.four.data}

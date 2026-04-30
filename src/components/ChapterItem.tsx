@@ -13,44 +13,74 @@ import { useAppTheme } from '../theme/ThemeContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
+type Props = {
+  index: number;
+  title: string;
+  onPress: () => void;
+  enabled?: boolean;
+  statusLabel?: string;
+};
 
-export function ChapterItem({ index, title, onPress }: any) {
+export function ChapterItem({
+  index,
+  title,
+  onPress,
+  enabled = true,
+  statusLabel,
+}: Props) {
   const { theme } = useAppTheme();
   const scale = React.useRef(new Animated.Value(1)).current;
 
 
   const pressIn = () => {
-    if (Platform.OS === 'ios')
+    if (enabled && Platform.OS === 'ios')
       Animated.spring(scale, { toValue: 0.96, useNativeDriver: true }).start();
   };
 
 
   const pressOut = () => {
-    if (Platform.OS === 'ios')
+    if (enabled && Platform.OS === 'ios')
       Animated.spring(scale, { toValue: 1, useNativeDriver: true }).start();
   };
 
 
   return (
-    <Pressable onPressIn={pressIn} onPressOut={pressOut} onPress={onPress}>
-      <Animated.View style={[styles.cardWrapper, { transform: [{ scale }] }]}>
+    <Pressable
+      disabled={!enabled}
+      onPressIn={pressIn}
+      onPressOut={pressOut}
+      onPress={onPress}
+    >
+      <Animated.View style={[styles.cardWrapper, !enabled && styles.disabledShadow, { transform: [{ scale }] }]}>
         <LinearGradient
-          colors={['#f9fbfcff', '#E0F2FE']}
+          colors={enabled ? ['#FFFFFF', '#E0F2FE'] : ['#FFFFFF', '#F1F5F9']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
-          style={styles.card}
+          style={[styles.card, !enabled && styles.disabledCard]}
         >
-          <View style={[styles.circle, { backgroundColor: theme.grey }]}>
-            <Text style={styles.circleText}>{index + 1}</Text>
+          <View style={[styles.circle, { backgroundColor: enabled ? '#DBEAFE' : '#E5E7EB' }]}>
+            <Text style={[styles.circleText, !enabled && styles.disabledCircleText]}>
+              {index + 1}
+            </Text>
           </View>
 
+          <View style={styles.textBlock}>
+            <Text style={[styles.title, { color: enabled ? theme.text : '#64748B' }]} numberOfLines={2}>
+              {title}
+            </Text>
+          </View>
 
-          <Text style={[styles.title, { color: theme.text }]} numberOfLines={2}>
-            {title}
-          </Text>
+          <View style={[styles.statusPill, enabled ? styles.readyPill : styles.soonPill]}>
+            <Text style={[styles.statusText, enabled ? styles.readyText : styles.soonText]}>
+              {statusLabel ?? (enabled ? 'Start' : 'Coming soon')}
+            </Text>
+          </View>
 
-
-          <Ionicons name="chevron-forward" size={18} color={theme.muted} />
+          <Ionicons
+            name={enabled ? 'chevron-forward' : 'lock-closed-outline'}
+            size={18}
+            color={enabled ? theme.muted : '#CBD5E1'}
+          />
         </LinearGradient>
       </Animated.View>
     </Pressable>
@@ -60,45 +90,92 @@ export function ChapterItem({ index, title, onPress }: any) {
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    marginBottom: 14,
-    borderRadius: 18,
+    marginBottom: 12,
+    borderRadius: 12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 4,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.07,
+    shadowRadius: 14,
+    elevation: 3,
+  },
+
+  disabledShadow: {
+    shadowOpacity: 0.03,
+    elevation: 1,
   },
 
 
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 18,
-    paddingVertical: 18,
-    paddingHorizontal: 18,
+    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 14,
+    borderWidth: 1,
+    borderColor: '#E0E7FF',
+  },
+
+  disabledCard: {
+    borderColor: '#E2E8F0',
   },
 
 
   circle: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
+    width: 48,
+    height: 48,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 14,
+    marginRight: 12,
   },
 
 
   circleText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#3730a3',
+    fontSize: 17,
+    fontWeight: '800',
+    color: '#1D4ED8',
   },
 
+  disabledCircleText: {
+    color: '#94A3B8',
+  },
+
+  textBlock: {
+    flex: 1,
+    paddingRight: 8,
+  },
 
   title: {
-    flex: 1,
     fontSize: 15,
-    fontWeight: '600',
+    lineHeight: 20,
+    fontWeight: '700',
+  },
+
+  statusPill: {
+    borderRadius: 8,
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+    marginRight: 8,
+  },
+
+  readyPill: {
+    backgroundColor: '#DCFCE7',
+  },
+
+  soonPill: {
+    backgroundColor: '#F1F5F9',
+  },
+
+  statusText: {
+    fontSize: 11,
+    fontWeight: '800',
+  },
+
+  readyText: {
+    color: '#047857',
+  },
+
+  soonText: {
+    color: '#94A3B8',
   },
 });

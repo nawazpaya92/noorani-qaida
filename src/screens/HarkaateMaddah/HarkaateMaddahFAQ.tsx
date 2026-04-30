@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import AppText from "../../components/AppText";
-import { useAppTheme } from "../../theme/ThemeContext";
 import { faqData } from "../../data/harkaateMaddah/faqData";
+import LessonFAQAccordion from "../../components/LessonFAQAccordion";
 
 
 const HarkaateMaddahFAQ = () => {
@@ -32,48 +32,14 @@ const HarkaateMaddahFAQ = () => {
             </AppText>
         </View>
     );
-    const QASection = ({ data }: any) => (
-        <View style={{ paddingHorizontal: 16 }}>
-            {data.map((item: any) => (
-                <QAItem key={item.id} item={item} />
-            ))}
-        </View>
-
-    );
-    const QAItem = ({ item }: any) => {
-        const [open, setOpen] = React.useState(false);
-
-        return (
-            <View style={styles.qaCard}>
-
-                {/* Question */}
-                <AppText
-                    lang="ur"
-                    size={24}
-                    style={styles.question}
-                    onPress={() => setOpen(!open)}
-                >
-                    سوال: {item.question}
-                </AppText>
-
-                {/* Answer */}
-                {open && (
-                    <AppText
-                        lang="ur"
-                        size={20}
-                        style={styles.answer}
-                    >
-                        جواب: {item.answer}
-                    </AppText>
-                )}
-            </View>
-        );
-    };
-    const { theme } = useAppTheme();
     return (
         <View style={styles.wrapper}>
             <StatementBlock data={faqData.statements} />
-            <QASection data={faqData.questions} />
+            <LessonFAQAccordion
+                items={faqData.questions}
+                intro={faqData.intro}
+                style={styles.faqSection}
+            />
             <NoteBlock text={faqData.note} />
         </View>
     );
@@ -83,32 +49,9 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
         paddingBottom: 40,
     },
-    qaCard: {
-        marginHorizontal: 16,
-        marginBottom: 12,
-        padding: 16,
-
-        backgroundColor: "#FFFFFF",
-        borderRadius: 18,
-
-        borderWidth: 1,
-        borderColor: "#F1F5F4",
-
-        shadowColor: "#000",
-        shadowOpacity: 0.04,
-        shadowRadius: 6,
-        elevation: 2,
-    },
-
-    question: {
-        color: "#D81B60",   // pink tone
-        lineHeight: 26,
-    },
-
-    answer: {
-        marginTop: 10,
-        color: "#1B5E20",   // green
-        lineHeight: 26,
+    faqSection: {
+        marginTop: 0,
+        paddingHorizontal: 16,
     },
     noteBox: {
         marginHorizontal: 16,
