@@ -16,6 +16,8 @@ export default function ArabicText({
     activeId,
     isPlaying,
     isActive,
+    playbackPositionMillis,
+    playbackDurationMillis,
 }: any) {
     const scale = React.useRef(new Animated.Value(1)).current;
     const textFitProps = {
@@ -41,8 +43,39 @@ export default function ArabicText({
     }, [isActive]);
 
     const shapedClusters = shapeArabicClusters(text);
-    const activeClusterIndex =
-        activeId === id ? getActiveArabicClusterIndex(text, activeIndex) : -1;
+    const isCurrentWordActive = activeId === id && isPlaying;
+    const hasPlaybackSync =
+        isCurrentWordActive &&
+        (playbackDurationMillis ?? 0) > 0;
+    const activeClusterIndex = hasPlaybackSync
+        ? Math.min(
+            shapedClusters.length - 1,
+            Math.floor(
+                Math.min(
+                    Math.max((playbackPositionMillis ?? 0) / playbackDurationMillis, 0),
+                    0.999999
+                ) * shapedClusters.length
+            )
+        )
+        : activeId === id
+          ? getActiveArabicClusterIndex(text, activeIndex)
+          : -1;
+
+    if (!isCurrentWordActive) {
+        return (
+            <Animated.Text
+                {...textFitProps}
+                style={[
+                    styles.word,
+                    { fontSize: size, color },
+                    style,
+                    { transform: [{ scale }] }
+                ]}
+            >
+                {text}
+            </Animated.Text>
+        );
+    }
 
     return (
         <Animated.Text
@@ -57,7 +90,10 @@ export default function ArabicText({
             {shapedClusters.map((cluster, index) => (
                 <Text
                     key={`${cluster.start}-${cluster.end}-${index}`}
-                    style={activeClusterIndex === index ? styles.highlight : undefined}
+                    style={[
+                        styles.cluster,
+                        activeClusterIndex === index ? styles.highlight : undefined,
+                    ]}
                 >
                     {cluster.display}
                 </Text>
@@ -78,8 +114,12 @@ const styles = StyleSheet.create({
         width: "100%",
         flexShrink: 1,
     },
+    cluster: {
+        fontFamily: "Quranic",
+    },
 
     highlight: {
         color: "#0fe703ff",
+        fontFamily: "Quranic",
     },
 });

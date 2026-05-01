@@ -13,7 +13,13 @@ export default function ArabicGrid({
     data,
     audio,
 }: any) {
-    const { play, activeId, isPlaying } = audio;
+    const {
+        play,
+        activeId,
+        isPlaying,
+        playbackPositionMillis,
+        playbackDurationMillis,
+    } = audio;
 
     return (
         <View style={styles.container}>
@@ -37,6 +43,8 @@ export default function ArabicGrid({
                                 activeId={activeId}
                                 isPlaying={isPlaying}
                                 isActive={isActive}
+                                playbackPositionMillis={playbackPositionMillis}
+                                playbackDurationMillis={playbackDurationMillis}
                             />
                         </ArabicCard>
                     </View>

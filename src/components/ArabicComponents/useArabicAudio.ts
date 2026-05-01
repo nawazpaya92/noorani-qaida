@@ -5,6 +5,8 @@ export function useArabicAudio() {
     const soundRef = useRef<Audio.Sound | null>(null);
     const [activeId, setActiveId] = useState<string | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [playbackPositionMillis, setPlaybackPositionMillis] = useState(0);
+    const [playbackDurationMillis, setPlaybackDurationMillis] = useState(0);
 
     const stop = async () => {
         if (soundRef.current) {
@@ -14,6 +16,8 @@ export function useArabicAudio() {
         }
         setIsPlaying(false);
         setActiveId(null);
+        setPlaybackPositionMillis(0);
+        setPlaybackDurationMillis(0);
     };
 
     const play = async (id: string, source: any) => {
@@ -29,6 +33,9 @@ export function useArabicAudio() {
         sound.setOnPlaybackStatusUpdate((status) => {
             if (!status.isLoaded) return;
 
+            setPlaybackPositionMillis(status.positionMillis ?? 0);
+            setPlaybackDurationMillis(status.durationMillis ?? 0);
+
             if (status.didJustFinish) {
                 stop();
             }
@@ -42,5 +49,7 @@ export function useArabicAudio() {
         stop,
         activeId,
         isPlaying,
+        playbackPositionMillis,
+        playbackDurationMillis,
     };
 }
