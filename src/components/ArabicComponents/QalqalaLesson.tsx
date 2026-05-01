@@ -12,7 +12,13 @@ import { attachAudio } from "../../utils/attachAudio";
 export default function QalqalahLesson({ title, data }: any) {
     const { theme } = useAppTheme();
     const audio = useArabicAudio();
-    const { play, activeId, isPlaying } = audio;
+    const {
+        play,
+        activeId,
+        isPlaying,
+        playbackPositionMillis,
+        playbackDurationMillis,
+    } = audio;
 
     return (
 
@@ -49,6 +55,8 @@ export default function QalqalahLesson({ title, data }: any) {
                                     activeId={activeId}
                                     isPlaying={isPlaying}
                                     isActive={activeId === row.letter.id}
+                                    playbackPositionMillis={playbackPositionMillis}
+                                    playbackDurationMillis={playbackDurationMillis}
                                     size={32}
                                     style={styles.letterText}
                                     color="#BE185D"   // pink like Noorani Qaida
@@ -77,6 +85,8 @@ export default function QalqalahLesson({ title, data }: any) {
                                             activeId={activeId}
                                             isPlaying={isPlaying}
                                             isActive={isActive}
+                                            playbackPositionMillis={playbackPositionMillis}
+                                            playbackDurationMillis={playbackDurationMillis}
 
                                         />
                                     </ArabicCard>

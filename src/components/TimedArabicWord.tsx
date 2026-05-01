@@ -61,10 +61,10 @@ export default function TimedArabicWord({
         isPlaying
     );
     const shapedClusters = shapeArabicClusters(text);
+    const isCurrentWordActive = playId === id && isPlaying;
     const hasPlaybackSync =
         !isMajmuaa &&
-        playId === id &&
-        isPlaying &&
+        isCurrentWordActive &&
         (playbackDurationMillis ?? 0) > 0;
     const activeClusterIndex = hasPlaybackSync
         ? getPlaybackSyncedClusterIndex(
@@ -92,6 +92,21 @@ export default function TimedArabicWord({
                 style={[
                     styles.word,
                     playId === id ? styles.activeLetter : undefined,
+                    { transform: [{ scale: textScale }] },
+                ]}
+            >
+                {text}
+            </Animated.Text>
+        );
+    }
+
+    if (!isCurrentWordActive) {
+        return (
+            <Animated.Text
+                {...textFitProps}
+                style={[
+                    styles.word,
+                    { fontSize: 28, fontFamily: 'Quranic' },
                     { transform: [{ scale: textScale }] },
                 ]}
             >
