@@ -7,5 +7,5 @@ export const zerAudio = {
   khashiya: require("../../assets/audio/harkaat/zer/3harf/khashiya.m4a"),
   malik: require("../../assets/audio/harkaat/zer/3harf/malik.m4a"),
   raziya: require("../../assets/audio/harkaat/zer/3harf/raziya.m4a"),
-  waliya: require("../../assets/audio/harkaat/zer/3harf/alaa.m4a"),
+  waliya: require("../../assets/audio/harkaat/zer/3harf/waliya.m4a"),
 } as const;
