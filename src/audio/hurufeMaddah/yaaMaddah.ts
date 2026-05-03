@@ -28,4 +28,21 @@ export const yaaMaddahAudio = {
   yaa_madda_end_wafee: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/last/yaa_madda_end_wafee.m4a"),
   yaa_madda_end_fafee: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/last/yaa_madda_end_fafee.m4a"),
   yaa_madda_end_taqee: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/last/yaa_madda_end_taqee.m4a"),
+
+  //3harf
+  // zaaid
+  yaa_madda_zaaid_akheehi: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_akheehi.m4a"),
+  yaa_madda_zaaid_abeehi: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_abeehi.m4a"),
+  yaa_madda_zaaid_baneehi: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_baneehi.m4a"),
+  yaa_madda_zaaid_akeedu: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_akeedu.m4a"),
+  yaa_madda_zaaid_ujeebu: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_ujeebu.m4a"),
+  yaa_madda_zaaid_hhadeesu: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_hhadeesu.m4a"),
+  yaa_madda_zaaid_waqeela: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_waqeela.m4a"),
+  yaa_madda_zaaid_ameenin: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_ameenin.m4a"),
+  yaa_madda_zaaid_rahheeqin: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_rahheeqin.m4a"),
+  yaa_madda_zaaid_kareemin: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_kareemin.m4a"),
+  yaa_madda_zaaid_makeenin: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_makeenin.m4a"),
+  yaa_madda_zaaid_shaheedun: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_shaheedun.m4a"),
+  yaa_madda_zaaid_majeedun: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_majeedun.m4a"),
+  yaa_madda_zaaid_feehaa: require("../../assets/audio/hurufeMaddah/yaaMaddah/3harf/zaaid/yaa_madda_zaaid_feehaa.m4a"),
 } as const;
