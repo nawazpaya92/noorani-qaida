@@ -4,6 +4,7 @@ import { murakkabatFilAsmaAudio } from "../audio/murakkabat/filAsma";
 import { zabarAudio } from "../audio/harkaat/zabar";
 import { zerAudio } from "../audio/harkaat/zer";
 import { hurufeMaddahAudio } from "../audio/hurufeMaddah";
+import { yaaMaddahAudio } from "../audio/hurufeMaddah/yaaMaddah";
 
 export const lettersAudio = {
   ...basicLettersAudio,
@@ -12,6 +13,7 @@ export const lettersAudio = {
   ...zabarAudio,
   ...zerAudio,
   ...hurufeMaddahAudio,
+  ...yaaMaddahAudio,
 } as const;
 
 export type LetterAudioKey = keyof typeof lettersAudio;
@@ -23,4 +25,5 @@ export {
   zabarAudio,
   zerAudio,
   hurufeMaddahAudio,
+  yaaMaddahAudio,
 };
