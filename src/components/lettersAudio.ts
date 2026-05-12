@@ -6,6 +6,7 @@ import { zerAudio } from "../audio/harkaat/zer";
 import { hurufeMaddahAudio } from "../audio/hurufeMaddah";
 import { yaaMaddahAudio } from "../audio/hurufeMaddah/yaaMaddah";
 import { yaaElinAudio } from "../audio/hurufeLeen/yaaElin";
+import { peshAudio } from "../audio/harkaat/pesh";
 
 export const lettersAudio = {
   ...basicLettersAudio,
@@ -13,6 +14,7 @@ export const lettersAudio = {
   ...murakkabatFilAsmaAudio,
   ...zabarAudio,
   ...zerAudio,
+  ...peshAudio,
   ...hurufeMaddahAudio,
   ...yaaMaddahAudio,
   ...yaaElinAudio,
@@ -26,6 +28,7 @@ export {
   murakkabatFilAsmaAudio,
   zabarAudio,
   zerAudio,
+  peshAudio,
   hurufeMaddahAudio,
   yaaMaddahAudio,
   yaaElinAudio,
