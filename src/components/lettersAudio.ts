@@ -1,15 +1,23 @@
-import { basicLettersAudio } from '../audio/letters/basic';
-import { murakkabatUmumiAudio } from '../audio/murakkabat/umumi';
-import { murakkabatFilAsmaAudio } from '../audio/murakkabat/filAsma';
-import { zabarAudio } from '../audio/harkaat/zabar';
-import { hurufeMaddahAudio } from '../audio/hurufeMaddah';
+import { basicLettersAudio } from "../audio/letters/basic";
+import { murakkabatUmumiAudio } from "../audio/murakkabat/umumi";
+import { murakkabatFilAsmaAudio } from "../audio/murakkabat/filAsma";
+import { zabarAudio } from "../audio/harkaat/zabar";
+import { zerAudio } from "../audio/harkaat/zer";
+import { hurufeMaddahAudio } from "../audio/hurufeMaddah";
+import { yaaMaddahAudio } from "../audio/hurufeMaddah/yaaMaddah";
+import { yaaElinAudio } from "../audio/hurufeLeen/yaaElin";
+import { peshAudio } from "../audio/harkaat/pesh";
 
 export const lettersAudio = {
   ...basicLettersAudio,
   ...murakkabatUmumiAudio,
   ...murakkabatFilAsmaAudio,
   ...zabarAudio,
+  ...zerAudio,
+  ...peshAudio,
   ...hurufeMaddahAudio,
+  ...yaaMaddahAudio,
+  ...yaaElinAudio,
 } as const;
 
 export type LetterAudioKey = keyof typeof lettersAudio;
@@ -19,5 +27,9 @@ export {
   murakkabatUmumiAudio,
   murakkabatFilAsmaAudio,
   zabarAudio,
+  zerAudio,
+  peshAudio,
   hurufeMaddahAudio,
+  yaaMaddahAudio,
+  yaaElinAudio,
 };
