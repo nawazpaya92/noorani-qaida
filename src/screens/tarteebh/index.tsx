@@ -1,38 +1,28 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
-  Pressable,
-  Animated,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import AppHeader from '../../components/AppHeader';
 import { useAppTheme } from '../../theme/ThemeContext';
 import { useNavigation } from '../../navigation/navigationContext';
 import { arabicLetters } from '../../data/arabicLetters';
-
 import Screen from '../../components/Screen';
 import LetterTile from '../../components/LetterTile';
 import AppText from '../../components/AppText';
-
-
-/* ---------------- Helpers ---------------- */
 
 const getLettersByDots = (dots: number) =>
   arabicLetters.filter((l: any) => l.dots === dots);
 
 const SPECIAL_LETTERS = ['ص', 'ض', 'ط', 'ظ', 'خ', 'غ', 'ق'];
 
-
-/* ---------------- Screen ---------------- */
-
 export default function Tarteebh() {
   const { theme } = useAppTheme();
   const navigation = useNavigation();
   const [activeLetterId, setActiveLetterId] = React.useState<number | null>(null);
   const playingIdRef = React.useRef<number | null>(null);
-
 
   const noDotLetters = getLettersByDots(0);
   const oneDotLetters = getLettersByDots(1);
@@ -41,175 +31,191 @@ export default function Tarteebh() {
   const specialLetters = arabicLetters.filter((l: any) =>
     SPECIAL_LETTERS.includes(l.letter)
   );
+  const dottedLetters = [...oneDotLetters, ...twoDotLetters, ...threeDotLetters];
+
+  const handlePlayStart = (id: number) => {
+    playingIdRef.current = id;
+    setActiveLetterId(id);
+  };
+
+  const handlePlayEnd = (endedId: number) => {
+    if (playingIdRef.current === endedId) {
+      playingIdRef.current = null;
+      setActiveLetterId(null);
+    }
+  };
 
   return (
-    <Screen backgroundColor={theme.bg}>
-      <AppHeader title="Tarteebh" onBack={navigation.pop} />
+    <Screen backgroundColor="#F8FBFF">
+      <LinearGradient colors={['#F8FBFF', '#EEF5FF']} style={styles.gradient}>
+        <AppHeader title="" onBack={navigation.pop} />
 
-      <ScrollView contentContainerStyle={styles.container}>
-        {/* Top Cards */}
-        <View style={styles.topRow}>
-          <SmallLetterTile
+        <View style={styles.hero}>
+          <AppText
+            variant="heading"
+            lang="ur"
+            size={32}
+            align="center"
+            color={theme.blue}
+          >
+            ترتیبِ حروف
+          </AppText>
+          <AppText
+            lang="ur"
+            size={18}
+            align="center"
+            color="#4B5563"
+            style={styles.subtitle}
+          >
+            نقطوں کے اعتبار سے
+          </AppText>
+        </View>
+
+        <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+          <View style={styles.overviewPanel}>
+            <OverviewStat
+              title="بغیر نقطے والے حروف"
+              count={noDotLetters.length}
+              accent="#DBEAFE"
+            />
+            <OverviewStat
+              title="نقطے والے حروف"
+              count={dottedLetters.length}
+              accent="#E0F2FE"
+            />
+          </View>
+
+          <LetterGroupCard
             title="بغیر نقطے والے حروف"
             letters={noDotLetters}
             activeLetterId={activeLetterId}
-            isThreeRows={true}
-            onPlayStart={(id) => {
-              playingIdRef.current = id;
-              setActiveLetterId(id);
-            }}
-            onPlayEnd={(endedId) => {
-              if (playingIdRef.current === endedId) {
-                playingIdRef.current = null;
-                setActiveLetterId(null);
-              }
-            }}
+            columns={5}
+            onPlayStart={handlePlayStart}
+            onPlayEnd={handlePlayEnd}
           />
 
-          <SmallLetterTile
-            title="نقطے والے حروف"
-            letters={[
-              ...oneDotLetters,
-              ...twoDotLetters,
-              ...threeDotLetters,
-            ]}
+          <LetterGroupCard
+            title="ایک نقطے والے حروف"
+            letters={oneDotLetters}
             activeLetterId={activeLetterId}
-            isThreeRows={true}
-            onPlayStart={(id) => {
-              playingIdRef.current = id;
-              setActiveLetterId(id);
-            }}
-            onPlayEnd={(endedId) => {
-              if (playingIdRef.current === endedId) {
-                playingIdRef.current = null;
-                setActiveLetterId(null);
-              }
-            }}
+            columns={5}
+            onPlayStart={handlePlayStart}
+            onPlayEnd={handlePlayEnd}
           />
-        </View>
 
-        <SmallLetterTile
-          title="ایک نقطے والے حروف"
-          letters={oneDotLetters}
-          activeLetterId={activeLetterId}
-          justify='center'
-          onPlayStart={(id) => {
-            playingIdRef.current = id;
-            setActiveLetterId(id);
-          }}
-          onPlayEnd={(endedId) => {
-            if (playingIdRef.current === endedId) {
-              playingIdRef.current = null;
-              setActiveLetterId(null);
-            }
-          }}
-        />
+          <LetterGroupCard
+            title="دو نقطے والے حروف"
+            letters={twoDotLetters}
+            activeLetterId={activeLetterId}
+            columns={5}
+            onPlayStart={handlePlayStart}
+            onPlayEnd={handlePlayEnd}
+          />
 
+          <LetterGroupCard
+            title="تین نقطے والے حروف"
+            letters={threeDotLetters}
+            activeLetterId={activeLetterId}
+            columns={4}
+            onPlayStart={handlePlayStart}
+            onPlayEnd={handlePlayEnd}
+          />
 
+          <LetterGroupCard
+            title="نقطے والے تمام حروف"
+            letters={dottedLetters}
+            activeLetterId={activeLetterId}
+            columns={5}
+            onPlayStart={handlePlayStart}
+            onPlayEnd={handlePlayEnd}
+          />
 
-        <SmallLetterTile
-          title="دو نقطے والے حروف"
-          letters={twoDotLetters}
-          activeLetterId={activeLetterId}
-          justify='center'
-          onPlayStart={(id) => {
-            playingIdRef.current = id;
-            setActiveLetterId(id);
-          }}
-          onPlayEnd={(endedId) => {
-            if (playingIdRef.current === endedId) {
-              playingIdRef.current = null;
-              setActiveLetterId(null);
-            }
-          }}
-        />
-
-        <SmallLetterTile
-          title="تین نقطے والے حروف"
-          letters={threeDotLetters}
-          justify='center'
-          activeLetterId={activeLetterId}
-          onPlayStart={(id) => {
-            playingIdRef.current = id;
-            setActiveLetterId(id);
-          }}
-          onPlayEnd={(endedId) => {
-            if (playingIdRef.current === endedId) {
-              playingIdRef.current = null;
-              setActiveLetterId(null);
-            }
-          }}
-        />
-
-        <SmallLetterTile
-          title="سات حروف"
-          letters={specialLetters}
-          activeLetterId={activeLetterId}
-          justify='center'
-          onPlayStart={(id) => {
-            playingIdRef.current = id;
-            setActiveLetterId(id);
-          }}
-          onPlayEnd={(endedId) => {
-            if (playingIdRef.current === endedId) {
-              playingIdRef.current = null;
-              setActiveLetterId(null);
-            }
-          }}
-
-        />
-      </ScrollView>
+          <LetterGroupCard
+            title="سات حروف"
+            letters={specialLetters}
+            activeLetterId={activeLetterId}
+            columns={4}
+            onPlayStart={handlePlayStart}
+            onPlayEnd={handlePlayEnd}
+          />
+        </ScrollView>
+      </LinearGradient>
     </Screen>
   );
 }
 
-/* ---------------- Components ---------------- */
+function OverviewStat({
+  title,
+  count,
+  accent,
+}: {
+  title: string;
+  count: number;
+  accent: string;
+}) {
+  return (
+    <View style={styles.statCard}>
+      <View style={[styles.statBadge, { backgroundColor: accent }]}>
+        <AppText lang="ur" size={22} align="center" color="#1E3A8A">
+          {count}
+        </AppText>
+      </View>
+      <AppText lang="ur" size={18} align="center" color="#1F2937">
+        {title}
+      </AppText>
+    </View>
+  );
+}
 
-function SmallLetterTile({
+function LetterGroupCard({
   title,
   letters,
   activeLetterId,
   onPlayStart,
   onPlayEnd,
-  justify = "space-between",
-  isThreeRows = false,
+  columns,
+  compactTiles = false,
 }: {
   title: string;
   letters: any[];
   activeLetterId: number | null;
   onPlayStart: (id: number) => void;
   onPlayEnd: (id: number) => void;
-  isThreeRows?: boolean;
-  justify?: 'center' | 'space-between';
+  columns: number;
+  compactTiles?: boolean;
 }) {
-  return (
-    <View style={styles.categoryCard}>
-      {/* 🔹 Highlighted Title */}
-      <View style={styles.categoryHeader}>
+  const tileSize = compactTiles ? 56 : 66;
+  const tileFont = compactTiles ? 33 : 38;
+  const tileWidth = `${100 / columns}%` as `${number}%`;
 
-        <AppText lang='ur' color="#1F2937" align='center' size={20} >
-          {title} ({letters.length})
+  return (
+    <View style={styles.groupCard}>
+      <View style={styles.groupHeader}>
+        <AppText lang="ur" size={20} align="center" color="#1E3A8A">
+          {title}
         </AppText>
+        <View style={styles.countPill}>
+          <AppText lang="ur" size={15} align="center" color="#1E3A8A">
+            {letters.length} حروف
+          </AppText>
+        </View>
       </View>
 
-      {/* 🔹 Letter grid (fixed height, scrollable) */}
-      <View style={[styles.categoryGrid, { justifyContent: justify }]}>
+      <View style={[styles.grid, compactTiles && styles.gridCompact]}>
         {letters.map((item) => (
-          <View style={isThreeRows ? styles.threeRowTileWrapper : styles.tileWrapper}>
+          <View key={item.id} style={[styles.tileSlot, { width: tileWidth }]}>
             <LetterTile
               item={item}
               compact
               isActive={activeLetterId === item.id}
-              wrapperStyle={isThreeRows ? null : { marginHorizontal: 6 }}
               onPlayStart={() => onPlayStart(item.id)}
               onPlayEnd={onPlayEnd}
-              boxStyle={{
-                width: 44,
-                height: 44,
-                borderRadius: 10,
-              }}
-              letterStyle={{ fontSize: 36, fontFamily: 'Quranic' }}
-
+              wrapperStyle={styles.tilePressable}
+              boxStyle={[
+                styles.tileBox,
+                { width: tileSize, height: tileSize, borderRadius: compactTiles ? 12 : 14 },
+              ]}
+              letterStyle={{ fontSize: tileFont, fontFamily: 'Quranic', color: '#0F172A' }}
             />
           </View>
         ))}
@@ -218,226 +224,101 @@ function SmallLetterTile({
   );
 }
 
-
-
-
-
-/* ---------------- Styles ---------------- */
-
 const styles = StyleSheet.create({
-  screen: {
+  gradient: {
     flex: 1,
   },
-
+  hero: {
+    paddingHorizontal: 20,
+    paddingTop: 6,
+    paddingBottom: 10,
+  },
+  subtitle: {
+    marginTop: -4,
+  },
   container: {
-    padding: 2,
-    paddingBottom: 32,
+    paddingHorizontal: 12,
+    paddingBottom: 28,
   },
-  tileWrapper: {
-    marginTop: 10,
-  },
-
-  threeRowTileWrapper: {
-    width: '33.33%',   // 👈 guarantees 3 columns on ALL devices
-    paddingTop: 10,
-    alignItems: 'center',
-  },
-
-  topRow: {
-    flexDirection: 'row-reverse',
-    marginBottom: 20,
-    alignItems: 'stretch',
-  },
-
-  categoryCard: {
-    flex: 1,
-    backgroundColor: '#F8F9FA',
-    borderRadius: 18,
+  overviewPanel: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
     padding: 12,
     marginHorizontal: 6,
-    marginTop: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    elevation: 8,
-  },
-
-  /* 🔹 Title Highlight */
-  categoryHeader: {
-    backgroundColor: '#E5F0FF', // subtle highlight
-    borderRadius: 12,
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    marginBottom: 12,
-
-    alignItems: 'center',
-  },
-
-  categoryTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#1F2937',
-    textAlign: 'center',
-  },
-
-  categoryCount: {
-    marginTop: 2,
-    fontSize: 14,
-    color: '#374151',
-    fontWeight: '600',
-  },
-
-  /* 🔹 Letter grid area */
-
-  categoryGrid: {
-    flexDirection: 'row-reverse',
-    flexWrap: 'wrap',
-
-  },
-
-  categoryTile: {
-    width: '30%',   // 👈 forces 3 tiles per row
-    aspectRatio: 1,
-    borderRadius: 10,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.16,
-    shadowRadius: 6,
-    elevation: 4,
-  },
-
-
-  categoryTileText: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#111827',
-  },
-
-  /* ---------- Section ---------- */
-
-  section: {
-    marginBottom: 28,
-  },
-
-  /* 🔹 SAME AS CATEGORY CARD TITLE */
-  sectionHeader: {
-    // 👈 centers the block
-    backgroundColor: '#E5F0FF',   // same highlight
-    borderRadius: 12,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
     marginBottom: 14,
-    alignItems: 'center',
-  },
-  /* ---------- Section Card ---------- */
-
-  sectionCard: {
-    backgroundColor: '#F9FAFB',   // very subtle
-    borderRadius: 20,
-    paddingVertical: 16,
-    paddingHorizontal: 12,
-    marginBottom: 24,
-
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 6,
-  },
-
-  /* Header (already aligned with top cards) */
-
-
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#1F2937',
-    textAlign: 'center',
-  },
-
-  sectionCount: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#374151',
-  },
-
-  /* Letters grid */
-  sectionGrid: {
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 5,
     flexDirection: 'row-reverse',
-    flexWrap: 'wrap',
-    gap: 8,
-    justifyContent: 'center',
-  },
-
-  sectionTile: {
-    width: 44,
-    height: 44,
-    borderRadius: 10,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.14,
-    shadowRadius: 6,
-    elevation: 4,
-  },
-
-  sectionTileText: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#111827',
-  },
-
-
-  lettersRow: {
-    flexDirection: 'row-reverse',
-    flexWrap: 'wrap',
     gap: 10,
   },
-  tile: {
-    width: 64,
-    height: 64,
-    borderRadius: 14,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
+  statCard: {
+    flex: 1,
+    borderRadius: 18,
+    backgroundColor: '#F8FBFF',
+    paddingVertical: 16,
+    paddingHorizontal: 12,
     alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 126,
+  },
+  statBadge: {
+    minWidth: 58,
+    borderRadius: 999,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    marginBottom: 10,
+  },
+  groupCard: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    padding: 12,
+    marginHorizontal: 6,
+    marginBottom: 14,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.18,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOpacity: 0.12,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 5,
   },
-
-  tileText: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#111827',
+  groupHeader: {
+    backgroundColor: '#DBEAFE',
+    borderRadius: 14,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: 12,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  categoryLettersRow: {
-    marginTop: 10,
-    flexDirection: 'row-reverse', // 👈 RTL
+  countPill: {
+    backgroundColor: '#FFFFFFCC',
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  grid: {
+    flexDirection: 'row-reverse',
     flexWrap: 'wrap',
-    gap: 6,
+    justifyContent: 'space-between',
+  },
+  gridCompact: {
+    justifyContent: 'space-between',
+  },
+  tileSlot: {
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  tilePressable: {
+    alignItems: 'center',
     justifyContent: 'center',
   },
-
-  categoryLetter: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#1F2937',
+  tileBox: {
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    backgroundColor: '#FFFFFF',
   },
-
-  moreText: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#6B7280',
-  },
-
 });
