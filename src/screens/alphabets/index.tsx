@@ -1,80 +1,72 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Switch,
-  TouchableOpacity
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import AlphabetGrid from '../../components/AlphabetGrid';
 import { useNavigation } from '../../navigation/navigationContext';
 import Carousel from '../../components/Carousel';
 import AppHeader from '../../components/AppHeader';
 import Screen from '../../components/Screen';
+import AppText from '../../components/AppText';
+import { useAppTheme } from '../../theme/ThemeContext';
 
 export default function AlphabetScreen() {
-  const { pop } = useNavigation();
-  const [isCarousel, setIsCarousel] = useState(false);
-  const [carouselText, setCarouselText] = useState('Switch to Carousel View');
-  const navigation = useNavigation()
-  const carouselViewToggle = (value: boolean) => {
-    setIsCarousel(value);
-    setCarouselText(value ? 'Switch to Grid View' : 'Switch to Carousel View');
-  }
-  return (
-    <Screen >
-      {/* Header */}
-      <View style={styles.header}>
-        <AppHeader title="Arabic Alphabets" onBack={navigation.pop} />
+  const [isCarousel] = useState(false);
+  const navigation = useNavigation();
+  const { theme } = useAppTheme();
 
-        {/* <View style={styles.switchRow}>
-          <Text style={styles.switchLabel}>{carouselText}</Text>
-          <Switch value={isCarousel} onValueChange={()=>carouselViewToggle(!isCarousel)} />
-        </View> */}
-      </View>
-      {isCarousel ? (
-        <View style={styles.carouselContainer}>
-          <Carousel />
+  return (
+    <Screen backgroundColor="#F8FBFF">
+      <LinearGradient colors={['#F8FBFF', '#EEF5FF']} style={styles.gradient}>
+        <AppHeader title="" onBack={navigation.pop} />
+
+        <View style={styles.hero}>
+          <AppText
+            variant="heading"
+            lang="ur"
+            size={32}
+            align="center"
+            color={theme.blue}
+          >
+            عربی حروفِ تہجی
+          </AppText>
+          <AppText
+            lang="ur"
+            size={18}
+            align="center"
+            color="#4B5563"
+            style={styles.subtitle}
+          >
+            انفرادی حروف
+          </AppText>
         </View>
-      ) : (
-        <AlphabetGrid />
-      )}
+
+        {isCarousel ? (
+          <View style={styles.carouselContainer}>
+            <Carousel />
+          </View>
+        ) : (
+          <AlphabetGrid />
+        )}
+      </LinearGradient>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-
-  header: {
-    backgroundColor: '#F8F9FA'
+  gradient: {
+    flex: 1,
   },
-  headerTopRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12
+  hero: {
+    paddingHorizontal: 20,
+    paddingTop: 6,
+    paddingBottom: 14,
   },
-  title: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#333'
-  },
-  switchRow: {
-    margin: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  switchLabel: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#333'
+  subtitle: {
+    marginTop: -4,
   },
   carouselContainer: {
     flex: 1,
     alignItems: 'center',
-    // <— this is the key!
     paddingTop: 10,
   },
 });

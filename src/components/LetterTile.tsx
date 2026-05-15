@@ -132,6 +132,15 @@ export default function LetterTile({
     inputRange: [0, 1],
     outputRange: ['#E5E7EB', theme.blue],
   });
+  const resolvedLetterStyle = StyleSheet.flatten([
+    styles.letter,
+    letterStyle,
+  ]) || {};
+  const resolvedLetterFontSize =
+    typeof resolvedLetterStyle.fontSize === 'number'
+      ? resolvedLetterStyle.fontSize
+      : styles.letter.fontSize;
+  const resolvedStrokeFontSize = Math.max(resolvedLetterFontSize + 4, 24);
 
   return (
     <Pressable
@@ -164,8 +173,11 @@ export default function LetterTile({
         <View style={styles.letterWrap}>
           {(!isTimed && isActive && !compact) && (
             <Animated.Text
+              allowFontScaling={false}
+              numberOfLines={1}
               style={[
                 styles.letterStroke,
+                { fontSize: resolvedStrokeFontSize, lineHeight: resolvedStrokeFontSize + 2 },
                 { opacity: traceAnim },
               ]}
             >
@@ -174,9 +186,14 @@ export default function LetterTile({
           )}
 
           <Animated.Text
+            allowFontScaling={false}
+            adjustsFontSizeToFit
+            minimumFontScale={0.72}
+            numberOfLines={1}
             style={[
               styles.letter,
               letterStyle,
+              { lineHeight: resolvedLetterFontSize + 6 },
               { transform: [{ scale: letterScale }] },
             ]}
           >
@@ -213,16 +230,17 @@ const styles = StyleSheet.create({
   letterStroke: {
     position: 'absolute',
     fontSize: 46,
-    fontWeight: '800',
     color: '#fff',
     opacity: 0.45,
     textShadowColor: '#fff',
     textShadowRadius: 10,
+    fontFamily: 'Quranic',
+    includeFontPadding: false,
   },
   letter: {
     fontSize: 42,
-    fontWeight: '800',
     color: '#1F2937',
     fontFamily: 'Quranic',
+    includeFontPadding: false,
   },
 });
